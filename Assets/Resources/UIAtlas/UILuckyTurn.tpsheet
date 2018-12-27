@@ -1,0 +1,39 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: UILuckyTurn.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:a6325da36a41a782617d721b91db2805:f0fee6d0c0e74bc109b579f4346052e4:97f771e63ec520e06c6a252ee3ff4c18$
+#
+
+GiftPart;550;809;72;74;0.5;0.5
+HealthyWay;813;363;83;92;0.5;0.5
+Loading_little;721;445;90;88;0.5;0.5
+Loading_turn;2;616;278;267;0.5;0.5
+OnSale;758;660;74;75;0.5;0.5
+OnceAgain;721;371;77;72;0.5;0.5
+SupriseGift;758;595;72;63;0.5;0.5
+ThankYouJoin;412;612;57;66;0.5;0.5
+YoungWay;758;535;60;58;0.5;0.5
+bigPointer;836;587;141;251;0.5;0.5
+centerlogo;505;699;110;108;0.5;0.5
+closepage;624;791;210;47;0.5;0.5
+daojishi;282;680;189;56;0.5;0.5
+music_1;820;457;128;128;0.5;0.5
+music_2;591;412;128;128;0.5;0.5
+music_3;461;439;128;128;0.5;0.5
+music_4;282;550;128;128;0.5;0.5
+music_5;473;569;128;128;0.5;0.5
+ownGiftPart;282;738;221;93;0.5;0.5
+part_01;412;563;47;47;0.5;0.5
+part_02;950;538;46;47;0.5;0.5
+part_03;412;515;47;46;0.5;0.5
+part_04;950;490;46;46;0.5;0.5
+payText;2;885;621;137;0.5;0.5
+point;617;542;139;193;0.5;0.5
+pressheadend;625;935;365;87;0.5;0.5
+pressheadstart;625;840;364;93;0.5;0.5
+stillTimes;617;737;189;52;0.5;0.5
+takepicture;282;833;266;50;0.5;0.5

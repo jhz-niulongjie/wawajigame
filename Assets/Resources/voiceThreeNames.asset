@@ -1,0 +1,2276 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cc276490d45224986e23fe5f1911f0, type: 3}
+  m_Name: voiceThreeNames
+  m_EditorClassIdentifier: 
+  voiceTypes:
+  - Id: 1
+    PayType: 0
+    Type: 0
+    Time: -1
+    Content:
+      Id: 23
+      Type: Loading
+      Content: "\u6B22\u8FCE\u60A8\u8FDB\u5165\u5E78\u8FD0\u6293\u793C\u54C1\u6E38\u620F"
+      Time: 4
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 2
+    PayType: 0
+    Type: 0
+    Time: 0
+    Content:
+      Id: 24
+      Type: Code_0
+      Content: "\u626B\u7801\u652F\u4ED8\u5341\u5143\uFF0C\u5C31\u80FD\u73A9\u4E09\u6B21\u55BD\uFF0C\u8D76\u7D27\u6765\u8BD5\u8BD5\u624B\u6C14\u5427"
+      Time: 6
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 3
+    PayType: 0
+    Type: 0
+    Time: 12
+    Content:
+      Id: 25
+      Type: Code_12
+      Content: "\u5341\u5757\u94B1\uFF0C\u4F60\u4E70\u4E0D\u4E86\u5403\u4E8F\uFF0C\u5341\u5757\u94B1\uFF0C\u4F60\u4E70\u4E0D\u4E86\u4E0A\u5F53\uFF0C\u5341\u5757\u94B1\u5C31\u80FD\u83B7\u53D6\u4E09\u6B21\u6293\u793C\u54C1\u7684\u673A\u4F1A\u5462\uFF0C\u5FEB\u5FEB\u884C\u52A8\u5427"
+      Time: 13
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 4
+    PayType: 0
+    Type: 0
+    Time: 30
+    Content:
+      Id: 26
+      Type: Code_30
+      Content: "\u53EA\u9700\u626B\u7801\u652F\u4ED8\u5341\u5143\uFF0C\u5C31\u80FD\u73A9\u4E09\u6B21\u54E6\uFF0C\u8D76\u7D27\u6765\u8BD5\u8BD5\u624B\u6C14\u5427\u3002"
+      Time: 7
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 5
+    PayType: 0
+    Type: 0
+    Time: 43
+    Content:
+      Id: 27
+      Type: Code_43
+      Content: "\u5C0F\u80D6\u8BF7\u60A8\u5C3D\u5FEB\u5B8C\u6210\u5FAE\u4FE1\u626B\u7801\u652F\u4ED8\uFF0C\u652F\u4ED8\u5341\u5143\u5C31\u80FD\u73A9\u4E09\u6B21\u55BD"
+      Time: 7
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 6
+    PayType: 0
+    Type: 0
+    Time: 56
+    Content:
+      Id: 28
+      Type: Code_56
+      Content: "\u6CA1\u4EBA\u73A9\uFF0C\u6211\u5C31\u7EE7\u7EED\u5406\u559D\u53BB\u4E86"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 7
+    PayType: 1
+    Type: 1
+    Time: -1
+    Content:
+      Id: 13
+      Type: OneRoundStart
+      Content: "\u7B2C\u4E00\u5C40\u6E38\u620F\u5F00\u59CB\u55BD\u3002"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 6
+      Type: DouDong
+      Content: "\u5440\uFF0C\u597D\u53EF\u60DC\u5440\u597D\u53EF\u60DC\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u54E6\u3002|\n\u5DEE\u4E00\u70B9\uFF0C\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u5C0F\u80D6\u8981\u4E3A\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u55BD\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u4E0B\u5C40\u96BE\u5EA6\u964D\u4F4E\uFF0C\u4E00\u5B9A\u80FD\u6293\u5230\u7684\u54E6\u3002"
+      Time: 7
+      Contents: []
+    ShootDrop:
+      Id: 3
+      Type: ShootDrop
+      Content: "\u5440\uFF0C\u597D\u53EF\u60DC\u5440\u597D\u53EF\u60DC\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u54E6\u3002|\n\u5DEE\u4E00\u70B9\uFF0C\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u5C0F\u80D6\u8981\u4E3A\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u55BD\u3002|\n\u54A6\uFF0C\u597D\u53EF\u60DC\uFF0C\u8FD8\u662F\u88AB\u6253\u6389\u4E86\u5462\uFF0C\u4E0D\u8FC7\uFF0C\u6CA1\u5173\u7CFB\uFF0C\u4E0B\u5C40\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u5462|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u4E0B\u5C40\u96BE\u5EA6\u964D\u4F4E\uFF0C\u4E00\u5B9A\u80FD\u6293\u5230\u7684\u54E6\u3002"
+      Time: 7
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 8
+    PayType: 1
+    Type: 1
+    Time: 0
+    Content:
+      Id: 16
+      Type: OnePay_0
+      Content: "\u8BF7\u60A8\u770B\u51C6\u65F6\u673A\uFF0C\u8F7B\u62CD\u5C0F\u80D6\u5934\u90E8\u5F00\u59CB\u6293\u53D6\u5A03\u5A03\u5427\uFF0C\u6CE8\u610F\u6709\u53EF\u80FD\u88AB\u8B66\u5BDF\u6253\u6389\u54E6"
+      Time: 9
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 9
+    PayType: 1
+    Type: 1
+    Time: 18
+    Content:
+      Id: 17
+      Type: NoCatch_18
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5077\u5077\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 10
+    PayType: 1
+    Type: 1
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 11
+    PayType: 1
+    Type: 2
+    Time: -1
+    Content:
+      Id: 14
+      Type: TwoRoundStart
+      Content: "\u7B2C\u4E8C\u5C40\u5F00\u59CB\u5566"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 6
+      Type: DouDong
+      Content: "\u5440\uFF0C\u597D\u53EF\u60DC\u5440\u597D\u53EF\u60DC\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u54E6\u3002|\n\u5DEE\u4E00\u70B9\uFF0C\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u5C0F\u80D6\u8981\u4E3A\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u55BD\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u4E0B\u5C40\u96BE\u5EA6\u964D\u4F4E\uFF0C\u4E00\u5B9A\u80FD\u6293\u5230\u7684\u54E6\u3002"
+      Time: 7
+      Contents: []
+    ShootDrop:
+      Id: 3
+      Type: ShootDrop
+      Content: "\u5440\uFF0C\u597D\u53EF\u60DC\u5440\u597D\u53EF\u60DC\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u54E6\u3002|\n\u5DEE\u4E00\u70B9\uFF0C\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u5C0F\u80D6\u8981\u4E3A\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u55BD\u3002|\n\u54A6\uFF0C\u597D\u53EF\u60DC\uFF0C\u8FD8\u662F\u88AB\u6253\u6389\u4E86\u5462\uFF0C\u4E0D\u8FC7\uFF0C\u6CA1\u5173\u7CFB\uFF0C\u4E0B\u5C40\u6E38\u620F\u96BE\u5EA6\u964D\u4F4E\u4E86\u5462|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u4E0B\u5C40\u96BE\u5EA6\u964D\u4F4E\uFF0C\u4E00\u5B9A\u80FD\u6293\u5230\u7684\u54E6\u3002"
+      Time: 7
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 12
+    PayType: 1
+    Type: 2
+    Time: 5
+    Content:
+      Id: 20
+      Type: TwoRound_5
+      Content: "\u5C4F\u6C14\u51DD\u795E\uFF0C\u597D\u597D\u628A\u63E1\u54E6\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 13
+    PayType: 1
+    Type: 2
+    Time: 15
+    Content:
+      Id: 22
+      Type: NoCatch_15
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 14
+    PayType: 1
+    Type: 2
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 15
+    PayType: 1
+    Type: 3
+    Time: -1
+    Content:
+      Id: 15
+      Type: ThreeRoundStart
+      Content: "\u6700\u540E\u4E00\u5C40\u4E86\uFF0C\u653E\u624B\u4E00\u640F\u5427\u3002"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 8
+      Type: DouDong_OnePay_ThreeRount
+      Content: "\u6293\u504F\u4E86\uFF0C\u597D\u53EF\u60DC\u554A\uFF0C\u518D\u6B21\u626B\u7801\uFF0C\u5C0F\u80D6\u4F1A\u7ED9\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u5466"
+      Time: 8
+      Contents: []
+    ShootDrop:
+      Id: 5
+      Type: ShootDrop_OnePay_ThreeRount
+      Content: "\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u6B21\u626B\u7801\uFF0C\u5C0F\u80D6\u4F1A\u7ED9\u60A8\u964D\u4F4E\u6E38\u620F\u96BE\u5EA6\u5466"
+      Time: 9
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 16
+    PayType: 1
+    Type: 3
+    Time: 5
+    Content:
+      Id: 21
+      Type: ThreeRound_5
+      Content: "\u6700\u540E\u4E00\u6B21\u6293\u53D6\u673A\u4F1A\u55BD\uFF0C\u52A0\u6CB9\u52A0\u6CB9"
+      Time: 4
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 17
+    PayType: 1
+    Type: 3
+    Time: 15
+    Content:
+      Id: 22
+      Type: NoCatch_15
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 18
+    PayType: 1
+    Type: 3
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 19
+    PayType: 1
+    Type: 3
+    Time: 50
+    Content:
+      Id: 29
+      Type: GameEnd
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u5982\u679C\u8FD8\u60F3\u73A9\uFF0C\u518D\u6765\u627E\u5C0F\u80D6\u5427\u3002"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 20
+    PayType: 1
+    Type: 3
+    Time: 60
+    Content:
+      Id: 30
+      Type: GameEnd_OnePay
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u4ECA\u5929\u60A8\u518D\u73A9\u4E00\u6B21\uFF0C\u6E38\u620F\u96BE\u5EA6\u4F1A\u964D\u5230\u6700\u4F4E\u5466\u3002"
+      Time: 6
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 21
+    PayType: 2
+    Type: 1
+    Time: -1
+    Content:
+      Id: 13
+      Type: OneRoundStart
+      Content: "\u7B2C\u4E00\u5C40\u6E38\u620F\u5F00\u59CB\u55BD\u3002"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 22
+    PayType: 2
+    Type: 1
+    Time: 0
+    Content:
+      Id: 19
+      Type: TwoPay_0
+      Content: "\u5C0F\u80D6\u53D1\u73B0\u60A8\u4E0A\u4E00\u6B21\u73A9\u6E38\u620F\u6CA1\u6709\u6210\u529F\u6293\u5230\u5956\u52B1\u5462\uFF0C\u8FD9\u6B21\u6E38\u620F\u96BE\u5EA6\u662F\u6700\u4F4E\u7684\u5466\u3002"
+      Time: 9
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 23
+    PayType: 2
+    Type: 1
+    Time: 18
+    Content:
+      Id: 22
+      Type: NoCatch_15
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 24
+    PayType: 2
+    Type: 1
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 25
+    PayType: 2
+    Type: 2
+    Time: -1
+    Content:
+      Id: 14
+      Type: TwoRoundStart
+      Content: "\u7B2C\u4E8C\u5C40\u5F00\u59CB\u5566"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 26
+    PayType: 2
+    Type: 2
+    Time: 5
+    Content:
+      Id: 20
+      Type: TwoRound_5
+      Content: "\u5C4F\u6C14\u51DD\u795E\uFF0C\u597D\u597D\u628A\u63E1\u54E6\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 27
+    PayType: 2
+    Type: 2
+    Time: 15
+    Content:
+      Id: 22
+      Type: NoCatch_15
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 28
+    PayType: 2
+    Type: 2
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 29
+    PayType: 2
+    Type: 3
+    Time: -1
+    Content:
+      Id: 15
+      Type: ThreeRoundStart
+      Content: "\u6700\u540E\u4E00\u5C40\u4E86\uFF0C\u653E\u624B\u4E00\u640F\u5427\u3002"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 1
+      Type: Wining
+      Content: "\u54C7\uFF0C\u606D\u559C\u60A8\u5440\uFF0C\u606D\u559C\u60A8\uFF0C\u60A8\u7684\u8FD0\u6C14\u771F\u7684\u662F\u592A\u68D2\u4E86\u5440\uFF0C\u5FEB\u53D6\u8D70\u60A8\u7684\u793C\u7269\u5427"
+      Time: 10
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 7
+      Type: NoDouDong
+      Content: "\u5440\uFF0C\u8FD9\u6B21\u6293\u7684\u6709\u4E9B\u504F\u5466\uFF0C\u8FD9\u6837\u662F\u65E0\u6CD5\u6293\u5230\u5A03\u5A03\u7684|\n\u54A6\uFF0C\u6293\u504F\u4E86\uFF0C\u4E0D\u8981\u7070\u5FC3\uFF0C\u4E0B\u6B21\u52A0\u6CB9\u54E6|\n\u9884\u4F30\u7684\u6709\u4E9B\u504F\u4E86\u54E6\uFF0C\u4E0B\u6B21\u53EF\u8981\u770B\u51C6\u55BD"
+      Time: 6
+      Contents: []
+    DouDong:
+      Id: 9
+      Type: DouDong_TwoPay_ThreeRount
+      Content: "\u6293\u504F\u4E86\uFF0C\u597D\u53EF\u60DC\u554A\uFF0C\u518D\u6B21\u626B\u7801\uFF0C\u5C0F\u80D6\u4F1A\u76F4\u63A5\u9001\u7ED9\u60A8\u4E00\u4E2A\u5A03\u5A03\u5466"
+      Time: 8
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 4
+      Type: ShootDropWin
+      Content: "\u54CE\u5440\uFF0C\u5DEE\u4E00\u70B9\u5C31\u80FD\u6293\u5230\u5956\u52B1\u4E86\uFF0C\u52A0\u6CB9\u54E6|\n\u5C31\u5DEE\u4E00\u70B9\u5C31\u6293\u5230\u4E86\uFF0C\u597D\u53EF\u60DC\u5440\uFF0C\u518D\u8BD5\u4E00\u6B21\u5C31\u53EF\u4EE5\u5566\u3002|\n\u597D\u53EF\u60DC\u5440\uFF0C\u5DEE\u4E00\u4E22\u4E22\u5C31\u6293\u5230\u4E86\u5462\uFF0C\u52A0\u6CB9\uFF0C\u52A0\u6CB9\u3002"
+      Time: 7
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 30
+    PayType: 2
+    Type: 3
+    Time: 5
+    Content:
+      Id: 21
+      Type: ThreeRound_5
+      Content: "\u6700\u540E\u4E00\u6B21\u6293\u53D6\u673A\u4F1A\u55BD\uFF0C\u52A0\u6CB9\u52A0\u6CB9"
+      Time: 4
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 31
+    PayType: 2
+    Type: 3
+    Time: 15
+    Content:
+      Id: 22
+      Type: NoCatch_15
+      Content: "\u8BF7\u5C3D\u5FEB\u8F7B\u62CD\u6211\u7684\u5934\u90E8\u6293\u53D6\u5956\u52B1\u5427\uFF0C10s\u540E\u65E0\u64CD\u4F5C\uFF0C\u5C0F\u80D6\u5C31\u4F1A\u5E2E\u60A8\u6293\u4E00\u6B21\u54E6"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 32
+    PayType: 2
+    Type: 3
+    Time: 30
+    Content:
+      Id: 18
+      Type: NoCatch_30
+      Content: "\u90A3\u5C0F\u80D6\u5C31\u5E2E\u60A8\u8BD5\u4E00\u4E0B\u624B\u6C14\u5427"
+      Time: 3
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 33
+    PayType: 2
+    Type: 3
+    Time: 50
+    Content:
+      Id: 29
+      Type: GameEnd
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u5982\u679C\u8FD8\u60F3\u73A9\uFF0C\u518D\u6765\u627E\u5C0F\u80D6\u5427\u3002"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 34
+    PayType: 2
+    Type: 3
+    Time: 60
+    Content:
+      Id: 31
+      Type: GameEnd_TwoPay
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u4ECA\u5929\u60A8\u518D\u626B\u7801\u4E00\u6B21\uFF0C\u5C0F\u80D6\u4F1A\u76F4\u63A5\u9001\u60A8\u4E00\u4E2A\u793C\u54C1\u5466\u3002"
+      Time: 7
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 35
+    PayType: 3
+    Type: 1
+    Time: 1
+    Content:
+      Id: 10
+      Type: OutWaWa
+      Content: "\u54C7\u54E6\uFF0C\u60A8\u524D\u4E24\u6B21\u6E38\u620F\u8FD0\u6C14\u90FD\u4E0D\u592A\u597D\u54E6\uFF0C\u8FD9\u6B21\u5C0F\u80D6\u76F4\u63A5\u9001\u60A8\u4E00\u4E2A\u5A03\u5A03\u5427\uFF0C\u5E0C\u671B\u60A8\u63A5\u7740\u518D\u6765\u73A9\u5466\u3002"
+      Time: 11
+      Contents: []
+    Winning:
+      Id: 10
+      Type: OutWaWa
+      Content: "\u54C7\u54E6\uFF0C\u60A8\u524D\u4E24\u6B21\u6E38\u620F\u8FD0\u6C14\u90FD\u4E0D\u592A\u597D\u54E6\uFF0C\u8FD9\u6B21\u5C0F\u80D6\u76F4\u63A5\u9001\u60A8\u4E00\u4E2A\u5A03\u5A03\u5427\uFF0C\u5E0C\u671B\u60A8\u63A5\u7740\u518D\u6765\u73A9\u5466\u3002"
+      Time: 11
+      Contents: []
+    Winafter:
+      Id: 2
+      Type: WinAfter
+      Content: "\u8BF7\u60A8\u5C3D\u5FEB\u53D6\u8D70\u60A8\u7684\u5956\u52B1\uFF0C\u8FD9\u6837\u6211\u4EEC\u624D\u80FD\u7EE7\u7EED\u8FDB\u884C\u6E38\u620F\u5462\uFF01\uFF01"
+      Time: 9
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 36
+    PayType: 3
+    Type: 2
+    Time: 2
+    Content:
+      Id: 29
+      Type: GameEnd
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u5982\u679C\u8FD8\u60F3\u73A9\uFF0C\u518D\u6765\u627E\u5C0F\u80D6\u5427\u3002"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 37
+    PayType: 3
+    Type: 3
+    Time: 3
+    Content:
+      Id: 29
+      Type: GameEnd
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u5982\u679C\u8FD8\u60F3\u73A9\uFF0C\u518D\u6765\u627E\u5C0F\u80D6\u5427\u3002"
+      Time: 5
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 38
+    PayType: 4
+    Type: 1
+    Time: 1
+    Content:
+      Id: 11
+      Type: Block
+      Content: "\u5C0F\u80D6\u5934\u90E8\u4E0A\u65B9\uFF0C\u5956\u52B1\u51FA\u53E3\u7684\u4F4D\u7F6E\u5B58\u5728\u906E\u6321\u7269\uFF0C\u8BF7\u5C3D\u5FEB\u79FB\u9664\uFF0C\u8FD9\u6837\u624D\u80FD\u6B63\u5E38\u6E38\u620F\u554A\u3002"
+      Time: 10
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+  - Id: 39
+    PayType: 4
+    Type: 2
+    Time: 2
+    Content:
+      Id: 12
+      Type: NoWifi
+      Content: "\u54A6\uFF0C\u597D\u50CF\u7F51\u7EDC\u8FDE\u63A5\u51FA\u73B0\u95EE\u9898\u4E86\u5462\uFF0C\u8BF7\u60A8\u7A0D\u7B49\u4E00\u4E0B\u4E0B\u518D\u6765\u5C1D\u8BD5\u5427"
+      Time: 8
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []

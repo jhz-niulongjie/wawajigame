@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64f4c98ad80e5394bb4c1bd246d08807, type: 3}
+  m_Name: QuestionLibrary
+  m_EditorClassIdentifier: 
+  question_list:
+  - question: "\u201C\u5927\u73E0\u5C0F\u73E0\u843D\u7389\u76D8\u201D\u6240\u5F62\u5BB9\u7684\u662F\u4EC0\u4E48\u4E50\u5668\u7684\u5F39\u594F\u58F0\uFF1F"
+    rightAnswer: "\u7435\u7436"
+    wrongAnswer: "\u53E4\u7B5D"
+    right_wing: 0
+  - question: "\u201C\u6709\u677F\u6709\u773C\u201D\u201C\u677F\u201D\u662F\u6211\u56FD\u4F20\u7EDF\u97F3\u4E50\u8282\u594F\u4E2D\u7684\u4EC0\u4E48\u5462\uFF1F"
+    rightAnswer: "\u5F3A\u62CD"
+    wrongAnswer: "\u5F31\u62CD"
+    right_wing: 0
+  - question: "\u201C\u767D\u96EA\u516C\u4E3B\u201D\u8FD9\u4E2A\u5F62\u8C61\u6700\u65E9\u6765\u81EA\u4E8E\u54EA\u91CC\uFF1F"
+    rightAnswer: "\u5B89\u5F92\u751F\u7AE5\u8BDD"
+    wrongAnswer: "\u683C\u6797\u7AE5\u8BDD"
+    right_wing: 0
+  - question: "\u5728\u53E4\u4EE3\uFF0C\u201C\u7235\u201D\u662F\u4E00\u79CD\u4EC0\u4E48\u5668\u76BF\u5462\uFF1F"
+    rightAnswer: "\u9152\u5668"
+    wrongAnswer: "\u98DF\u5668"
+    right_wing: 0
+  - question: "\u201C\u5367\u85AA\u5C1D\u80C6\u201D\u8BF4\u7684\u662F\u54EA\u4E2A\u4EBA\u7269\u5462\uFF1F"
+    rightAnswer: "\u52FE\u8DF5"
+    wrongAnswer: "\u8303\u8821"
+    right_wing: 0
+  - question: "\u795E\u8BDD\u300A\u767D\u86C7\u4F20\u300B\u4E2D\u201C\u767D\u5A18\u5A18\u76D7\u4ED9\u8349\u201D\uFF0C\u76D7\u7684\u662F\u4EC0\u4E48\u5462\uFF1F"
+    rightAnswer: "\u7075\u829D"
+    wrongAnswer: "\u4EBA\u53C2"
+    right_wing: 0
+  - question: "\u6210\u90FD\u4E3A\u4EC0\u4E48\u53C8\u53EB\u201C\u9526\u57CE\u201D\u6216\u201C\u9526\u5B98\u57CE\u201D\u5462\uFF1F"
+    rightAnswer: "\u56E0\u8700\u9526\u800C\u5F97\u540D"
+    wrongAnswer: "\u56E0\u9526\u6C5F\u800C\u5F97\u540D"
+    right_wing: 0
+  - question: "\u300A\u897F\u6E38\u8BB0\u300B\u4E2D\u7684\u706B\u7130\u5C71\uFF0C\u4F4D\u4E8E\u73B0\u5728\u7684\u54EA\u91CC\u5462\uFF1F"
+    rightAnswer: "\u65B0\u7586"
+    wrongAnswer: "\u7518\u8083"
+    right_wing: 0
+  - question: "\u300A\u53F2\u8BB0\u300B\u4E2D\u7684\u201C\u4E16\u5BB6\u201D\u662F\u7ED9\u4EC0\u4E48\u4EBA\u505A\u7684\u5462\uFF1F"
+    rightAnswer: "\u8BF8\u4FAF\u738B"
+    wrongAnswer: "\u8D35\u65CF"
+    right_wing: 0
+  - question: "\u674E\u6E05\u7167\u7684\u300A\u5982\u68A6\u4EE4\u300B\u91CC\u7684\u201C\u7EFF\u80A5\u7EA2\u7626\u201D\u662F\u63CF\u5199\u7684\u4EC0\u4E48\u5B63\u8282\u7684\u666F\u8C61\u5462\uFF1F"
+    rightAnswer: "\u665A\u6625"
+    wrongAnswer: "\u76DB\u590F"
+    right_wing: 0
