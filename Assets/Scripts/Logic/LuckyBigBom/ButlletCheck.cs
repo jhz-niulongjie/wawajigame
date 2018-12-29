@@ -73,8 +73,8 @@ public sealed class ButlletCheck : MonoBehaviour
     void ShowResultTable()
     {
         Boms.SetActive(false);
-        object[] data = { soldierNum>=2, tagType };
-        EventHandler.ExcuteEvent(EventHandlerType.Success, data);
+        EventDispatcher.Dispatch<bool, TagType>(EventHandlerType.Success, soldierNum >= 2, tagType);
+        EventDispatcher.Dispatch(EventHandlerType.Success);
         soldierNum = 0;
         tagType = TagType.None;
     }
@@ -85,6 +85,6 @@ public sealed class ButlletCheck : MonoBehaviour
         //设置主摄像机在2秒内 位置上和角度上 进项对应的变化，从而产生震动的效果
        // Camera.main.DOShakePosition(1.5f, new Vector3(10, 12, 0)).SetEase(Ease.Linear);
             //.OnComplete(() => Camera.main.transform.position = initCameraPos);
-        Camera.main.DOShakeRotation(1.2f, new Vector3(12, 10, 0)).SetEase(Ease.Linear).OnComplete(ShowResultTable);
+        Camera.main.DOShakeRotation(1.2f, new Vector3(12, 10, 0),20).SetEase(Ease.Linear).OnComplete(ShowResultTable);
     }
 }

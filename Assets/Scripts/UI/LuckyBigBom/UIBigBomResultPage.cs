@@ -49,7 +49,7 @@ public sealed class UIBigBomResultPage : UIViewBase {
             ShowUITable(level, success, trypaly,ltv);
             DOVirtual.DelayedCall(3.5f, () =>
             {
-                EventHandler.ExcuteEvent(EventHandlerType.GameEndStart, null);
+                EventDispatcher.Dispatch(EventHandlerType.GameEndStart);
                 HideSelf();
             });
         }

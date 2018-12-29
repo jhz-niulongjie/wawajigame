@@ -81,8 +81,9 @@ public sealed class UIBigBomPage : UIViewBase
         level_show = CommTool.FindObjForName(gameObject, "level_show");
         level_text = CommTool.GetCompentCustom<Text>(level_show, "level_text");
         level_task = CommTool.GetCompentCustom<Text>(gameObject, "level_task");
-        EventHandler.RegisterEvnet(EventHandlerType.GameEndStart, StartNextLevel);
-        EventHandler.RegisterEvnet(EventHandlerType.Success, ShowResultTable);
+        EventDispatcher.AddListener(EventHandlerType.GameEndStart, StartNextLevel);
+        EventDispatcher.AddListener<bool,TagType>(EventHandlerType.Success, ShowResultTable);
+
         if (GameCtr.test)
         {
             GameObject _press = CommTool.FindObjForName(gameObject, "press");
@@ -173,7 +174,7 @@ public sealed class UIBigBomPage : UIViewBase
         bullet.eulerAngles = currentAngle;
         if (bullet.localPosition.x >= 1100 && bullet.gameObject.activeSelf)
         {
-            ShowResultTable(null);
+            ShowResultTable(false,TagType.None);
         }
     }
 
@@ -247,7 +248,7 @@ public sealed class UIBigBomPage : UIViewBase
     }
 
     //开始下一局
-    void StartNextLevel(object data)
+    void StartNextLevel()
     {
         if (isTryPlay || !isSuccess)//试玩 没过关直接退出
             GameCtr.Instance.AppQuit();
@@ -273,21 +274,19 @@ public sealed class UIBigBomPage : UIViewBase
     }
 
     //显示结果面板
-    void ShowResultTable(object data)
+    void ShowResultTable(bool _success, TagType _tag)
     {
         isShoot = false;
         isSuccess = false;
         BigBomOperType bigtype;
-        if (data != null)
+        if (_tag != TagType.None)
         {
-            object[] dt = data as object[];
-            isSuccess = (bool)dt[0];
-            TagType tag = (TagType)dt[1];
+            isSuccess = _success;
             if (isSuccess)
                 bigtype = BigBomOperType._ShootTarget;
             else
             {
-                if (tag == TagType.Wall)
+                if (_tag == TagType.Wall)
                     bigtype = BigBomOperType._ShootWall;
                 else
                     bigtype = BigBomOperType._NoShoot;

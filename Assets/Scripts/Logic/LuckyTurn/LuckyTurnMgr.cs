@@ -20,8 +20,8 @@ public sealed class LuckyTurnMgr : GameCtr
         {
             Debug.Log("自己测试");
             GetOnSaleValue();
-            codeEnter = false;
-            gameMode = new TurnQuestionMode(this, 3);
+            codeEnter = true;
+            gameMode = new TurnCodeMode(this, 3);
             gameMode.EnterGame();
             pass = 3;
         }

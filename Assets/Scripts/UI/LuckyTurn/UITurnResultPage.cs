@@ -125,7 +125,7 @@ public sealed class UITurnResultPage : UIDataBase
     }
     void Reg()
     {
-        EventHandler.RegisterEvnet(EventHandlerType.GameOver, GameOver);
+        EventDispatcher.AddListener(EventHandlerType.GameOver, GameOver);
     }
 
     void InitAction()
@@ -165,7 +165,7 @@ public sealed class UITurnResultPage : UIDataBase
                giftpart_part.gameObject.SetActive(false);
                giftpart_part.localScale = Vector3.one;
                giftpart_part.localPosition = new Vector3(3.2f, -23.8f, 0);
-               EventHandler.ExcuteEvent(EventHandlerType.ShowGiftPart, (Action<string>)MakeUp_Gift);
+               EventDispatcher.Dispatch<Action<string>>(EventHandlerType.ShowGiftPart, MakeUp_Gift);
            });
 
     }
@@ -358,7 +358,7 @@ public sealed class UITurnResultPage : UIDataBase
         gameOver.SetActive(false);
     }
     //游戏结束退出
-    void GameOver(object data)
+    void GameOver()
     {
         HideAllUI();
         gameOver.SetActive(true);

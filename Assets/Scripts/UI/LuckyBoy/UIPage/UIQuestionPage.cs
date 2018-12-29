@@ -116,8 +116,8 @@ public sealed class UIQuestionPage : UIDataBase
 
         if (LuckyBoyMgr.test)
         {
-            UIEventLisener.Get(q_start_a_answer.gameObject).OnClick += o => Question_Wing(0);
-            UIEventLisener.Get(q_start_b_answer.gameObject).OnClick += o => Question_Wing(1);
+            UIEventLisener.Get(q_start_a_answer.gameObject).OnClick += o => Question_Wing("0");
+            UIEventLisener.Get(q_start_b_answer.gameObject).OnClick += o => Question_Wing("1");
             UIEventLisener.Get(s_rule).OnClick += o => HeadPress();
         }
 
@@ -224,7 +224,7 @@ public sealed class UIQuestionPage : UIDataBase
             {
                 ShowTime(t);
                 if (t == 29)//可以答题啦  注册答题
-                    EventHandler.RegisterEvnet(EventHandlerType.Question_Wing, Question_Wing);
+                    EventDispatcher.AddListener<string>(EventHandlerType.Question_Wing, Question_Wing);
                 if (t == 15)//无操作15s
                 {
                     Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
@@ -241,7 +241,7 @@ public sealed class UIQuestionPage : UIDataBase
                     t = timer;
                     int a_b = UnityEngine.Random.Range(0, 2);//随机答题
                     Debug.Log("随机答题---" + a_b);
-                    Question_Wing(a_b);
+                    Question_Wing(a_b.ToString());
                 }
             }
             else if (answer_Status == Answer_Question.Answered)  //已答题
@@ -392,7 +392,6 @@ public sealed class UIQuestionPage : UIDataBase
                     select_time = Get_Q_Time(QuestionVoiceType.No_Present);
                 }
             }
-
         }
     }
     //隐藏对错
@@ -492,11 +491,11 @@ public sealed class UIQuestionPage : UIDataBase
     }
 
     //摇翅膀 答题
-    private void Question_Wing(object data)
+    private void Question_Wing(string data)
     {
         if (answer_Status == Answer_Question.Answering)
         {
-            EventHandler.UnRegisterEvent(EventHandlerType.Question_Wing, Question_Wing);//取消注册
+            EventDispatcher.RemoveListener<string>(EventHandlerType.Question_Wing, Question_Wing);//取消注册
             answer_Status = Answer_Question.Answered;
             ShowRightOrError(Convert.ToInt32(data));
         }
@@ -625,6 +624,6 @@ public sealed class UIQuestionPage : UIDataBase
         q_library_list = null;
         q_voice_kvp.Clear();
         q_voice_kvp = null;
-        EventHandler.UnRegisterEvent(EventHandlerType.Question_Wing, Question_Wing);
+        EventDispatcher.RemoveListener<string>(EventHandlerType.Question_Wing, Question_Wing);//取消注册
     }
 }

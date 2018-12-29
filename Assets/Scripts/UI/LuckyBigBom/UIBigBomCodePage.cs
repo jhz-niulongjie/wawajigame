@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using System;
 
 public sealed class UIBigBomCodePage : UIViewBase {
 
@@ -32,11 +33,11 @@ public sealed class UIBigBomCodePage : UIViewBase {
     {
         anim.SetActive(false);
         code.SetActive(true);
-        EventHandler.RegisterEvnet(EventHandlerType.Question_Wing, Question_Wing);
+        EventDispatcher.AddListener<string>(EventHandlerType.Question_Wing, Question_Wing);
         Invoke("NormalEnter",2);
     }
 
-    public void Question_Wing(object data)
+    public void Question_Wing(string data)
     {
         HideSelf();
         // UIManager.Instance.ShowUI(UIBigBomPage.NAME, true, true);//进入试玩

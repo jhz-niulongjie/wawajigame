@@ -186,7 +186,9 @@ public class GameCtr : MonoBehaviour
     protected virtual void Question_Wing(string result)
     {
         //0 是左翅膀 1是右翅膀
-        EventHandler.ExcuteEvent(EventHandlerType.Question_Wing, result);//注册
+        //EventHandler.ExcuteEvent(EventHandlerType.Question_Wing, result);//注册
+
+        EventDispatcher.Dispatch<string>(EventHandlerType.Question_Wing, result);//注册
     }
 
     //注册头部按下事件
@@ -219,6 +221,7 @@ public class GameCtr : MonoBehaviour
         UIAtlasManager.Instance.Clear();
         AudioManager.Instance.Clear();
         EventHandler.Clear();
+        EventDispatcher.Clear();
         EffectMrg.Clear();
         Resources.UnloadUnusedAssets();
         GC.Collect();
@@ -235,6 +238,7 @@ public class GameCtr : MonoBehaviour
         AndroidCallUnity.Instance.Dispose();
         Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
         UIManager.Instance.Clear();
+        EventDispatcher.Clear();
         Resources.UnloadUnusedAssets();
         GC.Collect();
         Application.Quit();

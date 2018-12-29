@@ -98,7 +98,7 @@ public sealed class UITurnTablePage : UIDataBase
         camera_effect = CommTool.FindObjForName(gameObject, "Effect_Camera").transform;
         var go = CommTool.FindObjForName(gameObject, "pressDowm");
         go.SetActive(false);
-        EventHandler.RegisterEvnet(EventHandlerType.ShowGiftPart, ShowGiftPart);
+        EventDispatcher.AddListener<Action<string>>(EventHandlerType.ShowGiftPart, ShowGiftPart);
 
         if (GameCtr.test)
         {
@@ -187,7 +187,7 @@ public sealed class UITurnTablePage : UIDataBase
         listOnSale = GameCtr.Instance.ChangeType<LuckyTurnMgr>().listOnSaleNumber;//优惠券
         onSale = listOnSale != null && listOnSale.Count > 0 ? true : false;
         Debug.Log("扫码进入::" + codeEnter + "---有优惠券::" + onSale);
-      
+
         stillTimes = GameCtr.Instance.gameStatus.remainGameRound;
         still_times.text = stillTimes.ToString();
         currentVC = GetCurrentTimesVoice("1");//1 是无操作 2是转动中
@@ -518,7 +518,7 @@ public sealed class UITurnTablePage : UIDataBase
     }
 
     //展示底部礼品碎片
-    void ShowGiftPart(object o)
+    void ShowGiftPart(Action<string> combin)
     {
         Debug.Log("ShowGiftPart");
         partNum++;
@@ -526,13 +526,13 @@ public sealed class UITurnTablePage : UIDataBase
         {
             InitGirtPartColor();
             string speak = luckyturnDic[LuckyTurnVoiceType.GiftPart].Find(v => v.Type == "2").Content;
-            Action<string> combin = (Action<string>)o;
             DOVirtual.DelayedCall(0.6f, () =>
             {
                 partNum = 0;
                 InitGirtPartColor();
                 UpdatePartNumToTable();//更新到数据库
-                combin(speak);
+                if (combin != null)
+                    combin(speak);
             });
         }
         else
@@ -553,7 +553,7 @@ public sealed class UITurnTablePage : UIDataBase
         if (stillTimes < 0)
         {
             UIManager.Instance.ShowUI(UITurnResultPage.NAME, true, null);
-            EventHandler.ExcuteEvent(EventHandlerType.GameOver, null);//游戏结束
+            EventDispatcher.Dispatch(EventHandlerType.GameOver);//游戏结束
         }
         else
         {
@@ -610,7 +610,7 @@ public sealed class UITurnTablePage : UIDataBase
     void SuccessProbability()
     {
         bool success = GameCtr.Instance.gameStatus.status == 1;
-        angle_Num = RandomProbli.GetRandomPro(success, codeEnter, onSale,partNum);
+        angle_Num = RandomProbli.GetRandomPro(success, codeEnter, onSale, partNum);
         float max = angleDic[angle_Num] + 5;//制造自然效果
         float min = angleDic[angle_Num] - 15;
         angle = UnityEngine.Random.Range(min, max);
