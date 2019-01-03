@@ -14,6 +14,8 @@ public class GameMode
     public SelectGameMode selectgameMode { get; private set; }//选择模式  0是支付模式  1是答题模式
     public SelectGameMode isPlayGame { get; private set; }// 
     public GameKind selectgameKind { get; private set; }
+    //上局是否抓中
+    public bool lastRoundIsSuccess { get; private set; }
 
     protected GameMode(GameCtr _sdk, SelectGameMode _mode, int _misson, SelectGameMode _game = SelectGameMode.Game,GameKind _gameKind=GameKind.LuckyBoy)
     {
@@ -66,7 +68,10 @@ public class GameMode
     /// 上传抓取记录
     /// </summary>
     ///<param name="isSuccess"></param>
-    public virtual void UpRecord(bool isSuccess) { }
+    public virtual void UpRecord(bool isSuccess)
+    {
+        lastRoundIsSuccess = isSuccess;
+    }
     /// <summary>
     /// 上传记录集合
     /// </summary>

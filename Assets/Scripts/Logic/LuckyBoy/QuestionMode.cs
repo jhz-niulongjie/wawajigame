@@ -60,6 +60,7 @@ public class QuestionMode : GameMode
 
     public override void UpRecord(bool isSuccess)
     {
+        base.UpRecord(isSuccess);
         LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
         Android_Call.UnityCallAndroidHasParameter<bool, string, string>(AndroidMethod.Q_UpRecord,
               isSuccess, LuckyBoyMgr.Instance.startCarwTime, LuckyBoyMgr.Instance.Q_startCarwTime);

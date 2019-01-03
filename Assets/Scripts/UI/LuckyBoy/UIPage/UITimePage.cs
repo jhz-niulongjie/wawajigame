@@ -235,7 +235,6 @@ public sealed class UITimePage : UIDataBase
             string[] contents = null;
             int delytime = 0;
             sdk.gameMode.gameMisson.NoZhuaZhong(cat, gamePlay.GetVoiceContent(indexVoice), out delytime, out contents);
-            sdk.gameStatus.SetIsCatch(0);
             sdk.gameMode.UpRecord(false);
             UIManager.Instance.ShowUI(UIPromptPage.NAME, true, cat);//失败显示
             AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.Fixed, AudioNams.shibai, false);

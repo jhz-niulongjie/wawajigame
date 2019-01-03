@@ -20,6 +20,7 @@ public sealed class BigBomCodeMode : GameMode {
 
     public override void UpRecord(bool isSuccess)
     {
+        base.UpRecord(isSuccess);
         LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
         Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
                 isSuccess, LuckyBoyMgr.Instance.startCarwTime);

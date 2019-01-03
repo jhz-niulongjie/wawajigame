@@ -115,7 +115,6 @@ public sealed class UITurnResultPage : UIDataBase
     public override void HideSelf()
     {
         base.HideSelf();
-        GameCtr.Instance.gameStatus.SetIsCatch(isSccess?1:0);
         GameCtr.Instance.gameMode.UpRecord(isSccess);//上报抓取记录
         gridPanel.DOLocalMoveY(-78.4f, 1);
         AudioManager.Instance.StopPlayAds(AudioType.Fixed);//停止播放

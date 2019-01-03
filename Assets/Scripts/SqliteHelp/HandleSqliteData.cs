@@ -66,7 +66,7 @@ public sealed class HandleSqliteData
         string robotId = string.Format("{0}{1}{2}", "'",sdk.gameStatus.robotId, "'");
         string openId = string.Format("{0}{1}{2}", "'",sdk.gameStatus.openId, "'");
         string applyId = string.Format("{0}{1}{2}", "'",sdk.gameStatus.applyRechargeId, "'");
-        string status = string.Format("{0}{1}{2}", "'",sdk.gameStatus.status, "'");
+        string status = string.Format("{0}{1}{2}", "'",sdk.gameMode.lastRoundIsSuccess?1:0, "'");
         string reportTime = string.Format("{0}{1}{2}", "'",sdk.gameStatus.reportTime, "'");
         sql.InsertValues(recordTable, new string[] { robotId, openId, applyId, status, reportTime });
         sql.CloseConnection();

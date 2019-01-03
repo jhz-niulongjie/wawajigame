@@ -8,24 +8,10 @@ using DG.Tweening;
 public sealed class UIMovePage : UIDataBase
 {
     public const string NAME = "UIMovePage";
-    public override UIShowPos ShowPos
-    {
-        get
-        {
-            return UIShowPos.Normal;
-        }
-    }
-    public override HidePage hidePage
-    {
-        get
-        {
-            return HidePage.Destory;
-        }
-    }
-    public override AssetFolder assetFolder
-    {
-        get { return AssetFolder.LuckyBoy; }
-    }
+    public override UIShowPos ShowPos { get { return UIShowPos.Normal; } }
+    public override HidePage hidePage { get { return HidePage.Destory; } }
+    public override AssetFolder assetFolder { get { return AssetFolder.LuckyBoy; } }
+
     private GameObject modelWheel;
     private GameObject modelPang;
     private GameObject parentWheel;
@@ -39,12 +25,12 @@ public sealed class UIMovePage : UIDataBase
     private float wheel = 1.2f;
     #region  小胖速度参数
     private float timeRun = 0;
-   // private int speedType = 3;
+    // private int speedType = 3;
     private float maxSpeed = 1000;
     private float minSpeed = 400;
     private float currentSpeed = 0;
     private float randomSpeed = 0;
-   // private int speednum = 0;
+    // private int speednum = 0;
     private float[] speeds = new float[] { 400, 600, 800, 1000 };
     #endregion
 
@@ -280,15 +266,13 @@ public sealed class UIMovePage : UIDataBase
     {
         CommTool.SaveIntData(CatchTimes.PlayerCatch.ToString());
         Stop = true;
-        GameEntity ge = listPang.Find(e => e.catchty != CatchTy.CatchErrorPos);//抓中的
+        //GameEntity ge = listPang.Find(e => e.catchty != CatchTy.CatchErrorPos);//抓中的
+        GameEntity ge = LuckyBoyMgr.Instance.gameXP;
         CatchTy tempCatch = ge == null ? CatchTy.CatchErrorPos : ge.catchty;
         EventHandler.ExcuteEvent(EventHandlerType.Success, tempCatch);
-        if (ge != null && ge.catchty == CatchTy.Catch)
-        {
-            tempPange.SetActive(false);
-            tempPange.transform.SetParent(parentPang.transform);
-            tempPange.transform.localPosition = Vector3.zero;
-        }
+        tempPange.SetActive(false);
+        tempPange.transform.SetParent(parentPang.transform);
+        tempPange.transform.localPosition = Vector3.zero;
     }
     //重新开始
     private void RestStart(object data)

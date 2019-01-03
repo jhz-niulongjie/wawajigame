@@ -29,7 +29,7 @@ public sealed class CodeMode : GameMode
 
     public override void GameStart()
     {
-        if(sdk.mainObj) sdk.mainObj.SetActive(true);
+        if (sdk.mainObj) sdk.mainObj.SetActive(true);
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIBgPage.NAME, false);
         UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, false);
@@ -45,6 +45,7 @@ public sealed class CodeMode : GameMode
     }
     public override void UpRecord(bool isSuccess)
     {
+        base.UpRecord(isSuccess);
         LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
         Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
                 isSuccess, LuckyBoyMgr.Instance.startCarwTime);

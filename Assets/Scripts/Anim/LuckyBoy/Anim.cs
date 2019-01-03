@@ -160,8 +160,8 @@ public sealed class Anim : MonoBehaviour
                 {
                     leftTween.PlayBackwards();
                     rightTween.PlayBackwards();
-                    ResetValue();
                     EventHandler.ExcuteEvent(EventHandlerType.UpFinish, null);//上升完成
+                    ResetValue();
                 });
             });
         });

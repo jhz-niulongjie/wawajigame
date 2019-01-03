@@ -133,7 +133,7 @@ public sealed class GameEntity
             tempImg.transform.SetParent(t.parent);
             tempImg.overrideSprite = sp;
             tempImg.gameObject.SetActive(true);
-            tempImg.transform.DOMove(new Vector3(posX, -6, 0), 0.2f);
+            tempImg.transform.DOMove(new Vector3(posX, -5.8f, 0), 0.2f);
             LuckyBoyMgr.Instance.gameMode.gameMisson.SetDropProbability(isReach, ref catchty);//是否掉
         }
         else if (currentposX >= min - noCatchNum && currentposX <= max + noCatchNum)
