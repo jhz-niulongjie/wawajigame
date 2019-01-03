@@ -14,7 +14,7 @@ public sealed class LuckyBoyMgr : GameCtr
         if (test)
         {
             Debug.Log("自己测试");
-            gameMode = new CodeMode(this, 3);
+            gameMode = new QuestionMode(this, 3);
             gameMode.EnterGame();
             pass = 3;
         }

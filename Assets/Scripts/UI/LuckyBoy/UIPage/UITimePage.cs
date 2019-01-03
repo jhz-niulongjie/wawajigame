@@ -133,7 +133,7 @@ public sealed class UITimePage : UIDataBase
     }
     private void RestStart()
     {
-        remainRound--;
+         remainRound--;
         if (remainRound >= 0 && sdk.gameMode.gameMisson._timesPay < 3)//不是第三次支付
         {
             indexTime = 1;

@@ -92,10 +92,10 @@ public sealed class LuckyTurnMgr : GameCtr
         string onsaleJson = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.GetOnSaleNumberData);
         if (test)
         {
-            listOnSaleNumber = new List<VoiceContent> { new VoiceContent { Content="我我我我我我我我", Type="4" },
-            new VoiceContent { Content = "我我我我我我我我", Type = "1" },
-            new VoiceContent { Content = "我我我我我我我我", Type = "2" },
-            new VoiceContent { Content = "我我我我我我我我", Type = "3" }, };
+            //listOnSaleNumber = new List<VoiceContent> { new VoiceContent { Content="我我我我我我我我", Type="4" },
+            //new VoiceContent { Content = "我我我我我我我我", Type = "1" },
+            //new VoiceContent { Content = "我我我我我我我我", Type = "2" },
+            //new VoiceContent { Content = "我我我我我我我我", Type = "3" }, };
         }
         Debug.Log("---onsaleJson===" + onsaleJson);
         if (!string.IsNullOrEmpty(onsaleJson))

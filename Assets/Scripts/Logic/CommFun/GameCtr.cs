@@ -70,7 +70,7 @@ public class GameCtr : MonoBehaviour
 
     #region 测试数据参数
     public float checkProperty { get; set; }
-    public const bool test = true;
+    public const bool test = false;
     #endregion
 
     private void Awake()

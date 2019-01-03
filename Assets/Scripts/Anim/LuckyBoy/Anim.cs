@@ -124,10 +124,10 @@ public sealed class Anim : MonoBehaviour
     private void GetTween()
     {
         //catchMoveTween = transform.DOLocalMoveX(181, 2f).SetEase(Ease.Linear).SetLoops(-1,LoopType.Yoyo).Pause().SetAutoKill(false);
-        downTween = transform.DOLocalMoveY(-85, 2.5f).SetEase(Ease.Linear).Pause().SetAutoKill(false);
-        upTween = transform.DOLocalMoveY(366, 3.6f).SetEase(Ease.Linear).Pause().SetAutoKill(false);
-        leftTween = leftZha.DOLocalRotate(new Vector3(0, 0, 15), 0.2f).Pause().SetAutoKill(false);
-        rightTween = rightZha.DOLocalRotate(new Vector3(0, 0, -15), 0.2f).Pause().SetAutoKill(false);
+        downTween = transform.DOLocalMoveY(-85, 1.8f).SetEase(Ease.Linear).Pause().SetAutoKill(false);
+        upTween = transform.DOLocalMoveY(366, 2.2f).SetEase(Ease.Linear).Pause().SetAutoKill(false);
+        leftTween = leftZha.DOLocalRotate(new Vector3(0, 0, 15), 0.18f).Pause().SetAutoKill(false);
+        rightTween = rightZha.DOLocalRotate(new Vector3(0, 0, -15), 0.18f).Pause().SetAutoKill(false);
         policeTween1 = police_shoot.DOLocalMoveX(-220, 3).Pause().SetEase(Ease.Linear).SetAutoKill(false);
         policeTween2 = police_shoot.DOLocalMoveX(-511, 3).Pause().SetEase(Ease.Linear).SetAutoKill(false);
     }

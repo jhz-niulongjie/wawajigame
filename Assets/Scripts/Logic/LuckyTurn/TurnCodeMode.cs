@@ -10,6 +10,7 @@ public sealed class TurnCodeMode : GameMode {
     public TurnCodeMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson,SelectGameMode.Game,GameKind.LuckyTurn)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
+        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
         UIManager.Instance.ShowUI(UITurnSplashPage.NAME, true);
 
         if (GameCtr.test)

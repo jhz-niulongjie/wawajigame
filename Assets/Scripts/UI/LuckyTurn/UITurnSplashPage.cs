@@ -27,14 +27,6 @@ public sealed class UITurnSplashPage : UIDataBase {
         //littlePan = CommTool.FindObjForName(gameObject, "zhuan");
         //littlePan.transform.DOLocalRotate(new Vector3(0, 0, -360), 4,RotateMode.FastBeyond360).SetLoops(-1,LoopType.Incremental).SetEase(Ease.Linear); ;
     }
-
-    public override void OnShow(object data)
-    {
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
-    }
-
-
-
 }
 
 
