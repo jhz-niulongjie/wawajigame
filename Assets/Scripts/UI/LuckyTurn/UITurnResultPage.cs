@@ -338,6 +338,7 @@ public sealed class UITurnResultPage : UIDataBase
     {
         Debug.Log("****出礼品****");
         isSccess = true;
+        GameCtr.Instance.gameStatus.SetIsCatch(1);//成功
         Android_Call.UnityCallAndroid(AndroidMethod.AutoPresent);//自动出礼物
         Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);//摆动翅膀闪光带
         //5秒后 继续游戏
