@@ -66,10 +66,17 @@ public sealed class RandomProbli
     /// <returns></returns>
     public static LuckyTurnVoiceType GetRandomPro(bool success, bool pay, bool onSale, int partNum)
     {
+        Debug.Log("probability----"+ GameCtr.Instance.probability);
         if (success)
             dicWeight[LuckyTurnVoiceType.SupriseGift] = 0;
         else
-            dicWeight[LuckyTurnVoiceType.SupriseGift] = GameCtr.Instance.probability/15.0f;  //神秘礼物权重
+        {
+            int number = UnityEngine.Random.Range(1, 101);
+            if (number <= GameCtr.Instance.probability)
+                dicWeight[LuckyTurnVoiceType.SupriseGift] = GameCtr.Instance.probability / 15.0f;  //神秘礼物权重
+            else
+                dicWeight[LuckyTurnVoiceType.SupriseGift] = 1.96f;
+        }
         if (!pay || (success && partNum >= 2)) dicWeight[LuckyTurnVoiceType.GiftPart] = 0;//权重是0
         if (!onSale) dicWeight[LuckyTurnVoiceType.OnSale] = 0;//权重是0
         
@@ -82,7 +89,11 @@ public sealed class RandomProbli
     /// <returns></returns>
     public static LuckyTurnVoiceType GetRandomPro()
     {
-        dicWeight[LuckyTurnVoiceType.SupriseGift] = GameCtr.Instance.probability / 15.0f;  //神秘礼物权重
+        int number=UnityEngine.Random.Range(1, 101);
+        if (number <= GameCtr.Instance.probability)
+            dicWeight[LuckyTurnVoiceType.SupriseGift] = GameCtr.Instance.probability / 15.0f;  //神秘礼物权重
+        else
+            dicWeight[LuckyTurnVoiceType.SupriseGift] = 1.96f;
         return ComputerPro();
     }
 

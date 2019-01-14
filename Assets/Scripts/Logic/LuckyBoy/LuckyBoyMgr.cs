@@ -15,14 +15,14 @@ public sealed class LuckyBoyMgr : GameCtr
         if (test)
         {
             Debug.Log("自己测试");
-            gameMode = new CodeMode(this, 5);
+            gameMode = new QuestionMode(this, 5);
             gameMode.EnterGame();
             pass = 3;
-            DOVirtual.DelayedCall(2, () => 
-            {
-                string result = "0|dfsfdfsdsdfdsfdsfdsfsdf";
-                PaySuccess(result);
-            });
+            //DOVirtual.DelayedCall(2, () => 
+            //{
+            //    string result = "0|dfsfdfsdsdfdsfdsfdsfsdf";
+            //    PaySuccess(result);
+            //});
         }
         else
         {
