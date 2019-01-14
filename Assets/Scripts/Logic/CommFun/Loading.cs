@@ -13,9 +13,10 @@ public sealed class Loading : MonoBehaviour {
         LuckyBoy,
         LuckyTurnTable,
         LuckyBigBom,
+        LuckySendPhone,
     }
 
-    private bool test = false;
+    private bool test = true;
     private int loadTime = 6;//网络监测时间
 
     private void Awake()
@@ -63,7 +64,7 @@ public sealed class Loading : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene((int)SelectEnterGame.LuckyTurnTable);
+            SceneManager.LoadScene((int)SelectEnterGame.LuckySendPhone);
         }
     }
     /// <summary>

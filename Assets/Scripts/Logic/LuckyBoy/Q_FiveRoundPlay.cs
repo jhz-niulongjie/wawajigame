@@ -9,5 +9,4 @@ public sealed class Q_FiveRoundPlay : FiveRoundPlay {
     {
 
     }
-
 }

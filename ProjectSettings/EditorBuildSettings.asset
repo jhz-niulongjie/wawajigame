@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LuckyBigBom.unity
     guid: 19ba25f33c0e7cf418a0bfdf0e2c2102
+  - enabled: 1
+    path: Assets/Scenes/LuckySendPhone.unity
+    guid: 29f260a25ce00354d88d497a784aee6c
   m_configObjects: {}

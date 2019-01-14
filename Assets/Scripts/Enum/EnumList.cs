@@ -303,6 +303,8 @@ public enum AndroidMethod
     GetOnSaleNumberData,
     [CustomAttri("-更新优惠券状态-")]
     UpdateOnSaleValue,
+    [CustomAttri("-请求平板电脑-")]
+    ResPhone,
 }
 
 public enum LuckyTurnVoiceType
@@ -351,6 +353,7 @@ public enum AssetFolder
     LuckyBoy,
     LuckyTurn,
     LuckyBigBom,
+    LuckySendPhone,
 }
 //礼品碎片表 字段
 public enum GiftPartTable
