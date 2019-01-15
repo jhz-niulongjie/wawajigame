@@ -15,7 +15,7 @@ public class GameMisson
     public GameCtr sdk { get; private set; }
     public int _round { get; protected set; }
     public bool _isWin { get; protected set; }//是否抓中过
-    public int _Count { get; protected set; }
+    public int _Count { get;  set; }
     protected GameMisson(GameCtr _sdk)
     {
         sdk = _sdk;
@@ -198,6 +198,8 @@ public class GameMisson
     /// <returns></returns>
     public virtual ExtendContent GetVoiceContent(int index) { return null; }
 
+    public virtual List<VoiceContent> GetVoiceContentBy(int statueType, int operType) { return null; }
+
     /// <summary>
     /// 没抓中
     /// </summary>
@@ -205,7 +207,7 @@ public class GameMisson
     /// <param name="voiceContent"></param>
     /// <param name="delytime"></param>
     /// <param name="contents"></param>
-    public virtual void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out int delytime, out string[] contents)
+    public virtual void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out float delytime, out string[] contents)
     {
         delytime = 0;
         contents = null;

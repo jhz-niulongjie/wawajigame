@@ -6,9 +6,12 @@ using UnityEngine;
 
 public sealed class SendPhoneMode : GameMode
 {
+    bool isTryPlay = false;
     public SendPhoneMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson)
     {
         Debug.Log("开始试玩");
+        //注册试玩结束
+        EventDispatcher.AddListener(EventHandlerType.TryPlayOver, TryPlayOver);
     }
 
     public override void SetMissonValue()
@@ -20,36 +23,31 @@ public sealed class SendPhoneMode : GameMode
     {
         SetMissonValue();
         EnterTryPlay();
-        //base.EnterGame();
     }
-
-
-
 
     //进入游戏
     public override void EnterGameByStatus()
     {
         if (sdk.gameStatus.runStatus == GameRunStatus.GameEnd || sdk.gameStatus.runStatus == GameRunStatus.QRCode)
-            StartEnterGame();
+           // StartEnterGame();
+           GameStart();
         else if (sdk.gameStatus.runStatus == GameRunStatus.NoPay)
         {
-            //UIManager.Instance.ShowUI(UIBgPage.NAME, true);
             //查询是否支付
             Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, sdk.gameStatus.applyRechargeId, true);
         }
         else if (sdk.gameStatus.runStatus == GameRunStatus.InGame)
         {
-            gameMisson.IntiPayTimes(sdk.gameStatus.payTime);//在游戏中 直接进入游戏
             GameStart();
         }
     }
     public override void GameStart()
     {
-        if (sdk.mainObj) sdk.mainObj.SetActive(true);
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIPhoneCodePage.NAME, false);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
-        UIManager.Instance.ShowUI(UITimePage.NAME, true);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true,isTryPlay);
+        EventHandler.ExcuteEvent(EventHandlerType.RestStart,null);
     }
     public override void NoPay()
     {
@@ -80,43 +78,37 @@ public sealed class SendPhoneMode : GameMode
     }
     public override List<VoiceContent> GetPayVoiceContent()
     {
-        List<VoiceContent> vctlist = base.GetPayVoiceContent();
-        if (vctlist != null)
-            return vctlist.FindAll(v => v.Type == "1");//玩游戏
-        return null;
+        List<VoiceContent> vctlist =this.gameMisson.GetVoiceContentBy((int)SendPhoneStatusType.Code,(int)SendPhoneOperateType.Code);
+        return vctlist;
     }
 
     public override void ShowEndUI(GameMisson gamePlay)
     {
-        int time = 0;
-        VoiceContent tVC = null;
-        if (sdk.gameStatus.status == 1)//抓中过 
+        float time = 0;
+        List<VoiceContent> tVC=null;
+        if (gamePlay._Count==0)//都没抓中
         {
-            tVC = gamePlay.GetVoiceContent(gamePlay._Count - 2).Content;
-            time = Convert.ToInt32(tVC.Time);
+            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverOne);
+            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.OnePayEnter,(int)SendPhoneOperateType.GameOver);
         }
-        else
+        else if(gamePlay._Count == 1)
         {
-            tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
-            time = Convert.ToInt32(tVC.Time);
+            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverTwo);
+            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TwoPayEnter, (int)SendPhoneOperateType.GameOver);
         }
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
+        else if (gamePlay._Count == 2)
+        {
+            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverThree);
+            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.ThreePayEnter, (int)SendPhoneOperateType.GameOver);
+        }
+
+        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC[0].Content);
         Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);
-        int spaceTime = time - 2;
+        time = tVC[0].Content.Length * GameCtr.speakTime;
         bool isEnd = false;
         sdk.RegHeadAction(() => isEnd = true);
         sdk.StartCoroutine(CommTool.TimeFun(time, 0.5f, (ref float t) =>
         {
-            if (spaceTime == t)
-            {
-                if (sdk.gameStatus.status != 1)
-                {
-                    if (sdk.gameMode.gameMisson._timesPay == 1)
-                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
-                    else if (sdk.gameMode.gameMisson._timesPay == 2)
-                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
-                }
-            }
             if (isEnd)
             {
                 sdk.AppQuit();
@@ -131,26 +123,24 @@ public sealed class SendPhoneMode : GameMode
     private void StartEnterGame()
     {
         sdk.gameStatus.SetRunStatus(GameRunStatus.QRCode);
-#if UNITY_ANDROID
-        UIManager.Instance.ShowUI(UIPhoneCodePage.NAME, true, GetPayVoiceContent(), o =>
-        {
-            ExtendContent EC = gameMisson.GetVoiceContent(0);
-            if (EC != null)
-            {
-                //播放载入语音
-                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, EC.Content.Content);
-                EC = null;
-            }
-            Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 5000);
-            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 5000);
-        });
-#endif
+        UIManager.Instance.ShowUI(UIPhoneCodePage.NAME, true, GetPayVoiceContent());
     }
 
     //进入试玩
     private void EnterTryPlay()
     {
-        GameStart();
+        isTryPlay = true;
+        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
+        UIManager.Instance.ShowUI(UIMovePage.NAME, true);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true, true);
+    }
+    //试玩结束
+    private void TryPlayOver()
+    {
+        isTryPlay = false;
+        UIManager.Instance.ShowUI(UIMovePage.NAME, false);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
+        base.EnterGame();
     }
 
     #endregion

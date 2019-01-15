@@ -68,9 +68,12 @@ public class GameCtr : MonoBehaviour
     //水层
     public const string layer_Water = "Water";
 
+    public const float speakTime = 0.265f;
+
     #region 测试数据参数
     public float checkProperty { get; set; }
-    public const bool test = false;
+    public const bool test = true;
+   
     #endregion
 
     private void Awake()

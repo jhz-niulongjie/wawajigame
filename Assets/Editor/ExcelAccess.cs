@@ -90,7 +90,6 @@ public sealed class ExcelAccess
         return list;
     }
 
-
    public static List<Q_Question> Q_ReadContent()
     {
         DataRowCollection collect = ExcelAccess.ReadExcel(EditorTool.QuestionLibrary, SheetNames[0]);
@@ -110,29 +109,12 @@ public sealed class ExcelAccess
     }
 
 
-    public static List<VoiceContent> ReadLuckyTurnContent()
-    {
-        DataRowCollection collect = ExcelAccess.ReadExcel(EditorTool.LuckyTurnTurn, SheetNames[0]);
-        List<VoiceContent> list = new List<VoiceContent>();
-        for (int i = 0; i < collect.Count; i++)
-        {
-            if (i == 0 || collect[i][0].ToString() == "") continue;
-            VoiceContent vc = new VoiceContent
-            {
-                Id = collect[i][1].ToString(),
-                Type = collect[i][2].ToString(),
-                Time= collect[i][3].ToString(),
-                Content= collect[i][4].ToString(),
-            };
-            list.Add(vc);
-        }
-        return list;
-    }
+   
 
 
-    public static List<VoiceContent> ReadBigBomContent()
+    public static List<VoiceContent> ReadContentByName(string excelName)
     {
-        DataRowCollection collect = ExcelAccess.ReadExcel(EditorTool.BigBom, SheetNames[0]);
+        DataRowCollection collect = ExcelAccess.ReadExcel(excelName, SheetNames[0]);
         List<VoiceContent> list = new List<VoiceContent>();
         for (int i = 0; i < collect.Count; i++)
         {

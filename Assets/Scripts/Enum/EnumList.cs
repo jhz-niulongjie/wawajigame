@@ -46,6 +46,11 @@ public enum EventHandlerType
     GiftPart_Fly,
     ShowGiftPart,
     GameOver,
+
+    //-----------------sendPhone-----------------//
+    RoundOver,
+    TryPlayOver,
+
 }
 /// <summary>
 /// 游戏物体类型
@@ -155,6 +160,9 @@ public enum CatchTy
     GameEnd,
     GameEndGame,
     GameEndGift,
+    GameOverOne,
+    GameOverTwo,
+    GameOverThree,
 }
 
 public enum CatchTimes
@@ -400,3 +408,31 @@ public enum BigBomOperType
     _ShootWall=5,//击中城墙
     _ShootGameQuit=6, //击中目标 游戏退出
 }
+
+//送平板状态类型
+public enum SendPhoneStatusType
+{
+    TryPlay = 0,
+    Code,
+    Common,
+    OnePayEnter,
+    TwoPayEnter,
+    ThreePayEnter,
+}
+
+//送平板操作类型
+public enum SendPhoneOperateType
+{
+    TryPlayEnter = 0,
+    Code,
+    NoOperateEnter,
+    NoOperate,
+    Catch,
+    Drop,
+    NoCatch,
+    RoundEnter,
+    GameEnd,
+    GameOver,
+}
+
+

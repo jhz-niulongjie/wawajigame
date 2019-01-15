@@ -11,7 +11,7 @@ public sealed class Q_ThreeRoundPlay : ThreeRoundPlay
 
     }
 
-    public override void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out int delytime, out string[] contents)
+    public override void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out float delytime, out string[] contents)
     {
         if (cat == CatchTy.NoCatch)//抖动
         {

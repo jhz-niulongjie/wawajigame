@@ -18,6 +18,7 @@ public class EditorTool
     const string jokeVoice_Path = "Assets/Resources/jokeVoice.asset";
     const string luckyTurn_Path = "Assets/Resources/luckyTurn.asset";
     const string bigbom_Path = "Assets/Resources/bigbom.asset";
+    const string sendPhone_Path = "Assets/Resources/sendphone.asset";
 
 
     //xlsx name
@@ -31,6 +32,7 @@ public class EditorTool
     public const string Joke_Voice = "JokeVoice.xlsx";
     public const string LuckyTurnTurn = "LuckyTurnTurn.xlsx";
     public const string BigBom = "BigBom.xlsx";
+    public const string SendPhone = "SendPhone.xlsx";
 
     #region  设置animator 动画片段播放速度
     static string path = "Assets/Animation/fishhook.controller";
@@ -79,6 +81,7 @@ public class EditorTool
         BuildScriptObj_JokeVoice();
         BuildScriptObj_LuckyTurnTurn();
         BuildScriptObj_BigBom();
+        BuildScriptObj_SendPhone();
        // BuildScriptObj_GiveUpGame();
     }
 
@@ -175,7 +178,7 @@ public class EditorTool
     static void BuildScriptObj_LuckyTurnTurn()
     {
         LuckyTurn lkt = ScriptableObject.CreateInstance<LuckyTurn>();
-        lkt.luckyTurnList = ExcelAccess.ReadLuckyTurnContent();
+        lkt.luckyTurnList = ExcelAccess.ReadContentByName(LuckyTurnTurn);
         if (File.Exists(luckyTurn_Path))
             File.Delete(luckyTurn_Path);
         AssetDatabase.CreateAsset(lkt, luckyTurn_Path);
@@ -188,13 +191,26 @@ public class EditorTool
     static void BuildScriptObj_BigBom()
     {
         LuckyTurn lkt = ScriptableObject.CreateInstance<LuckyTurn>();
-        lkt.luckyTurnList = ExcelAccess.ReadBigBomContent();
+        lkt.luckyTurnList = ExcelAccess.ReadContentByName(BigBom);
         if (File.Exists(bigbom_Path))
             File.Delete(bigbom_Path);
         AssetDatabase.CreateAsset(lkt, bigbom_Path);
         AssetDatabase.SaveAssets();
         Selection.activeObject = lkt;
         Debug.Log("Build ScripteObj_BigBom Success");
+        AssetDatabase.Refresh();
+    }
+
+    static void BuildScriptObj_SendPhone()
+    {
+        LuckyTurn lkt = ScriptableObject.CreateInstance<LuckyTurn>();
+        lkt.luckyTurnList = ExcelAccess.ReadContentByName(SendPhone);
+        if (File.Exists(sendPhone_Path))
+            File.Delete(sendPhone_Path);
+        AssetDatabase.CreateAsset(lkt, sendPhone_Path);
+        AssetDatabase.SaveAssets();
+        Selection.activeObject = lkt;
+        Debug.Log("Build ScripteObj_sendPhone Success");
         AssetDatabase.Refresh();
     }
 

@@ -8,6 +8,7 @@ public sealed class LuckySendPhoneMgr : GameCtr {
     {
         Debug.Log("进入幸运送平板游戏");
         gameMode = new SendPhoneMode(this, 3);
+        gameStatus.SetRemainRound(3);
         gameMode.EnterGame();
     }
 }
