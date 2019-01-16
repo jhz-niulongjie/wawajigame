@@ -16,7 +16,7 @@ public sealed class Loading : MonoBehaviour {
         LuckySendPhone,
     }
 
-    private bool test = true;
+    private bool test = false;
     private int loadTime = 6;//网络监测时间
 
     private void Awake()
@@ -44,27 +44,29 @@ public sealed class Loading : MonoBehaviour {
     private void EnterGame()
     {
         if (!test)
-        {     
-            //0 是抓娃娃  1转转转
-            string select_ = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.SelectGame);
-            Debug.Log("选择的游戏：："+select_);
-            select_ = (Convert.ToInt32(select_) + 1).ToString();//为了对应枚举 还有场景值
-            if (select_ == ((int)SelectEnterGame.LuckyBoy).ToString())
-            {
-                SceneManager.LoadScene((int)SelectEnterGame.LuckyBoy);
-            }
-            else if (select_ == ((int)SelectEnterGame.LuckyTurnTable).ToString())
-            {
-                SceneManager.LoadScene((int)SelectEnterGame.LuckyTurnTable);
-            }
-            else if (select_ == ((int)SelectEnterGame.LuckyBigBom).ToString())
-            {
-                SceneManager.LoadScene((int)SelectEnterGame.LuckyBigBom);
-            }
+        {
+            ////0 是抓娃娃  1转转转
+            //string select_ = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.SelectGame);
+            //Debug.Log("选择的游戏：："+select_);
+            //select_ = (Convert.ToInt32(select_) + 1).ToString();//为了对应枚举 还有场景值
+            //if (select_ == ((int)SelectEnterGame.LuckyBoy).ToString())
+            //{
+            //    SceneManager.LoadScene((int)SelectEnterGame.LuckyBoy);
+            //}
+            //else if (select_ == ((int)SelectEnterGame.LuckyTurnTable).ToString())
+            //{
+            //    SceneManager.LoadScene((int)SelectEnterGame.LuckyTurnTable);
+            //}
+            //else if (select_ == ((int)SelectEnterGame.LuckyBigBom).ToString())
+            //{
+            //    SceneManager.LoadScene((int)SelectEnterGame.LuckyBigBom);
+            //}
+
+            SceneManager.LoadScene((int)SelectEnterGame.LuckySendPhone);
         }
         else
         {
-            SceneManager.LoadScene((int)SelectEnterGame.LuckySendPhone);
+            SceneManager.LoadScene((int)SelectEnterGame.LuckyTurnTable);
         }
     }
     /// <summary>

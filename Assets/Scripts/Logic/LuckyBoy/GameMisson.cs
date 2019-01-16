@@ -16,6 +16,10 @@ public class GameMisson
     public int _round { get; protected set; }
     public bool _isWin { get; protected set; }//是否抓中过
     public int _Count { get;  set; }
+
+    // 标记次数
+    public int signTimes { get; set; }
+
     protected GameMisson(GameCtr _sdk)
     {
         sdk = _sdk;
@@ -44,29 +48,7 @@ public class GameMisson
     }
 
    
-    /// <summary>
-    /// 设置掉落概率
-    /// </summary>
-    public void SetDropProbability(bool isReach, ref CatchTy catchty)
-    {
-        if (_gameLevel == GameLevel.Nan)
-        {
-            //是否掉
-            int num = UnityEngine.Random.Range(1, 101);
-            Debug.Log("概率值----" + num);
-            if (isReach || sdk.gameStatus.status==1 || num > sdk.probability)//已抓中过 必掉
-            {
-                catchty = CatchTy.Drop;
-            }
-        }
-        else
-        {
-            if (isReach || sdk.gameStatus.status==1)//已抓中过 必掉 没有概率
-            {
-                catchty = CatchTy.Drop;
-            }
-        }
-    }
+   
     /// <summary>
     /// 警察射击
     /// </summary>
@@ -160,6 +142,31 @@ public class GameMisson
     #endregion
 
     #region  虚函数
+
+    /// <summary>
+    /// 设置掉落概率
+    /// </summary>
+    public virtual void SetDropProbability(bool isReach, ref CatchTy catchty)
+    {
+        if (_gameLevel == GameLevel.Nan)
+        {
+            //是否掉
+            int num = UnityEngine.Random.Range(1, 101);
+            Debug.Log("概率值----" + num);
+            if (isReach || sdk.gameStatus.status == 1 || num > sdk.probability)//已抓中过 必掉
+            {
+                catchty = CatchTy.Drop;
+            }
+        }
+        else
+        {
+            if (isReach || sdk.gameStatus.status == 1)//已抓中过 必掉 没有概率
+            {
+                catchty = CatchTy.Drop;
+            }
+        }
+    }
+
     /// <summary>
     /// 玩家第几局进入游戏
     /// </summary>

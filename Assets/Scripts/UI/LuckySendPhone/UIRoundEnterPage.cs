@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public sealed class UIRoundEnterPage : UIDataBase
 {
@@ -13,14 +14,14 @@ public sealed class UIRoundEnterPage : UIDataBase
 
     public override AssetFolder assetFolder { get { return AssetFolder.LuckySendPhone; } }
 
-    private Transform round;
+    private Image round;
     private Transform tryPaly;
     string contentSpeak;
 
     public override void Init()
     {
         base.Init();
-        round = CommTool.FindObjForName(gameObject, "round").transform;
+        round = CommTool.GetCompentCustom<Image>(gameObject, "round");
         tryPaly = CommTool.FindObjForName(gameObject, "tryPlay").transform;
     }
 
@@ -38,7 +39,8 @@ public sealed class UIRoundEnterPage : UIDataBase
         else
         {
             tryPaly.gameObject.SetActive(false);
-            tempTrans = round;
+            tempTrans = round.transform;
+            round.sprite = UIAtlasManager.Instance.LoadSprite(UIAtlasName.UIMain, reulst+"round");
             List<VoiceContent> list = GameCtr.Instance.gameMode.gameMisson.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.RoundEnter);
             if (reulst > 0)// 1 2 3  局
                 contentSpeak = list[reulst - 1].Content;

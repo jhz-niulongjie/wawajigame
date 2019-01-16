@@ -123,14 +123,6 @@ public sealed class EffectMrg
                     gt.SetActive(true);
             }
         }
-        //int num = UnityEngine.Random.Range(0, 4);//随机抽两个特效
-        //int left = effectNum[num] / 10;
-        //int right = effectNum[num] % 10;
-        //if (samplist.ContainsKey(left) && samplist.ContainsKey(right))
-        //{
-        //    samplist[left].SetActive(true);
-        //    samplist[right].SetActive(true);
-        //}
         LuckyBoyMgr.Instance.StartCoroutine(HideEffect(action));
     }
 
@@ -143,6 +135,35 @@ public sealed class EffectMrg
         }
         if (ac != null)
             ac();
+    }
+
+    public static void ShowEffectNormal()
+    {
+        if (samplist.Count == 0)
+        {
+            GameObject g = GameObject.Find("effect");
+            int count = g.transform.childCount;
+            GameObject gt = null;
+            for (int i = 1; i < count; i++)
+            {
+                gt = g.transform.GetChild(i).gameObject;
+                samplist.Add(i + 1, gt);
+            }
+        }
+        foreach (var item in samplist)
+        {
+            item.Value.SetActive(true);
+        }
+
+    }
+
+
+    public static void HideEffectNoraml()
+    {
+        foreach (var item in samplist)
+        {
+            item.Value.SetActive(false);
+        }
     }
     #endregion
 

@@ -20,14 +20,14 @@ public sealed class Phone_ThreeRoundPlay : GameMisson
         KillTween();
         NormalPaly(police, catchMove);
         _round = GetRound();
-        UIManager.Instance.ShowUI(UIRoundEnterPage.NAME, true,_round);
+        UIManager.Instance.ShowUI(UIRoundEnterPage.NAME, true, _round);
     }
-    
-    public override List<VoiceContent> GetVoiceContentBy(int statueType , int operType)
+
+    public override List<VoiceContent> GetVoiceContentBy(int statueType, int operType)
     {
         SendPhoneStatusType statusType = (SendPhoneStatusType)statueType;
         operDic = sendPhoneOperDic[statusType];
-        SendPhoneOperateType oper=(SendPhoneOperateType)operType;
+        SendPhoneOperateType oper = (SendPhoneOperateType)operType;
         if (operDic.ContainsKey(oper))
         {
             return operDic[oper];
@@ -44,6 +44,10 @@ public sealed class Phone_ThreeRoundPlay : GameMisson
     {
         delytime = 0;
         contents = null;
+        if (voiceContent == null)
+            operDic = sendPhoneOperDic[SendPhoneStatusType.TryPlay];
+        else
+            operDic = sendPhoneOperDic[SendPhoneStatusType.Common];
         if (cat == CatchTy.Drop)//掉落
         {
             if (operDic.ContainsKey(SendPhoneOperateType.Drop))
@@ -66,13 +70,21 @@ public sealed class Phone_ThreeRoundPlay : GameMisson
         }
     }
 
-
+    public override void SetDropProbability(bool isReach, ref CatchTy catchty)
+    {
+        //是否掉
+        bool flag = RandomProbli.GetSupriseGiftPro();
+        if (!flag)//  必掉
+        {
+            catchty = CatchTy.Drop;
+        }
+    }
 
     private void LoadVoice()
     {
         LuckyTurn sendPhone = VoiceMrg<LuckyTurn, ExtendContent>.GetVoiceFromAsset("sendphone");
         sendPhoneOperDic = sendPhone.luckyTurnList.GroupBy(v => (SendPhoneStatusType)Convert.ToInt32(v.Id)).
-            ToDictionary(g => g.Key, g => g.GroupBy(v => (SendPhoneOperateType)Enum.Parse(typeof(SendPhoneOperateType),v.Type)).ToDictionary(n => n.Key, n => n.ToList()));
+            ToDictionary(g => g.Key, g => g.GroupBy(v => (SendPhoneOperateType)Enum.Parse(typeof(SendPhoneOperateType), v.Type)).ToDictionary(n => n.Key, n => n.ToList()));
         operDic = sendPhoneOperDic[SendPhoneStatusType.TryPlay];
     }
     //警察移动

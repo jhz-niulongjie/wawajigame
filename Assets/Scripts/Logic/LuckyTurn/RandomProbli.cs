@@ -90,22 +90,22 @@ public sealed class RandomProbli
         return ComputerPro();
     }
 
-    private static bool GetSupriseGiftPro()
+    public static bool GetSupriseGiftPro()
     {
         list.Clear();
-        for (int i = 1; i <100; i++)
+        for (int i = 0; i <100; i++)
         {
-            int num = UnityEngine.Random.Range(0, 101);
+            int num = UnityEngine.Random.Range(1, 101);
             list.Add(num);
         }
         int temp = 0;
         for (int i = 0; i < list.Count; i++)
         {
-            if (list[i] < GameCtr.Instance.probability)
+            if (list[i] <=GameCtr.Instance.probability)
                 temp++;
         }
         Debug.Log("概率数量--" + temp);
-        return temp > GameCtr.Instance.probability;
+        return temp >=GameCtr.Instance.probability;
     }
 
 }

@@ -12,6 +12,7 @@ public sealed class SendPhoneMode : GameMode
         Debug.Log("开始试玩");
         //注册试玩结束
         EventDispatcher.AddListener(EventHandlerType.TryPlayOver, TryPlayOver);
+        EventDispatcher.AddListener(EventHandlerType.MoviePlayOver, MoviePlayOver);
     }
 
     public override void SetMissonValue()
@@ -21,16 +22,14 @@ public sealed class SendPhoneMode : GameMode
 
     public override void EnterGame()
     {
-        SetMissonValue();
-        EnterTryPlay();
+        UIManager.Instance.ShowUI(UIPhoneAnimPage.NAME, true);
     }
 
     //进入游戏
     public override void EnterGameByStatus()
     {
         if (sdk.gameStatus.runStatus == GameRunStatus.GameEnd || sdk.gameStatus.runStatus == GameRunStatus.QRCode)
-           // StartEnterGame();
-           GameStart();
+            StartEnterGame();
         else if (sdk.gameStatus.runStatus == GameRunStatus.NoPay)
         {
             //查询是否支付
@@ -84,37 +83,43 @@ public sealed class SendPhoneMode : GameMode
 
     public override void ShowEndUI(GameMisson gamePlay)
     {
-        float time = 0;
         List<VoiceContent> tVC=null;
-        if (gamePlay._Count==0)//都没抓中
+        float time_ = 0;
+        if (gamePlay._Count == 3)//这次抓中三次
         {
-            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverOne);
-            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.OnePayEnter,(int)SendPhoneOperateType.GameOver);
-        }
-        else if(gamePlay._Count == 1)
-        {
-            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverTwo);
-            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TwoPayEnter, (int)SendPhoneOperateType.GameOver);
-        }
-        else if (gamePlay._Count == 2)
-        {
-            UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverThree);
-            tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.ThreePayEnter, (int)SendPhoneOperateType.GameOver);
-        }
-
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC[0].Content);
-        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);
-        time = tVC[0].Content.Length * GameCtr.speakTime;
-        bool isEnd = false;
-        sdk.RegHeadAction(() => isEnd = true);
-        sdk.StartCoroutine(CommTool.TimeFun(time, 0.5f, (ref float t) =>
-        {
-            if (isEnd)
+            if (gamePlay.signTimes == 0)//标记0次
             {
-                sdk.AppQuit();
+                UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverOne);
+                tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.OnePayEnter, (int)SendPhoneOperateType.GameOver);
+                time_ = tVC[0].Content.Length * GameCtr.speakTime;
             }
-            return isEnd;
-        }, sdk.AppQuit));//游戏推出
+            else if (gamePlay.signTimes == 1)
+            {
+                UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverTwo);
+                tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TwoPayEnter, (int)SendPhoneOperateType.GameOver);
+                time_ = tVC[0].Content.Length * GameCtr.speakTime;
+            }
+            else if (gamePlay.signTimes == 2)
+            {
+                UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverThree);
+                tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.ThreePayEnter, (int)SendPhoneOperateType.GameOver);
+                time_ = 60 * 10;
+            }
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC[0].Content);
+            Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);
+            bool isEnd = false;
+            sdk.RegHeadAction(() => isEnd = true);
+            sdk.StartCoroutine(CommTool.TimeFun(time_, 0.5f, (ref float t) =>
+            {
+                if (isEnd)
+                {
+                    sdk.AppQuit();
+                }
+                return isEnd;
+            }, sdk.AppQuit));//游戏推出
+        }
+        else
+            sdk.AppQuit();
     }
 
     #region 私有方法
@@ -138,9 +143,17 @@ public sealed class SendPhoneMode : GameMode
     private void TryPlayOver()
     {
         isTryPlay = false;
+        sdk.gameStatus.SetRemainRound(2);
         UIManager.Instance.ShowUI(UIMovePage.NAME, false);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
         base.EnterGame();
+    }
+    //视频播放完成
+    private void MoviePlayOver()
+    {
+        if (sdk.mainObj) sdk.mainObj.SetActive(true);
+        SetMissonValue();
+        EnterTryPlay();
     }
 
     #endregion

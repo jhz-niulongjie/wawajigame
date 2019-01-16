@@ -87,6 +87,7 @@ public sealed class UIManager : Singleton<UIManager>
                 case UIRoundEnterPage.NAME: dlg = uiRoot.AddComponent<UIRoundEnterPage>(); break;
                 case UIPhoneTimePage.NAME: dlg = uiRoot.AddComponent<UIPhoneTimePage>(); break;
                 case UIPhoneResultPage.NAME: dlg = uiRoot.AddComponent<UIPhoneResultPage>(); break;
+                case UIPhoneAnimPage.NAME: dlg = uiRoot.AddComponent<UIPhoneAnimPage>(); break;
 
             }
             SaveUIRoot(dlgName, dlg);

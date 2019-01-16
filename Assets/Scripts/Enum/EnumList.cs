@@ -50,6 +50,7 @@ public enum EventHandlerType
     //-----------------sendPhone-----------------//
     RoundOver,
     TryPlayOver,
+    MoviePlayOver,
 
 }
 /// <summary>
@@ -163,6 +164,7 @@ public enum CatchTy
     GameOverOne,
     GameOverTwo,
     GameOverThree,
+    GameOverTryPlay,
 }
 
 public enum CatchTimes
@@ -277,6 +279,8 @@ public enum AndroidMethod
     GetProbabilityValue,
     [CustomAttri("-查询是否支付-")]
     GetPayStatus,
+    [CustomAttri("-查询是否支付-sendPhone")]
+    GetPayStatusSendPhone,
     [CustomAttri("-请求二维码-")]
     GetDrawQrCode,
     [CustomAttri("-向服务器传输记录抓取记录-")]
@@ -311,8 +315,8 @@ public enum AndroidMethod
     GetOnSaleNumberData,
     [CustomAttri("-更新优惠券状态-")]
     UpdateOnSaleValue,
-    [CustomAttri("-请求平板电脑-")]
-    ResPhone,
+    [CustomAttri("-请求兑换码平板电脑-")]
+    ResPhoneCode,
 }
 
 public enum LuckyTurnVoiceType

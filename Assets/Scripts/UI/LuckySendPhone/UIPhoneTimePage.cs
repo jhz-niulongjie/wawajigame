@@ -23,30 +23,29 @@ public sealed class UIPhoneTimePage : UIDataBase
     private Image time_1;
     private Image time_2;
     private Text text_time;
-    private Image quxian;
     private int num1 = 3;//时间
     private int num2 = 0;
     private int remainRound = 0;//剩余局数
     private int succNum = 0;
     private bool isUpFinish = true;
     private Action aciton = null;
-    private object elist_Round;//List<VoiceContentType_5>
-    //根据时间变化的index
-    private int indexTime = 1;
-    private const int indexVoice = 0;
-    GameCtr sdk;
-    GameMisson gamePlay;
-    ExtendContent ECT = null;
+    private GameCtr sdk;
+    private GameMisson gamePlay;
 
     private GameObject tryPlay;
     private GameObject showTime;
     private bool IsTryPlay = false;
+    private List<VoiceContent> operlist;
+    private List<VoiceContent> operEnterlist;
+    private List<CatchSuccessData> catchList;
+
 
     public override void Init()
     {
         base.Init();
         sdk = LuckyBoyMgr.Instance;
         gamePlay = sdk.gameMode.gameMisson;
+        catchList = GameCtr.Instance.ChangeType<LuckySendPhoneMgr>().catchlist;
         time_1 = CommTool.GetCompentCustom<Image>(gameObject, "time_1");
         time_2 = CommTool.GetCompentCustom<Image>(gameObject, "time_2");
         tryPlay = CommTool.FindObjForName(gameObject, "tryPlay");
@@ -55,21 +54,15 @@ public sealed class UIPhoneTimePage : UIDataBase
         EventHandler.RegisterEvnet(EventHandlerType.Success, Success);
         EventHandler.RegisterEvnet(EventHandlerType.HeadPress, HeadPress);
         EventHandler.RegisterEvnet(EventHandlerType.GameEndStart, HeadPress);
-        EventHandler.RegisterEvnet(EventHandlerType.RoundStart, RoundStart);
     }
-
-    public override void OnOpen()
-    {
-        base.OnOpen();
-        //SetQuXImg();
-    }
-
 
     public override void OnShow(object data)
     {
         IsTryPlay = (bool)data;
         tryPlay.SetActive(IsTryPlay);
         showTime.SetActive(!IsTryPlay);
+        operlist = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.NoOperate);
+        operEnterlist= gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.NoOperateEnter);
         aciton = NormalUpdate;
         OnInit();
         StartCoroutine(TimeUpdate());
@@ -78,6 +71,8 @@ public sealed class UIPhoneTimePage : UIDataBase
     private void OnInit()
     {
         remainRound = 2;
+        gamePlay.signTimes = GetCatchSuccessTime();
+        text_time.text = remainRound.ToString();
         AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.BackGround, AudioNams.backGround, true);
     }
 
@@ -106,21 +101,7 @@ public sealed class UIPhoneTimePage : UIDataBase
     private void NormalUpdate()
     {
         int number = 30 - Convert.ToInt32(num1 + "" + num2);
-        ECT = gamePlay.GetVoiceContent(indexTime);
-        if (IsTryPlay)
-        {
-
-        }
-        else
-        {
-
-
-        }
-        if (indexTime < gamePlay._Count && number.ToString() == ECT.Time)
-        {
-            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, ECT.Content.Content);
-            indexTime++;
-        }
+        SpeakOperation(number);
         if (num2 == 0)
         {
             num2 = 9;
@@ -135,6 +116,70 @@ public sealed class UIPhoneTimePage : UIDataBase
         }
     }
 
+    //无操作说话
+    private void SpeakOperation(int time)
+    {
+        string speak = "";
+        if (time == 3 && remainRound == 2)
+        {
+            if (IsTryPlay || gamePlay.signTimes == 0)
+                speak = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.OnePayEnter, (int)SendPhoneOperateType.NoOperateEnter)[0].Content;
+            else if (gamePlay.signTimes == 1)
+                speak = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TwoPayEnter, (int)SendPhoneOperateType.NoOperateEnter)[0].Content;
+            else
+                speak = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.ThreePayEnter, (int)SendPhoneOperateType.NoOperateEnter)[0].Content;
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
+
+        }
+        else
+        {
+            if (time == 3)
+            {
+                if (remainRound == 1)
+                    speak = operEnterlist[0].Content;
+                else
+                    speak = operEnterlist[1].Content;
+                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
+            }
+            else
+            {
+                for (int i = 0; i < operlist.Count; i++)
+                {
+                    if (operlist[i].Time == time.ToString())
+                        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, operlist[i].Content);
+                }
+            }
+        }
+    }
+
+    //获得抓中次数
+    private int GetCatchSuccessTime()
+    {
+        if (catchList==null||catchList.Count == 0)
+            return 0;
+        if (catchList.Count == 1)
+        {
+            if (catchList[0].cnum< 3)
+                return 0;
+            else
+                return 1;
+        }
+        else if (catchList.Count == 2)
+        {
+            if (catchList[0].cnum < 3)//最新的
+                return 0;
+            else
+            {
+                if (catchList[1].cnum < 3)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+        return 0;
+    }
+
+
     private void RestStartUpdate()
     {
         num1 = 3;
@@ -147,10 +192,9 @@ public sealed class UIPhoneTimePage : UIDataBase
     private void RestStart()
     {
         remainRound--;
-        if (remainRound >= 0)//不是第三次支付
+        if (remainRound >= 0)
         {
             text_time.text = remainRound.ToString();
-            indexTime = 1;
             EventHandler.ExcuteEvent(EventHandlerType.RestStart, null);
             aciton = null;
             aciton = RestStartUpdate;
@@ -159,12 +203,19 @@ public sealed class UIPhoneTimePage : UIDataBase
         else//游戏结束
         {
             isUpFinish = true;
+            Debug.Log("标记次数：："+ gamePlay.signTimes+ "---本次抓中：："+succNum);
+            if (gamePlay.signTimes == 2 && succNum == 3)
+            {
+                //请求兑换码
+                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.ResPhoneCode, CombinApplyId());
+            }
+            gamePlay._Count = succNum;
             var list = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.GameEnd);
             string speak = list[succNum].Content;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
+            Android_Call.UnityCallAndroid(AndroidMethod.AutoPresent);//自动出礼物
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameEnd);
             EventHandler.ExcuteEvent(EventHandlerType.GameEndStart, true);
-            gamePlay._Count = succNum;
             DOVirtual.DelayedCall(speak.Length * GameCtr.speakTime, () => sdk.gameMode.ShowEndUI(gamePlay));
         }
     }
@@ -192,24 +243,23 @@ public sealed class UIPhoneTimePage : UIDataBase
             //sdk.gameStatus.SetIsCatch(1);
             sdk.gameMode.UpRecord(true);
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.Catch);
-            if (remainRound - 1 < 0)
-                Android_Call.UnityCallAndroid(AndroidMethod.AutoPresent);//自动出礼物
             CommTool.SaveIntData(CatchTimes.Catch.ToString());
             AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.Fixed, AudioNams.shengli, false);//播放胜利音效
             Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);//摆动翅膀闪光带
             var tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.Catch);
             string speak = tVC[UnityEngine.Random.Range(0, tVC.Count - 1)].Content;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
-            EffectMrg.ShowEffect(); //播放特效
+            EffectMrg.ShowEffectNormal(); //播放特效
             float winTime = speak.Length * GameCtr.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
+            EffectMrg.HideEffectNoraml();
             #endregion
         }
         else
         {
             string[] contents = null;
             float delytime = 0;
-            sdk.gameMode.gameMisson.NoZhuaZhong(cat, null, out delytime, out contents);
+            sdk.gameMode.gameMisson.NoZhuaZhong(cat, new ExtendContent(), out delytime, out contents);
             sdk.gameMode.UpRecord(false);
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, cat);//失败显示
             AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.Fixed, AudioNams.shibai, false);
@@ -239,9 +289,10 @@ public sealed class UIPhoneTimePage : UIDataBase
             var tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TryPlay, (int)SendPhoneOperateType.Catch);
             string speak = tVC[UnityEngine.Random.Range(0, tVC.Count - 1)].Content;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
-            EffectMrg.ShowEffect(); //播放特效
+            EffectMrg.ShowEffectNormal(); //播放特效
             float winTime = speak.Length * GameCtr.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
+            EffectMrg.HideEffectNoraml();
             #endregion
         }
         else
@@ -259,38 +310,10 @@ public sealed class UIPhoneTimePage : UIDataBase
                 Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, ((int)delytime - 1) * 1000);
             yield return CommTool.TimeFun(delytime, delytime);
         }
+        UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverTryPlay);
+        yield return new WaitForSeconds(1.5f);
         UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, false);
         EventDispatcher.Dispatch(EventHandlerType.TryPlayOver);
-    }
-
-
-    //设置曲线值
-    private void SetQuXImg()
-    {
-        Sprite sp = quxian.sprite;
-        int random = 0;
-        while (sp == quxian.sprite)
-        {
-            random = UnityEngine.Random.Range(1, 4);
-            sp = UIAtlasManager.Instance.LoadSprite(UIAtlasName.UIMain, "Bo-0" + random);
-        }
-        quxian.sprite = sp;
-        sdk.randomQuXian = random;//就一种速度
-    }
-    private void RoundStart(object o)
-    {
-        VoiceContent tVC = gamePlay.GetVoiceContent(indexVoice).Content;
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
-        int time = Convert.ToInt32(tVC.Time);
-        Action ac = o as Action;
-        StartCoroutine(HideRound(time, ac));
-        tVC = null;
-    }
-    IEnumerator HideRound(int time, Action ac)
-    {
-        yield return new WaitForSeconds(time);
-        if (ac != null)
-            ac();
     }
     //拍头停止计时
     private void HeadPress(object o)
@@ -298,12 +321,25 @@ public sealed class UIPhoneTimePage : UIDataBase
         isUpFinish = (bool)o;
     }
 
+    //组合账单号
+    private string CombinApplyId()
+    {
+        string applyId = "";
+        for (int i = 0; i < catchList.Count; i++)
+        {
+            applyId += ","+ catchList[i].applyRechargeid;
+        }
+        applyId += ","+sdk.gameStatus.applyRechargeId;
+        Debug.Log("三个账单号::"+applyId);
+        return applyId;
+    }
+
+
     private void OnDestroy()
     {
         aciton = null;
         EventHandler.UnRegisterEvent(EventHandlerType.Success, Success);
         EventHandler.UnRegisterEvent(EventHandlerType.HeadPress, HeadPress);
         EventHandler.UnRegisterEvent(EventHandlerType.GameEndStart, HeadPress);
-        EventHandler.UnRegisterEvent(EventHandlerType.RoundStart, RoundStart);
     }
 }

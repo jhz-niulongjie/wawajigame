@@ -524,6 +524,7 @@ public sealed class UITurnTablePage : UIDataBase
         partNum++;
         if (partNum == 4)
         {
+            Debug.Log("集齐四个啦啦");
             InitGirtPartColor();
             string speak = luckyturnDic[LuckyTurnVoiceType.GiftPart].Find(v => v.Type == "2").Content;
             DOVirtual.DelayedCall(0.6f, () =>
@@ -540,6 +541,7 @@ public sealed class UITurnTablePage : UIDataBase
             //继续游戏
             InitGirtPartColor();
             UpdatePartNumToTable();
+            GameCtr.Instance.gameMode.UpRecord(false);//上报抓取记录
             UIManager.Instance.ShowUI(UITurnResultPage.NAME, false);
             ContiunePaly();
         }

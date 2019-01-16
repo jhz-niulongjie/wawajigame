@@ -16,7 +16,7 @@ public class GameCtr : MonoBehaviour
     //头部按下事件
     public Action headDown_Action { get; private set; }
     //是否获得二维码
-    public bool isGetCode { get; private set; }
+    public bool isGetCode { get; protected set; }
 
     private bool isUnBind = false;
     #endregion
@@ -89,7 +89,7 @@ public class GameCtr : MonoBehaviour
     {
         if(mainObj) mainObj.SetActive(false);
         randomQuXian = 1;
-        checkProperty = 0.4f;//0.4f
+        checkProperty = 5f;//0.4f  //检测范围
         probability = 20;//百分之30不打掉
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、
@@ -189,8 +189,6 @@ public class GameCtr : MonoBehaviour
     protected virtual void Question_Wing(string result)
     {
         //0 是左翅膀 1是右翅膀
-        //EventHandler.ExcuteEvent(EventHandlerType.Question_Wing, result);//注册
-
         EventDispatcher.Dispatch<string>(EventHandlerType.Question_Wing, result);//注册
     }
 
