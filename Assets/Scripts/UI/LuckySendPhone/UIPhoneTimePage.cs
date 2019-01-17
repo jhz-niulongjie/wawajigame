@@ -253,6 +253,7 @@ public sealed class UIPhoneTimePage : UIDataBase
             float winTime = speak.Length * GameCtr.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
             EffectMrg.HideEffectNoraml();
+            Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);//停止摆动翅膀闪光带
             #endregion
         }
         else
@@ -293,6 +294,7 @@ public sealed class UIPhoneTimePage : UIDataBase
             float winTime = speak.Length * GameCtr.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
             EffectMrg.HideEffectNoraml();
+            Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);//停止摆动翅膀闪光带
             #endregion
         }
         else
@@ -324,12 +326,11 @@ public sealed class UIPhoneTimePage : UIDataBase
     //组合账单号
     private string CombinApplyId()
     {
-        string applyId = "";
+        string applyId = sdk.gameStatus.applyRechargeId; ;
         for (int i = 0; i < catchList.Count; i++)
         {
             applyId += ","+ catchList[i].applyRechargeid;
         }
-        applyId += ","+sdk.gameStatus.applyRechargeId;
         Debug.Log("三个账单号::"+applyId);
         return applyId;
     }
