@@ -32,6 +32,7 @@ public sealed class Loading : MonoBehaviour {
     /// </summary>
     private void StartNetCheck()
     {
+
         Debug.Log("=====开始网络监测=====");
         if (test)
             UnityPing.CreatePing("www.baidu.com", loadTime, EnterGame, EnterGame);
