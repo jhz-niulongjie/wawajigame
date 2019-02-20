@@ -7,7 +7,7 @@ using System;
 
 public sealed class TurnCodeMode : GameMode {
 
-    public TurnCodeMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson,SelectGameMode.Game,GameKind.LuckyTurn)
+    public TurnCodeMode(GameCtr _sdk) : base(_sdk,GameKind.LuckyTurn)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
@@ -84,7 +84,7 @@ public sealed class TurnCodeMode : GameMode {
     private void StartEnterGame()
     {
         sdk.gameStatus.SetRunStatus(GameRunStatus.QRCode);
-        sdk.gameStatus.SetRemainRound(selectRound - 1);//剩余局数
+        sdk.gameStatus.SetRemainRound(sdk.selectRound - 1);//剩余局数
         DOVirtual.DelayedCall(2.5f, () => 
         {
             UIManager.Instance.ShowUI(UITurnSplashPage.NAME, false);

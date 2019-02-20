@@ -6,7 +6,7 @@ using UnityEngine;
 
 public sealed class BigBomCodeMode : GameMode {
 
-    public BigBomCodeMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson, SelectGameMode.Game, GameKind.LuckyBigBom)
+    public BigBomCodeMode(GameCtr _sdk) : base(_sdk,GameKind.LuckyBigBom)
     {
         
     }
@@ -52,7 +52,7 @@ public sealed class BigBomCodeMode : GameMode {
     public override void EnterGameByStatus()
     {
         base.EnterGameByStatus();
-        sdk.gameStatus.SetRemainRound(selectRound - 1);//剩余局数
+        sdk.gameStatus.SetRemainRound(sdk.selectRound - 1);//剩余局数
         UIMgr.Instance.ShowUI(UIBigBomCodePage.NAME, true, GetPayVoiceContent());
     }
 }

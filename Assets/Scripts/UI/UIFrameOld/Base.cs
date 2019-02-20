@@ -86,7 +86,7 @@ public class Base : MonoBehaviour ,I_Code{
     public virtual void InitMoneyData()
     {
         money_text.text = GameCtr.Instance.money.ToString();
-        times_text.text = GameCtr.Instance.gameMode.selectRound.ToString();
+        times_text.text = GameCtr.Instance.selectRound.ToString();
     }
 
     public virtual void GetQRCodeSuccess()
@@ -106,7 +106,7 @@ public class Base : MonoBehaviour ,I_Code{
             if (index < vc_list.Count && index < timeArray.Length && total_time == timeArray[index])
             {
                 vc_list[index].Content = CommTool.TransformPayVoice("#", vc_list[index].Content, GameCtr.Instance.money.ToString());
-                vc_list[index].Content = CommTool.TransformPayVoice("*", vc_list[index].Content, GameCtr.Instance.gameMode.selectRound.ToString());
+                vc_list[index].Content = CommTool.TransformPayVoice("*", vc_list[index].Content, GameCtr.Instance.selectRound.ToString());
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, vc_list[index].Content);
                 index++;
             }

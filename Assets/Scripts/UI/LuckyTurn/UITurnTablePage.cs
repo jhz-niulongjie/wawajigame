@@ -244,7 +244,6 @@ public sealed class UITurnTablePage : UIDataBase
                 angleDistance = 360 / 6.0f;
                 len = 10;
                 offsetAngle = 0; //  0 是6个盘
-
             }
             for (int i = 4; i < len; i++)//4开始是转盘项数据
             {
@@ -526,14 +525,16 @@ public sealed class UITurnTablePage : UIDataBase
         {
             Debug.Log("集齐四个啦啦");
             InitGirtPartColor();
-            string speak = luckyturnDic[LuckyTurnVoiceType.GiftPart].Find(v => v.Type == "2").Content;
             DOVirtual.DelayedCall(0.6f, () =>
             {
                 partNum = 0;
                 InitGirtPartColor();
                 UpdatePartNumToTable();//更新到数据库
                 if (combin != null)
+                {
+                    string speak = luckyturnDic[LuckyTurnVoiceType.GiftPart].Find(v => v.Type == "2").Content;
                     combin(speak);
+                }
             });
         }
         else
@@ -638,7 +639,7 @@ public sealed class UITurnTablePage : UIDataBase
     List<VoiceContent> GetCurrentTimesVoice(string type)
     {
         int timesType = 0;
-        if (GameCtr.Instance.gameMode.selectRound == 5)//五局制
+        if (GameCtr.Instance.selectRound == 5)//五局制
         {
             if (stillTimes == 4)
                 timesType = 3;

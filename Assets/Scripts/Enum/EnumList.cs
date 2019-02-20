@@ -83,6 +83,7 @@ public enum VoiceType
     FourPay,
     FivePay,
     Special,
+    GameEnd_NoGift,//不送礼品
 }
 
 /// <summary>
@@ -244,8 +245,6 @@ public enum SelectGameMode
 {
     Pay = 0,
     Question,
-    Game,
-    NoGame,
 }
 
 public enum Net_Type

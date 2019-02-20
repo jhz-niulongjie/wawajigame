@@ -44,10 +44,6 @@ public class GameCtr : MonoBehaviour
     public float probability { get; protected set; }
     //金额
     public float money { get; protected set; }
-    //问题数目
-    public int question { get; protected set; }
-    //通过数目
-    public int pass { get; protected set; }
     //第几次支付
     public int pay { get; protected set; }
     //游戏模式
@@ -57,6 +53,19 @@ public class GameCtr : MonoBehaviour
     public float winningTimes { get; protected set; }
     //概率基数
     public float carwBasicCount { get; protected set; }
+
+    //是否支付答题模式
+    public SelectGameMode selectMode { get; protected set; }//选择模式  0是支付模式  1是答题模式
+    //选择局数
+    public int selectRound { get; protected set; }
+    //是否进行游戏
+    public bool isGame { get; protected set; }//是否进行游戏 0是进行 1不进行
+    //问题数目
+    public int question { get; protected set; }
+    //通过数目
+    public int pass { get; protected set; }
+    //是否自动送礼品
+    public bool autoSendGift { get; protected set; }//第三次支付是否自动送礼品 1是进行 0不进行
     #endregion
 
     [SerializeField]
@@ -94,15 +103,37 @@ public class GameCtr : MonoBehaviour
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、
         money = 10;
+        selectMode = SelectGameMode.Pay;
+        selectRound = 3;
         question = 5;
         pass = 3;
+        isGame = true;
+        autoSendGift = true;
         handleSqlite = new HandleSqliteData(this);
         Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
     }
     //获得游戏模式
     protected virtual void EnterGame()
     {
-
+        string _mode = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.GetGameModeData);
+        if (!string.IsNullOrEmpty(_mode))
+        {
+            string[] contents = _mode.Split('|');
+            Debug.Log("---游戏设置选项------" + _mode);
+            if (contents.Length < 6)
+            {
+                Debug.LogError("请求模式数量不符");
+                return;
+            }
+            selectMode = (SelectGameMode)Convert.ToInt32(contents[0]); //选择模式  0是支付模式  1是答题模式
+            selectRound = Convert.ToInt32(contents[1]);//选择局数
+            question = Convert.ToInt32(contents[2]);//几道题
+            pass = Convert.ToInt32(contents[3]);//通过数量
+            isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
+            autoSendGift = Convert.ToInt32(contents[5]) == 1 ? true : false; //第三次支付是否自动送礼品 1是进行 0不进行
+        }
+        else
+            Q_AppQuit();
     }
 
     //Android 调用

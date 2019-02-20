@@ -48,7 +48,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         xiaoP = CommTool.GetCompentCustom<Image>(qrCode, "xiaopang");
         animator = CommTool.GetCompentCustom<Animator>(qrCode, "xiaopang");
         animator.enabled = false;
-        if (sdk.gameMode.isPlayGame == SelectGameMode.Game)
+        if (sdk.isGame)
         {
             gamePlay = sdk.gameMode.gameMisson;
             gamePlay.UpdateSpecialVoice(VoiceType.Loading);
@@ -149,7 +149,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
                 yield return new WaitForSeconds(timeArray[index] - total_time);//开始播放下一个
                 animator.enabled = true;
                 vc_lists[index].Content =CommTool.TransformPayVoice("#", vc_lists[index].Content, sdk.money.ToString());
-                vc_lists[index].Content =CommTool.TransformPayVoice("*", vc_lists[index].Content, sdk.gameMode.selectRound.ToString());
+                vc_lists[index].Content =CommTool.TransformPayVoice("*", vc_lists[index].Content, sdk.selectRound.ToString());
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, vc_lists[index].Content);
                 voiceTime = vc_lists[index].Content.Length * 0.265f;
                 yield return new WaitForSeconds(voiceTime);//停止嘴巴动
@@ -172,7 +172,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         if (moneyText)
             moneyText.text = sdk.money + "元";
         if (gameTimes)
-            gameTimes.text = sdk.gameMode.selectRound + "次";
+            gameTimes.text = sdk.selectRound + "次";
         StartCoroutine(currentIE);//二维码界面计时
     }
 

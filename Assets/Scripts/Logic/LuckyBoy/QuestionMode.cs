@@ -9,7 +9,7 @@ public class QuestionMode : GameMode
     Action startGame = null;
     Action startQuestion = null;
     List<Q_Question> q_question = null;
-    public QuestionMode(GameCtr _sdk, int misson,GameKind _gameKind=GameKind.LuckyBoy) : base(_sdk, SelectGameMode.Question, misson,SelectGameMode.Game,_gameKind)
+    public QuestionMode(GameCtr _sdk,GameKind _gameKind=GameKind.LuckyBoy) : base(_sdk,_gameKind)
     {
         Debug.Log("//////答题模式\\\\\\\\");
         sdk.Q_startCarwTime = CommTool.GetTimeStamp();
@@ -33,7 +33,7 @@ public class QuestionMode : GameMode
 
     public override void SetMissonValue()
     {
-        if (selectRound == 3)
+        if (sdk.selectRound == 3)
             gameMisson = new Q_ThreeRoundPlay(sdk);
         else
             gameMisson = new Q_FiveRoundPlay(sdk);
@@ -52,7 +52,7 @@ public class QuestionMode : GameMode
     public override void GameStart()
     {
         if(sdk.mainObj) sdk.mainObj.SetActive(true);
-        gameMisson.IntiPayTimes(1);
+        gameMisson.IntiPayTimes(1);//答题模式始终显示 第一次玩
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
         UIManager.Instance.ShowUI(UITimePage.NAME, true);

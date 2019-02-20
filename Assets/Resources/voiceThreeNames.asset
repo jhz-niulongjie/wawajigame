@@ -2274,3 +2274,61 @@ MonoBehaviour:
       Content: 
       Time: 
       Contents: []
+  - Id: 40
+    PayType: 7
+    Type: 0
+    Time: 0
+    Content:
+      Id: 32
+      Type: GameEnd_NoGift
+      Content: "\u6E38\u620F\u7ED3\u675F\u55BD\uFF0C\u4E0D\u8981\u7070\u5FC3\u5462\uFF0C\u4E0B\u6B21\u96BE\u5EA6\u8FD8\u662F\u4E2D\u7B49\u54E6\uFF0C\u7EE7\u7EED\u52A0\u6CB9\u5427\u3002"
+      Time: 7
+      Contents: []
+    Winning:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    Winafter:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    NoDouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDropWin:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    DouDong_4DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []
+    ShootDrop_3DD:
+      Id: 
+      Type: 
+      Content: 
+      Time: 
+      Contents: []

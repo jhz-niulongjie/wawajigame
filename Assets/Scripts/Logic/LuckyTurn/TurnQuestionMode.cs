@@ -4,10 +4,10 @@ using UnityEngine;
 
 public sealed class TurnQuestionMode : QuestionMode {
 
-    public TurnQuestionMode(GameCtr _sdk, int misson) : base(_sdk, misson,GameKind.LuckyTurn)
+    public TurnQuestionMode(GameCtr _sdk) : base(_sdk,GameKind.LuckyTurn)
     {
         sdk.gameStatus.ClearData();//答题进入 转转游戏 不用缓存
-        sdk.gameStatus.SetRemainRound(misson - 1);//设置剩余局数
+        sdk.gameStatus.SetRemainRound(sdk.selectRound - 1);//设置剩余局数
         ////测试数据
         if (GameCtr.test)
         {

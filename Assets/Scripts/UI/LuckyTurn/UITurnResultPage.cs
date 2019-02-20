@@ -281,7 +281,7 @@ public sealed class UITurnResultPage : UIDataBase
     {
        string[] sps= speak.Split(("@\n").ToCharArray());
        int nums = sps.Length;
-        if (nums > 0)
+        if (nums > 1)
         {
             for (int i = 0; i < sps.Length; i++)
             {
@@ -290,7 +290,7 @@ public sealed class UITurnResultPage : UIDataBase
         }
         else
             nums = speak.Length / 25;
-       return nums;  //240 height 最多放6行
+       return nums;  //240 height
     }
 
     void ThankYouJoin()

@@ -7,7 +7,7 @@ using UnityEngine;
 public sealed class SendPhoneMode : GameMode
 {
     bool isTryPlay = false;
-    public SendPhoneMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson)
+    public SendPhoneMode(GameCtr _sdk) : base(_sdk)
     {
         Debug.Log("开始试玩");
         //注册试玩结束

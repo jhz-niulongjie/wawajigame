@@ -78,8 +78,23 @@ public  class ThreeRoundPlay : GameMisson
         }
         else if (_timesPay == 3)//第三次玩
         {
-            //直接出玩娃娃
-            EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+            if (sdk.autoSendGift)
+                //直接出玩娃娃
+                EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+            else
+            {
+                //显示第二次玩难度
+                if (_round == 1)//第一局
+                    EasyPlay(police, catchMove);
+                else//第二局 第三局
+                {
+                    if (_isWin)//抓中国
+                        NormalPaly(police, catchMove);
+                    else
+                        EasyPlay(police, catchMove);
+                }
+                UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
+            }
         }
     }
 

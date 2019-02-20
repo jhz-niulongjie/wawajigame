@@ -4,25 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameMode
 {
-    //选择的游戏局数
-    public GameMisson gameMisson { get; protected set; }
     public GameCtr sdk { get; private set; }
-    public Q_Voice_ScriptObj qvs { get; private set; }
-    public int selectRound { get; private set; }//选择局数
-    public SelectGameMode selectgameMode { get; private set; }//选择模式  0是支付模式  1是答题模式
-    public SelectGameMode isPlayGame { get; private set; }// 
+    //选择的游戏局数对象
+    public GameMisson gameMisson { get; protected set; }
+    //选择的游戏种类
     public GameKind selectgameKind { get; private set; }
+    //语音数据
+    public Q_Voice_ScriptObj qvs { get; private set; }
     //上局是否抓中
     public bool lastRoundIsSuccess { get; private set; }
 
-    protected GameMode(GameCtr _sdk, SelectGameMode _mode, int _misson, SelectGameMode _game = SelectGameMode.Game,GameKind _gameKind=GameKind.LuckyBoy)
+    protected GameMode(GameCtr _sdk,GameKind _gameKind=GameKind.LuckyBoy)
     {
         sdk = _sdk;
-        selectgameMode = _mode;
-        selectRound = _misson;
-        isPlayGame = _game;
         selectgameKind = _gameKind;
         qvs = VoiceMrg<Q_Voice_ScriptObj, ExtendContent>.GetVoiceFromAsset("QuestionVoice");
         GetGameStatusData();
@@ -126,17 +123,17 @@ public class GameMode
         Debug.Log("sdk.gameStatus---0:" + sdk.gameStatus);
         if (sdk.gameStatus != null)
         {
-            if (sdk.gameStatus.gameRound != selectRound || sdk.gameStatus.gameMode != selectgameMode
-                ||sdk.gameStatus.gameKind!=selectgameKind)//上次选择的模式不同
+            if (sdk.gameStatus.gameRound != sdk.selectRound || sdk.gameStatus.gameMode != sdk.selectMode
+                || sdk.gameStatus.gameKind!=selectgameKind)//上次选择的模式不同
             {
                 sdk.gameStatus.ClearData();
-                if (sdk.gameStatus.gameMode != selectgameMode)//游戏模式不同 清空表数据
+                if (sdk.gameStatus.gameMode != sdk.selectMode)//游戏模式不同 清空表数据
                     sdk.handleSqlite.DeleteData(HandleSqliteData.recordTable);
                 sdk.gameStatus = null;
             }
         }
         if(sdk.gameStatus==null)
-            sdk.gameStatus = new GameStatus(selectgameMode, selectRound,selectgameKind);
+            sdk.gameStatus = new GameStatus(sdk.selectMode, sdk.selectRound,selectgameKind);
         Debug.Log("sdk.gameStatus---1:"+ sdk.gameStatus);
     }
 

@@ -77,8 +77,31 @@ public  class FiveRoundPlay : GameMisson
         }
         else if (_timesPay == 3)//第三次玩
         {
-            //直接出玩娃娃
-            EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+            if (sdk.autoSendGift)
+                //直接出玩娃娃
+                EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+            else
+            {
+                //显示第二次玩难度
+                if (_isWin)//抓中国
+                    NormalPaly(police, catchMove);
+                else
+                {
+                    if (_round == 1)//第一局
+                        NoPolicePlay(police, catchMove);
+                    else//第二局 第三局
+                    {
+                        if (isDouDong)
+                            EasyPlay(police, catchMove);
+                        else
+                        {
+                            if (_gameLevel == GameLevel.Nan || _gameLevel == GameLevel.Zhong)
+                                NoPolicePlay(police, catchMove);
+                        }
+                    }
+                }
+                UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
+            }
         }
 
     }

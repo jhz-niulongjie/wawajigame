@@ -9,14 +9,14 @@ public sealed class GiveUpOnGameMode : GameMode
 {
     List<Q_Question> q_question = null;
     private Action outPresent = null;
-    public GiveUpOnGameMode(GameCtr sdk, SelectGameMode mode) : base(sdk, mode, 100, SelectGameMode.NoGame)
+    public GiveUpOnGameMode(GameCtr sdk) : base(sdk)
     {
         outPresent = OutPresent;
     }
 
     public override void EnterGame()
     {
-        if (selectgameMode == SelectGameMode.Pay)
+        if (sdk.selectMode == SelectGameMode.Pay)
             StartEnterPay();
         else
             EnterQuestion();
@@ -123,7 +123,7 @@ public sealed class GiveUpOnGameMode : GameMode
     {
         sdk.gameStatus.SetIsCatch(1);
          LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
-        if (selectgameMode == SelectGameMode.Pay)
+        if (sdk.selectMode == SelectGameMode.Pay)
         {
             Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
                true,LuckyBoyMgr.Instance.startCarwTime);

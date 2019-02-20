@@ -260,7 +260,7 @@ public sealed class UIPhoneTimePage : UIDataBase
         {
             string[] contents = null;
             float delytime = 0;
-            sdk.gameMode.gameMisson.NoZhuaZhong(cat, new ExtendContent(), out delytime, out contents);
+            gamePlay.NoZhuaZhong(cat, new ExtendContent(), out delytime, out contents);
             sdk.gameMode.UpRecord(false);
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, cat);//失败显示
             AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.Fixed, AudioNams.shibai, false);
@@ -301,7 +301,7 @@ public sealed class UIPhoneTimePage : UIDataBase
         {
             string[] contents = null;
             float delytime = 0;
-            sdk.gameMode.gameMisson.NoZhuaZhong(cat, null, out delytime, out contents);
+            gamePlay.NoZhuaZhong(cat, null, out delytime, out contents);
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, cat);//失败显示
             AudioManager.Instance.PlayByName(AssetFolder.LuckyBoy, AudioType.Fixed, AudioNams.shibai, false);
             //随机语音

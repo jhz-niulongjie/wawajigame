@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
+//游戏局数对象父类
 public class GameMisson
 {
     public int _timesPay { get; private set; }

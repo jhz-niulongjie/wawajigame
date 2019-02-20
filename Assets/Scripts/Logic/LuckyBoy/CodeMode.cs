@@ -6,7 +6,7 @@ using LitJson;
 
 public sealed class CodeMode : GameMode
 {
-    public CodeMode(GameCtr _sdk, int misson) : base(_sdk, SelectGameMode.Pay, misson)
+    public CodeMode(GameCtr _sdk) : base(_sdk)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
     }
@@ -15,7 +15,7 @@ public sealed class CodeMode : GameMode
     #region 重写方法
     public override void SetMissonValue()
     {
-        if (selectRound == 3)
+        if (sdk.selectRound == 3)
             gameMisson = new ThreeRoundPlay(sdk);
         else
             gameMisson = new FiveRoundPlay(sdk);
@@ -70,7 +70,15 @@ public sealed class CodeMode : GameMode
         }
         else
         {
-            tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
+            if (sdk.autoSendGift)//自动送礼品
+            {
+                tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
+            }
+            else
+            {
+                //此处逻辑没写完 不送礼品 第一次支付还是之前的语音
+                tVC = gamePlay.GetSpecialVoice(VoiceType.GameEnd_NoGift,0).Content;
+            }
             time = Convert.ToInt32(tVC.Time);
         }
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
