@@ -7,6 +7,7 @@ using vMrg_3 = VoiceMrg<ExcelScriptObj_3, VoiceContentType_3>;
 public  class ThreeRoundPlay : GameMisson
 {
     List<VoiceContentType_3> list;
+    int douDongNum = 0;//抖动次数
     public ThreeRoundPlay(GameCtr sdk) : base(sdk)
     {
         Debug.Log("/////三局模式\\\\\\");
@@ -21,69 +22,77 @@ public  class ThreeRoundPlay : GameMisson
         string msg = string.Format("第-{0}-次抓，第-{1}-局，上局是否抓中-{2},是否抖动-{3}", _timesPay, _round, _isWin, isDouDong);
         Debug.Log(msg);
         KillTween();
-        if (_timesPay == 1)//第一次玩
+        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
-            if (_round == 1)//第一局
-                NormalPaly(police, catchMove);
-            else if (_round == 2)//第二局
+            //受限 执行最高难度  且降低难度逻辑变化   
+             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
+              
+            if (_round<3)//第一局  第二局
             {
-                if (_isWin)
+                NormalPaly(police, catchMove);
+                if (_round == 2&&isDouDong) douDongNum++;
+            }
+            else
+            {
+                if (_isWin)//抓中过
                     NormalPaly(police, catchMove);
-                else//没抓中
+                else
                 {
-                    //在抖动范围内
-                    if (isDouDong)
+                    if (isDouDong) douDongNum++;
+                    if (douDongNum ==2)//抖动两次
                         NoPolicePlay(police, catchMove);
                     else
                         NormalPaly(police, catchMove);
                 }
             }
-            else
+            UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
+        }
+        else   //没达到条件  走之前的逻辑
+        {
+            if (_timesPay == 1)//第一次玩
             {
-                if (_isWin)//抓中国
+                if (_round == 1)//第一局
                     NormalPaly(police, catchMove);
-                else
+                else if (_round == 2)//第二局
                 {
-                    //在抖动范围内
-                    if (isDouDong)
+                    if (_isWin)
+                        NormalPaly(police, catchMove);
+                    else//没抓中
                     {
-                        if (_gameLevel == GameLevel.Nan)
+                        //在抖动范围内
+                        if (isDouDong)
                             NoPolicePlay(police, catchMove);
                         else
-                            EasyPlay(police, catchMove);
-                    }
-                    else
-                    {
-                        if (_gameLevel == GameLevel.Nan)
                             NormalPaly(police, catchMove);
-                        else
-                            NoPolicePlay(police, catchMove);
                     }
                 }
-            }
-            UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
-        }
-        else if (_timesPay == 2)//第二次玩
-        {
-            if (_round == 1)//第一局
-                EasyPlay(police, catchMove);
-            else//第二局 第三局
-            {
-                if (_isWin)//抓中国
-                    NormalPaly(police, catchMove);
                 else
-                    EasyPlay(police, catchMove);
+                {
+                    if (_isWin)//抓中国
+                        NormalPaly(police, catchMove);
+                    else
+                    {
+                        //在抖动范围内
+                        if (isDouDong)
+                        {
+                            if (_gameLevel == GameLevel.Nan)
+                                NoPolicePlay(police, catchMove);
+                            else
+                                EasyPlay(police, catchMove);
+                        }
+                        else
+                        {
+                            if (_gameLevel == GameLevel.Nan)
+                                NormalPaly(police, catchMove);
+                            else
+                                NoPolicePlay(police, catchMove);
+                        }
+                    }
+                }
+                UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
             }
-            UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
-        }
-        else if (_timesPay == 3)//第三次玩
-        {
-            if (sdk.autoSendGift)
-                //直接出玩娃娃
-                EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
-            else
+            else if (_timesPay == 2)//第二次玩
             {
-                //显示第二次玩难度
                 if (_round == 1)//第一局
                     EasyPlay(police, catchMove);
                 else//第二局 第三局
@@ -94,6 +103,11 @@ public  class ThreeRoundPlay : GameMisson
                         EasyPlay(police, catchMove);
                 }
                 UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
+            }
+            else if (_timesPay == 3)//第三次玩
+            {
+              //直接出玩娃娃
+               EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
             }
         }
     }

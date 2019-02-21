@@ -9,8 +9,9 @@ using DG.Tweening;
 
 public sealed class LuckyBoyMgr : GameCtr
 {
-    //一个账号一共支付了几次
-    public List<CatchSuccessData> catchlist { get; private set; }
+    //是否添加约束 只对三局制有效
+    public bool isAddConstraint { get; private set; }
+    
     protected override void EnterGame()
     {
         Debug.Log("进入幸运礼品机");
@@ -55,18 +56,37 @@ public sealed class LuckyBoyMgr : GameCtr
     protected override void PaySuccess(string result)
     {
         isPaySucess = true;
+        isAddConstraint = false;
         string[] res = result.Split('|');
         pay = Convert.ToInt32(res[0]);
-        gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::" + res[1]);
         pay++;
-        Debug.Log("玩家第几次支付:" + pay);
+        gameStatus.SetOpenId(res[1]);
+        Debug.Log("支付成功--openId::"+ res[1] + "玩家第几次支付:" + pay);
         JsonData j_data = JsonMapper.ToObject(res[2]);
-        catchlist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
-        Debug.Log("玩家已支付次数.Count---" + catchlist.Count);
+        List<CatchSuccessData> paylist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
+        Debug.Log("玩家已支付次数.Count---" + paylist.Count);
+        int autoPayTime = 1;//自定义支付次数  默认第一次支付
+        if (paylist.Count > 0)
+        {
+            if (paylist.Count >= 5)
+            {
+                int winNum = 0;
+                for (int i = 0; i < paylist.Count; i++)
+                {
+                    if (paylist[i].cnum > 0) winNum++;
+                }
+                Debug.Log("已抓中礼品次数--" + winNum);
+                if (winNum >= 3) isAddConstraint = true;
+            }
+             //上一次支付是否抓中
+            if (paylist[paylist.Count - 1].cnum==0) autoPayTime = 2;
+        }
         if (gameMode.gameMisson != null)
         {
-            gameMode.gameMisson.IntiPayTimes(pay);
+            if(autoSendGift)
+              gameMode.gameMisson.IntiPayTimes(pay);
+            else
+              gameMode.gameMisson.IntiPayTimes(autoPayTime);
         }
         gameMode.GameStart();
     }
