@@ -71,6 +71,7 @@ public sealed class UIManager : Singleton<UIManager>
             uiRoot = SetRootPro(dlgName);
             switch (dlgName)
             {
+                case UIFishHookPage.NAME: dlg = uiRoot.AddComponent<UIFishHookPage>(); break;
                 case UIMovePage.NAME: dlg = uiRoot.AddComponent<UIMovePage>(); break;
                 case UITimePage.NAME: dlg = uiRoot.AddComponent<UITimePage>(); break;
                 case UIPromptPage.NAME: dlg = uiRoot.AddComponent<UIPromptPage>(); break;
@@ -125,7 +126,7 @@ public sealed class UIManager : Singleton<UIManager>
                     SetUIRootParent(dlg.gameObject, UIShowPos.Hide);
                 }
                 else
-                {
+                {    
                     GameObject.Destroy(dlg.gameObject);
                     dicDlg.Remove(dlgName);
                     return;

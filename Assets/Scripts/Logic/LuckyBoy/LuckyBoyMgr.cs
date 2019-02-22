@@ -11,21 +11,18 @@ public sealed class LuckyBoyMgr : GameCtr
 {
     //是否添加约束 只对三局制有效
     public bool isAddConstraint { get; private set; }
-    
+    //已支付的次数
+    public int payCount { get; private set; }
     protected override void EnterGame()
     {
         Debug.Log("进入幸运礼品机");
         if (test)
         {
             Debug.Log("自己测试");
-            gameMode = new QuestionMode(this);
+            PlayerPrefs.DeleteAll();
+            gameMode = new CodeMode(this);
             gameMode.EnterGame();
-            pass = 3;
-            //DOVirtual.DelayedCall(2, () => 
-            //{
-            //    string result = "0|dfsfdfsdsdfdsfdsfdsfsdf";
-            //    PaySuccess(result);
-            //});
+            EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
         }
         else
         {
@@ -61,14 +58,15 @@ public sealed class LuckyBoyMgr : GameCtr
         pay = Convert.ToInt32(res[0]);
         pay++;
         gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::"+ res[1] + "玩家第几次支付:" + pay);
+        Debug.Log("支付成功--openId::" + res[1] + "玩家第几次支付:" + pay);
         JsonData j_data = JsonMapper.ToObject(res[2]);
         List<CatchSuccessData> paylist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
-        Debug.Log("玩家已支付次数.Count---" + paylist.Count);
+        payCount = paylist.Count;
+        Debug.Log("玩家已支付次数.Count---" + payCount);
         int autoPayTime = 1;//自定义支付次数  默认第一次支付
-        if (paylist.Count > 0)
+        if (payCount > 0)
         {
-            if (paylist.Count >= 5)
+            if (payCount >= 5)//支付大于5次
             {
                 int winNum = 0;
                 for (int i = 0; i < paylist.Count; i++)
@@ -76,18 +74,45 @@ public sealed class LuckyBoyMgr : GameCtr
                     if (paylist[i].cnum > 0) winNum++;
                 }
                 Debug.Log("已抓中礼品次数--" + winNum);
-                if (winNum >= 3) isAddConstraint = true;
+                if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次 受限
             }
-             //上一次支付是否抓中
-            if (paylist[paylist.Count - 1].cnum==0) autoPayTime = 2;
+            //上一次支付是否抓中 等于0 上次支付没抓中 进入中等难度
+            if (paylist[payCount - 1].cnum == 0) autoPayTime = 2;
         }
         if (gameMode.gameMisson != null)
         {
-            if(autoSendGift)
-              gameMode.gameMisson.IntiPayTimes(pay);
+            if (autoSendGift)
+                gameMode.gameMisson.IntiPayTimes(pay);
             else
-              gameMode.gameMisson.IntiPayTimes(autoPayTime);
+                gameMode.gameMisson.IntiPayTimes(autoPayTime);
         }
         gameMode.GameStart();
     }
+
+    protected override void Question_Wing(string result)
+    {
+        if (gameTryStatus == 1) //可以试玩
+        {
+            gameTryStatus = 2;
+            gameStatus.SetRemainRound(3);
+            gameMode.EnterTryPlay();
+        }
+        else
+        {
+            string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+            string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
+            PaySuccess(res);
+        }
+    }
+
+
+    private void StartTryPlay(object obj)
+    {
+        Question_Wing(null);
+    }
+
 }

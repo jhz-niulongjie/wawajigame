@@ -54,12 +54,6 @@ public sealed class UITimePage : UIDataBase
         EventHandler.RegisterEvnet(EventHandlerType.RoundStart, RoundStart);
     }
 
-    public override void OnOpen()
-    {
-        base.OnOpen();
-        //SetQuXImg();
-    }
-
 
     public override void OnShow(object data)
     {
@@ -105,7 +99,11 @@ public sealed class UITimePage : UIDataBase
         //播放语音
         if (indexTime < gamePlay._Count && number.ToString() == ECT.Time)
         {
-            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, ECT.Content.Content);
+              //不送礼品 支付次数大于2次 第一局 改变语音
+            if (!sdk.autoSendGift&& number == 5 && sdk.ChangeType<LuckyBoyMgr>().payCount > 1 && (remainRound == 4 || remainRound == 2))
+                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "这次要看准时机哦，一定能抓到的，加油吧");
+            else
+                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, ECT.Content.Content);
             indexTime++;
         }
         if (num2 == 0)
@@ -133,7 +131,7 @@ public sealed class UITimePage : UIDataBase
     }
     private void RestStart()
     {
-         remainRound--;
+        remainRound--;
         if (remainRound >= 0 && sdk.gameMode.gameMisson._timesPay < 3)//不是第三次支付
         {
             indexTime = 1;
@@ -242,9 +240,9 @@ public sealed class UITimePage : UIDataBase
             //随机语音
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, contents[idx]);
             if (remainRound > 0)
-               Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 5000);
+                Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 5000);
             else
-               Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, ((int)delytime - 1) * 1000);
+                Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, ((int)delytime - 1) * 1000);
             bool isEnd = false;
             sdk.RegHeadAction(() => isEnd = true);
             yield return CommTool.TimeFun(delytime, 0.5f, (ref float t) => isEnd, null);

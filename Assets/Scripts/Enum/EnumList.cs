@@ -51,6 +51,8 @@ public enum EventHandlerType
     RoundOver,
     TryPlayOver,
     MoviePlayOver,
+    StartTryPlay,
+
 
 }
 /// <summary>
@@ -355,6 +357,7 @@ public enum GameKind
     LuckyBoy,
     LuckyTurn,
     LuckyBigBom,
+    LuckySendPhone,
 }
 
 //资源文件路径

@@ -13,12 +13,15 @@ public class VoiceMrg<S,V> where S:ScriptableObject where V: ExtendContent
     /// </summary>
     public static void InitVoiceData(string voiceTableName)
     {
-        S s = Resources.Load(voiceTableName) as S;
-        List<V> list= s.GetFiledValue_S("voiceTypes") as List<V>;
-        VoiceMrg<S,V>.dicKV= list.GroupBy(c => c.PayType).ToDictionary(x => x.First().PayType,
-             y => y.ToList().OrderBy(v => Convert.ToInt32(v.Time)).ToList());
-        Debug.Log("语音数据获得成功");
-        s = null;
+        if (VoiceMrg<S, V>.dicKV == null || VoiceMrg<S, V>.dicKV.Count == 0)
+        {
+            S s = Resources.Load(voiceTableName) as S;
+            List<V> list = s.GetFiledValue_S("voiceTypes") as List<V>;
+            VoiceMrg<S, V>.dicKV = list.GroupBy(c => c.PayType).ToDictionary(x => x.First().PayType,
+                 y => y.ToList().OrderBy(v => Convert.ToInt32(v.Time)).ToList());
+            Debug.Log("语音数据获得成功");
+            s = null;
+        }
     }
     /// <summary>
     /// 获得语音数据

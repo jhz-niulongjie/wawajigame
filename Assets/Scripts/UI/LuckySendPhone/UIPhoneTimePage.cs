@@ -45,7 +45,8 @@ public sealed class UIPhoneTimePage : UIDataBase
         base.Init();
         sdk = LuckyBoyMgr.Instance;
         gamePlay = sdk.gameMode.gameMisson;
-        catchList = GameCtr.Instance.ChangeType<LuckySendPhoneMgr>().catchlist;
+        if (GameCtr.Instance.ChangeType<LuckySendPhoneMgr>() != null)
+            catchList = GameCtr.Instance.ChangeType<LuckySendPhoneMgr>().catchlist;
         time_1 = CommTool.GetCompentCustom<Image>(gameObject, "time_1");
         time_2 = CommTool.GetCompentCustom<Image>(gameObject, "time_2");
         tryPlay = CommTool.FindObjForName(gameObject, "tryPlay");
@@ -62,7 +63,7 @@ public sealed class UIPhoneTimePage : UIDataBase
         tryPlay.SetActive(IsTryPlay);
         showTime.SetActive(!IsTryPlay);
         operlist = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.NoOperate);
-        operEnterlist= gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.NoOperateEnter);
+        operEnterlist = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.NoOperateEnter);
         aciton = NormalUpdate;
         OnInit();
         StartCoroutine(TimeUpdate());
@@ -155,11 +156,11 @@ public sealed class UIPhoneTimePage : UIDataBase
     //获得抓中次数
     private int GetCatchSuccessTime()
     {
-        if (catchList==null||catchList.Count == 0)
+        if (catchList == null || catchList.Count == 0)
             return 0;
         if (catchList.Count == 1)
         {
-            if (catchList[0].cnum< 3)
+            if (catchList[0].cnum < 3)
                 return 0;
             else
                 return 1;
@@ -203,7 +204,7 @@ public sealed class UIPhoneTimePage : UIDataBase
         else//游戏结束
         {
             isUpFinish = true;
-            Debug.Log("标记次数：："+ gamePlay.signTimes+ "---本次抓中：："+succNum);
+            Debug.Log("标记次数：：" + gamePlay.signTimes + "---本次抓中：：" + succNum);
             if (gamePlay.signTimes == 2 && succNum == 3)
             {
                 //请求兑换码
@@ -329,9 +330,9 @@ public sealed class UIPhoneTimePage : UIDataBase
         string applyId = sdk.gameStatus.applyRechargeId; ;
         for (int i = 0; i < catchList.Count; i++)
         {
-            applyId += ","+ catchList[i].applyRechargeid;
+            applyId += "," + catchList[i].applyRechargeid;
         }
-        Debug.Log("三个账单号::"+applyId);
+        Debug.Log("三个账单号::" + applyId);
         return applyId;
     }
 

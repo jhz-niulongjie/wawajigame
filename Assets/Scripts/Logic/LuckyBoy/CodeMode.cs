@@ -11,10 +11,10 @@ public sealed class CodeMode : GameMode
         Debug.Log("////////支付模式\\\\\\\\\\");
     }
 
-
     #region 重写方法
     public override void SetMissonValue()
     {
+        sdk.gameStatus.SetRemainRound(sdk.selectRound - 1);
         if (sdk.selectRound == 3)
             gameMisson = new ThreeRoundPlay(sdk);
         else
@@ -29,10 +29,10 @@ public sealed class CodeMode : GameMode
 
     public override void GameStart()
     {
-        if (sdk.mainObj) sdk.mainObj.SetActive(true);
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIBgPage.NAME, false);
         UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, false);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
         UIManager.Instance.ShowUI(UITimePage.NAME, true);
     }
@@ -70,32 +70,37 @@ public sealed class CodeMode : GameMode
         }
         else
         {
-            if (sdk.autoSendGift)//自动送礼品
+            if (sdk.autoSendGift)//自动送礼品  还是之前的逻辑
             {
                 tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
             }
             else
             {
-                //此处逻辑没写完 不送礼品 第一次支付还是之前的语音
-                tVC = gamePlay.GetSpecialVoice(VoiceType.GameEnd_NoGift,0).Content;
+                if (sdk.ChangeType<LuckyBoyMgr>().payCount == 0)//首次进入
+                    tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
+                else
+                    tVC = gamePlay.GetSpecialVoice(VoiceType.GameEnd_NoGift, 0).Content;
             }
             time = Convert.ToInt32(tVC.Time);
         }
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
         Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);
-        int spaceTime = time - 2;
+        int spaceTime = time - 2;//2秒后显示
         bool isEnd = false;
         sdk.RegHeadAction(() => isEnd = true);
         sdk.StartCoroutine(CommTool.TimeFun(time, 0.5f, (ref float t) =>
         {
-            if (spaceTime == t)
+            if (sdk.autoSendGift) //自动送礼品 才会显示第二结束界面
             {
-                if (sdk.gameStatus.status != 1)
+                if (spaceTime == t)
                 {
-                    if (sdk.gameMode.gameMisson._timesPay == 1)
-                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
-                    else if (sdk.gameMode.gameMisson._timesPay == 2)
-                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
+                    if (sdk.gameStatus.status != 1)
+                    {
+                        if (sdk.gameMode.gameMisson._timesPay == 1)
+                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
+                        else if (sdk.gameMode.gameMisson._timesPay == 2)
+                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
+                    }
                 }
             }
             if (isEnd)
@@ -141,8 +146,21 @@ public sealed class CodeMode : GameMode
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
     }
 
-    #endregion
 
+    //进入试玩
+    public override  void EnterTryPlay()
+    {
+        gameMisson = new Phone_ThreeRoundPlay(sdk);
+        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
+        UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, false);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);
+        UIManager.Instance.ShowUI(UIMovePage.NAME, true);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true, true);
+        //注册试玩结束
+        EventDispatcher.AddListener(EventHandlerType.TryPlayOver, TryPlayOver);
+    }
+
+    #endregion
 
 
     #region 私有方法
@@ -166,5 +184,16 @@ public sealed class CodeMode : GameMode
         });
 #endif
     }
+
+    //试玩结束
+    private void TryPlayOver()
+    {
+        SetMissonValue();
+        UIManager.Instance.ShowUI(UIMovePage.NAME, false);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, false);
+        UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, GetPayVoiceContent());
+    }
+
     #endregion
 }

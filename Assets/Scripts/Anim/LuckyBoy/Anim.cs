@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 using System;
+ 
 
 public sealed class Anim : MonoBehaviour
 {
@@ -58,8 +59,11 @@ public sealed class Anim : MonoBehaviour
         SetPoliceImg(false);
         SetBgStart();
         GetTween();
-        gameMisson.InitAction(PoliceMove, StartShoot);
-        gameMisson.StartGame(police_shoot.gameObject, transform);
+        if (gameMisson != null)
+        {
+            gameMisson.InitAction(PoliceMove, StartShoot);
+            gameMisson.StartGame(police_shoot.gameObject, transform);
+        }
         //StartCoroutine(Shoot());
     }
 
@@ -81,6 +85,12 @@ public sealed class Anim : MonoBehaviour
     {
         EventHandler.RegisterEvnet(EventHandlerType.HeadPress, HeadPress);
         EventHandler.RegisterEvnet(EventHandlerType.RestStart, SetBg);
+    }
+
+    private void UnReg()
+    {
+        EventHandler.UnRegisterEvent(EventHandlerType.HeadPress, HeadPress);
+        EventHandler.UnRegisterEvent(EventHandlerType.RestStart, SetBg);
     }
 
     #region 背景1切换
@@ -349,6 +359,12 @@ public sealed class Anim : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        listZidan.Clear();
+        UnReg();
     }
     #endregion
 }

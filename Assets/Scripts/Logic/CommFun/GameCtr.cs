@@ -15,8 +15,6 @@ public class GameCtr : MonoBehaviour
     public HandleSqliteData handleSqlite { get; private set; }
     //头部按下事件
     public Action headDown_Action { get; private set; }
-    //是否获得二维码
-    public bool isGetCode { get; protected set; }
 
     private bool isUnBind = false;
     #endregion
@@ -33,11 +31,13 @@ public class GameCtr : MonoBehaviour
     public GameEntity gameXP { get; set; }
     //当前玩家游戏状态
     public GameStatus gameStatus { get; set; }
-
-   
+    //游戏试玩状态
+    public int gameTryStatus { get; set; }
     #endregion
 
     #region 赋值受保护
+    //是否获得二维码
+    public bool isGetCode { get; protected set; }
     //是否支付成功
     public bool isPaySucess { get; protected set; }
     //抓中不被打掉概率
@@ -66,10 +66,8 @@ public class GameCtr : MonoBehaviour
     public int pass { get; protected set; }
     //是否自动送礼品
     public bool autoSendGift { get; protected set; }//第三次支付是否自动送礼品 1是进行 0不进行
-    #endregion
 
-    [SerializeField]
-    public GameObject mainObj;
+    #endregion
     //状态健值
     public const string statusKey = "GameLocalData";
     //特效层
@@ -82,7 +80,7 @@ public class GameCtr : MonoBehaviour
     #region 测试数据参数
     public float checkProperty { get; set; }
     public const bool test = true;
-   
+
     #endregion
 
     private void Awake()
@@ -96,7 +94,6 @@ public class GameCtr : MonoBehaviour
 
     protected virtual void Init()
     {
-        if(mainObj) mainObj.SetActive(false);
         randomQuXian = 1;
         checkProperty = 0.5f;//0.4f  //检测范围
         probability = 20;//百分之30不打掉
@@ -108,7 +105,7 @@ public class GameCtr : MonoBehaviour
         question = 5;
         pass = 3;
         isGame = true;
-        autoSendGift = true;
+        autoSendGift = false;
         handleSqlite = new HandleSqliteData(this);
         Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
     }
@@ -150,7 +147,7 @@ public class GameCtr : MonoBehaviour
                 if (headDown_Action != null)
                 {
                     headDown_Action();
-                    headDown_Action=null;
+                    headDown_Action = null;
                 }
                 break;
             case CallParameter.Error:
@@ -213,7 +210,7 @@ public class GameCtr : MonoBehaviour
         string[] res = result.Split('|');
         pay = Convert.ToInt32(res[0]);
         gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::"+res[1]);
+        Debug.Log("支付成功--openId::" + res[1]);
     }
 
     //摆动翅膀回答问题
@@ -232,9 +229,11 @@ public class GameCtr : MonoBehaviour
         headDown_Action = action;
     }
     //转换为子类
-    public T ChangeType<T>() where T:GameCtr
+    public T ChangeType<T>() where T : GameCtr
     {
-        return (T)Instance;
+        if (Instance is T)
+            return (T)Instance;
+        return null;
     }
 
 

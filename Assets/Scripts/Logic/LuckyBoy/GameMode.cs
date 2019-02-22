@@ -80,6 +80,10 @@ public class GameMode
     /// <param name="gamePlay"></param>
     public virtual void ShowEndUI(GameMisson gamePlay) { }
 
+    /// <summary>
+    /// 进入游戏试玩
+    /// </summary>
+    public virtual void EnterTryPlay() { }
 
     /// <summary>
     /// 获得支付页面语音

@@ -7,11 +7,12 @@ using UnityEngine;
 public sealed class SendPhoneMode : GameMode
 {
     bool isTryPlay = false;
-    public SendPhoneMode(GameCtr _sdk) : base(_sdk)
+    public SendPhoneMode(GameCtr _sdk) : base(_sdk,GameKind.LuckySendPhone)
     {
         Debug.Log("开始试玩");
         //注册试玩结束
         EventDispatcher.AddListener(EventHandlerType.TryPlayOver, TryPlayOver);
+        //注册抓娃娃动画播放完成
         EventDispatcher.AddListener(EventHandlerType.MoviePlayOver, MoviePlayOver);
     }
 
@@ -22,6 +23,7 @@ public sealed class SendPhoneMode : GameMode
 
     public override void EnterGame()
     {
+        //显示抓娃娃动画
         UIManager.Instance.ShowUI(UIPhoneAnimPage.NAME, true);
     }
 
@@ -44,9 +46,9 @@ public sealed class SendPhoneMode : GameMode
     {
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIPhoneCodePage.NAME, false);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
-        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true,isTryPlay);
-        EventHandler.ExcuteEvent(EventHandlerType.RestStart,null);
+        UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true, isTryPlay);
     }
     public override void NoPay()
     {
@@ -77,13 +79,13 @@ public sealed class SendPhoneMode : GameMode
     }
     public override List<VoiceContent> GetPayVoiceContent()
     {
-        List<VoiceContent> vctlist =this.gameMisson.GetVoiceContentBy((int)SendPhoneStatusType.Code,(int)SendPhoneOperateType.Code);
+        List<VoiceContent> vctlist = this.gameMisson.GetVoiceContentBy((int)SendPhoneStatusType.Code, (int)SendPhoneOperateType.Code);
         return vctlist;
     }
 
     public override void ShowEndUI(GameMisson gamePlay)
     {
-        List<VoiceContent> tVC=null;
+        List<VoiceContent> tVC = null;
         float time_ = 0;
         if (gamePlay._Count == 3)//这次抓中三次
         {
@@ -136,6 +138,7 @@ public sealed class SendPhoneMode : GameMode
     {
         isTryPlay = true;
         sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, true, true);
     }
@@ -144,6 +147,7 @@ public sealed class SendPhoneMode : GameMode
     {
         isTryPlay = false;
         sdk.gameStatus.SetRemainRound(2);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, false);
         UIManager.Instance.ShowUI(UIMovePage.NAME, false);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
         base.EnterGame();
@@ -151,10 +155,8 @@ public sealed class SendPhoneMode : GameMode
     //视频播放完成
     private void MoviePlayOver()
     {
-        if (sdk.mainObj) sdk.mainObj.SetActive(true);
         SetMissonValue();
         EnterTryPlay();
     }
-
     #endregion
 }

@@ -32,6 +32,8 @@ public sealed class UIMovieQRCodePage : UIDataBase
     private Image xiaoP;
     private Text moneyText;
     private Text gameTimes;
+    private GameObject tryTran;
+    private Transform tryText;
     private List<VoiceContent> vc_lists;
     private IEnumerator currentIE = null;
     GameMisson gamePlay;
@@ -44,10 +46,14 @@ public sealed class UIMovieQRCodePage : UIDataBase
         qrCode = CommTool.FindObjForName(gameObject, "QR-code");
         raw = CommTool.GetCompentCustom<RawImage>(qrCode, "RawImage");
         loadings = CommTool.FindObjForName(qrCode, "loading");
-      
+
         xiaoP = CommTool.GetCompentCustom<Image>(qrCode, "xiaopang");
         animator = CommTool.GetCompentCustom<Animator>(qrCode, "xiaopang");
         animator.enabled = false;
+
+        tryTran = CommTool.FindObjForName(gameObject, "tryPlay");
+        tryText = tryTran.transform.Find("try");
+        tryTran.SetActive(false);
         if (sdk.isGame)
         {
             gamePlay = sdk.gameMode.gameMisson;
@@ -75,8 +81,15 @@ public sealed class UIMovieQRCodePage : UIDataBase
         if (vc_lists == null) vc_lists = new List<VoiceContent>();
         qrCode.SetActive(false);
         vplayers.gameObject.SetActive(true);
-        GameCtr.Instance.raw = raw;
-        PlayMovies();
+        sdk.raw = raw;
+        if (sdk.gameTryStatus == 0)//开始显示试玩界面
+        {
+            PlayMovies();
+        }
+        if (sdk.gameTryStatus == 2)//试玩结束
+        {
+            MovieOvers(null);
+        }
     }
     public override void OnHide()
     {
@@ -92,6 +105,16 @@ public sealed class UIMovieQRCodePage : UIDataBase
     void MovieOvers(VideoPlayer p)
     {
         Debug.Log("视频播放完毕");
+        if (sdk.isGame)
+        {
+            if (sdk.gameTryStatus == 0)
+            {
+                tryTran.SetActive(true);
+                tryText.localScale = Vector3.one;
+                tryText.DOScale(Vector3.one * 1.6f, 2f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutBounce);
+                sdk.gameTryStatus = 1;//视频播放完成  可以试玩
+            }
+        }
         moneyText.text = sdk.money + "元";
         vplayers.gameObject.SetActive(false);
         qrCode.SetActive(true);
@@ -130,10 +153,19 @@ public sealed class UIMovieQRCodePage : UIDataBase
         }
         else
         {
-            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
-                  "没有吉娃娃不能开始游戏");
-            DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
+            if (GameCtr.test)
+            {
+                DOVirtual.DelayedCall(1, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
+            }
+            else
+            {
+                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
+                   "没有吉娃娃不能开始游戏");
+                DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
+            }
         }
+
+
     }
 
     IEnumerator PlayVoiceIes()
@@ -148,8 +180,8 @@ public sealed class UIMovieQRCodePage : UIDataBase
             {
                 yield return new WaitForSeconds(timeArray[index] - total_time);//开始播放下一个
                 animator.enabled = true;
-                vc_lists[index].Content =CommTool.TransformPayVoice("#", vc_lists[index].Content, sdk.money.ToString());
-                vc_lists[index].Content =CommTool.TransformPayVoice("*", vc_lists[index].Content, sdk.selectRound.ToString());
+                vc_lists[index].Content = CommTool.TransformPayVoice("#", vc_lists[index].Content, sdk.money.ToString());
+                vc_lists[index].Content = CommTool.TransformPayVoice("*", vc_lists[index].Content, sdk.selectRound.ToString());
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, vc_lists[index].Content);
                 voiceTime = vc_lists[index].Content.Length * 0.265f;
                 yield return new WaitForSeconds(voiceTime);//停止嘴巴动

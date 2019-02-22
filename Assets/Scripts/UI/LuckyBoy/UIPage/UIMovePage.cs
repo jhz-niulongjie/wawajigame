@@ -52,6 +52,7 @@ public sealed class UIMovePage : UIDataBase
         CreateGameObject();
     }
 
+
     private void Reg()
     {
         EventHandler.RegisterEvnet(EventHandlerType.FishHookCheck, FishHookCheck);

@@ -173,7 +173,7 @@ public class GameMisson
     /// </summary>
     /// <param name="police">警察</param>
     /// <param name="catchMove">爪子</param>
-    public virtual void StartGame(GameObject police, Transform catchMove) { }
+    public virtual void StartGame(GameObject police, Transform catchMove) {  }
     /// <summary>
     /// 获得当前局数
     /// </summary>

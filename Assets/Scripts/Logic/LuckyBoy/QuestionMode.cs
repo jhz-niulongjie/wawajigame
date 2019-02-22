@@ -51,9 +51,9 @@ public class QuestionMode : GameMode
 
     public override void GameStart()
     {
-        if(sdk.mainObj) sdk.mainObj.SetActive(true);
         gameMisson.IntiPayTimes(1);//答题模式始终显示 第一次玩
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
+        UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);
         UIManager.Instance.ShowUI(UIMovePage.NAME, true);
         UIManager.Instance.ShowUI(UITimePage.NAME, true);
     }

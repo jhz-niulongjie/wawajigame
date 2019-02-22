@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using vMrg_3 = VoiceMrg<ExcelScriptObj_3, VoiceContentType_3>;
 
-public  class ThreeRoundPlay : GameMisson
+public class ThreeRoundPlay : GameMisson
 {
     List<VoiceContentType_3> list;
     int douDongNum = 0;//抖动次数
@@ -25,12 +25,12 @@ public  class ThreeRoundPlay : GameMisson
         if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
             //受限 执行最高难度  且降低难度逻辑变化   
-             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
-              
-            if (_round<3)//第一局  第二局
+            //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
+
+            if (_round < 3)//第一局  第二局
             {
                 NormalPaly(police, catchMove);
-                if (_round == 2&&isDouDong) douDongNum++;
+                if (_round == 2 && isDouDong) douDongNum++;
             }
             else
             {
@@ -39,7 +39,7 @@ public  class ThreeRoundPlay : GameMisson
                 else
                 {
                     if (isDouDong) douDongNum++;
-                    if (douDongNum ==2)//抖动两次
+                    if (douDongNum == 2)//抖动两次
                         NoPolicePlay(police, catchMove);
                     else
                         NormalPaly(police, catchMove);
@@ -106,8 +106,8 @@ public  class ThreeRoundPlay : GameMisson
             }
             else if (_timesPay == 3)//第三次玩
             {
-              //直接出玩娃娃
-               EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+                //直接出玩娃娃
+                EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
             }
         }
     }
@@ -208,7 +208,7 @@ public  class ThreeRoundPlay : GameMisson
         drop.SetActive(true);
         prompt.SetActive(false);
         drop.transform.localPosition = Vector3.zero;
-        if (!_isWin && _round < 3 && _gameLevel != GameLevel.Yi)
+        if (!_isWin && _round < 3 && _gameLevel != GameLevel.Yi || douDongNum == 1)
         {
             prompt.SetActive(true);
             drop.transform.localPosition = new Vector3(0, 45, 0);
