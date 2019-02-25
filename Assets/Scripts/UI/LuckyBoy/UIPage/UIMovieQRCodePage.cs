@@ -86,7 +86,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         {
             PlayMovies();
         }
-        if (sdk.gameTryStatus == 2)//试玩结束
+        else  //试玩结束
         {
             MovieOvers(null);
         }
@@ -155,7 +155,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         {
             if (GameCtr.test)
             {
-                DOVirtual.DelayedCall(1, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
+                DOVirtual.DelayedCall(5, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
             }
             else
             {

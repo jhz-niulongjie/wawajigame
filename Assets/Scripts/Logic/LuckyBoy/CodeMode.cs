@@ -189,6 +189,8 @@ public sealed class CodeMode : GameMode
     private void TryPlayOver()
     {
         SetMissonValue();
+        sdk.gameTryStatus = 3;
+        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
         UIManager.Instance.ShowUI(UIMovePage.NAME, false);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
         UIManager.Instance.ShowUI(UIFishHookPage.NAME, false);

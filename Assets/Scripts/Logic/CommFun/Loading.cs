@@ -16,7 +16,7 @@ public sealed class Loading : MonoBehaviour {
         LuckySendPhone,
     }
 
-    private bool test = true;
+    private bool test = false;
     private int loadTime = 6;//网络监测时间
 
     private void Awake()

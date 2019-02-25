@@ -26,7 +26,6 @@ public class ThreeRoundPlay : GameMisson
         {
             //受限 执行最高难度  且降低难度逻辑变化   
             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
-
             if (_round < 3)//第一局  第二局
             {
                 NormalPaly(police, catchMove);

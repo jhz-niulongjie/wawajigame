@@ -79,7 +79,7 @@ public class GameCtr : MonoBehaviour
 
     #region 测试数据参数
     public float checkProperty { get; set; }
-    public const bool test = true;
+    public const bool test = false;
 
     #endregion
 
@@ -117,7 +117,7 @@ public class GameCtr : MonoBehaviour
         {
             string[] contents = _mode.Split('|');
             Debug.Log("---游戏设置选项------" + _mode);
-            if (contents.Length < 6)
+            if (contents.Length < 7)
             {
                 Debug.LogError("请求模式数量不符");
                 return;
@@ -127,7 +127,8 @@ public class GameCtr : MonoBehaviour
             question = Convert.ToInt32(contents[2]);//几道题
             pass = Convert.ToInt32(contents[3]);//通过数量
             isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
-            autoSendGift = Convert.ToInt32(contents[5]) == 1 ? true : false; //第三次支付是否自动送礼品 1是进行 0不进行
+            // 第五个是 选择的什么游戏 此处不需要
+            autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
         }
         else
             Q_AppQuit();

@@ -50,7 +50,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         if (androidQRCodeAction != null)
         {
             androidQRCodeAction(result);
-            androidQRCodeAction = null;
+           // androidQRCodeAction = null;
         }
     }
     //获得概率值

@@ -49,16 +49,44 @@ public sealed class LuckyBoyMgr : GameCtr
 
     }
 
+    //二维码获得成功
+    protected override void QRCodeCall(string result)
+    {
+        if (isGetCode) return;
+        isGetCode = true;
+        string[] msgs = result.Split('|');
+        QRCode.ShowCode(raw, msgs[0]);
+        gameStatus.SetOrderNoRobotId(msgs[1], msgs[2]);
+        gameStatus.SetRunStatus(GameRunStatus.NoPay);
+        EventHandler.ExcuteEvent(EventHandlerType.QRCodeSuccess, null);
+        StartCoroutine(CommTool.TimeFun(2, 2, (ref float t) =>
+        {
+            if (gameTryStatus == 2)//处于试玩状态
+            {
+                return true;//结束查询是否支付
+            }
+            if (!isPaySucess)
+            {
+                //检测是否支付
+                Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, msgs[1], false);
+            }
+            if (t == 0) t = 2;
+            return isPaySucess;
+        }));
+    }
+
+
     //支付成功
     protected override void PaySuccess(string result)
     {
+        if (gameTryStatus == 2) return;//此时在试玩
         isPaySucess = true;
         isAddConstraint = false;
         string[] res = result.Split('|');
         pay = Convert.ToInt32(res[0]);
         pay++;
         gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::" + res[1] + "玩家第几次支付:" + pay);
+        Debug.Log("支付成功--openId::" + res[1] + "-玩家第几次支付:" + pay);
         JsonData j_data = JsonMapper.ToObject(res[2]);
         List<CatchSuccessData> paylist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
         payCount = paylist.Count;
@@ -76,16 +104,22 @@ public sealed class LuckyBoyMgr : GameCtr
                 Debug.Log("已抓中礼品次数--" + winNum);
                 if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次 受限
             }
-            //上一次支付是否抓中 等于0 上次支付没抓中 进入中等难度
-            if (paylist[payCount - 1].cnum == 0) autoPayTime = 2;
+            // 最后一次是第一个  上一次支付是否抓中 等于0 上次支付没抓中 进入中等难度
+            if (paylist[0].cnum == 0) autoPayTime = 2;
         }
         if (gameMode.gameMisson != null)
         {
-            if (autoSendGift)
-                gameMode.gameMisson.IntiPayTimes(pay);
+            if (isAddConstraint)
+                gameMode.gameMisson.IntiPayTimes(1);//最高难度
             else
-                gameMode.gameMisson.IntiPayTimes(autoPayTime);
+            {
+                if (autoSendGift)
+                    gameMode.gameMisson.IntiPayTimes(pay);
+                else
+                    gameMode.gameMisson.IntiPayTimes(autoPayTime);
+            }
         }
+        gameTryStatus = 100;
         gameMode.GameStart();
     }
 
@@ -93,11 +127,12 @@ public sealed class LuckyBoyMgr : GameCtr
     {
         if (gameTryStatus == 1) //可以试玩
         {
+            isGetCode = false;
             gameTryStatus = 2;
             gameStatus.SetRemainRound(3);
             gameMode.EnterTryPlay();
         }
-        else
+        if (test)
         {
             string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
                 "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
