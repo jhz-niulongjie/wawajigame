@@ -105,7 +105,7 @@ public class GameCtr : MonoBehaviour
         question = 5;
         pass = 3;
         isGame = true;
-        autoSendGift = false;
+        autoSendGift = true;
         handleSqlite = new HandleSqliteData(this);
         Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
     }

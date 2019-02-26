@@ -179,8 +179,8 @@ public sealed class CodeMode : GameMode
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, EC.Content.Content);
                 EC = null;
             }
-            Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 5000);
-            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 5000);
+            Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 4000);
+            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 4000);
         });
 #endif
     }
