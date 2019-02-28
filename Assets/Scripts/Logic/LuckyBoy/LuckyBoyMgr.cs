@@ -134,11 +134,16 @@ public sealed class LuckyBoyMgr : GameCtr
         }
         if (test)
         {
+            //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+            //    "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+            //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+            //    "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+            //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+
             string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
                 "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+
+
             string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
             PaySuccess(res);
         }

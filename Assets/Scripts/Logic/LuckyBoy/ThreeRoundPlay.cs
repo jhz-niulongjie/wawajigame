@@ -29,7 +29,7 @@ public class ThreeRoundPlay : GameMisson
             if (_round < 3)//第一局  第二局
             {
                 NormalPaly(police, catchMove);
-                if (_round == 2 && isDouDong) douDongNum++;
+                if (_round == 2 && !_isWin && isDouDong) douDongNum++;
             }
             else
             {
@@ -37,7 +37,7 @@ public class ThreeRoundPlay : GameMisson
                     NormalPaly(police, catchMove);
                 else
                 {
-                    if (isDouDong) douDongNum++;
+                    if (!_isWin && isDouDong) douDongNum++;
                     if (douDongNum == 2)//抖动两次
                         NoPolicePlay(police, catchMove);
                     else
@@ -113,39 +113,50 @@ public class ThreeRoundPlay : GameMisson
 
     public override void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out float delytime, out string[] contents)
     {
-        if (cat == CatchTy.NoCatch)//抖动
+
+        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
-            Debug.Log("...抖动啦。。");
             if (_isWin)
             {
-                contents = voiceContent.NoDouDong.Content.Split('|');
-                delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                if (cat == CatchTy.Drop)
+                {
+                    contents = voiceContent.ShootDropWin.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.ShootDropWin.Time);
+                }
+                else
+                {
+                    contents = voiceContent.NoDouDong.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                }
             }
             else
             {
-                contents = voiceContent.DouDong.Content.Split('|');
-                delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                //抖动了两次  且是第二局 下局难度降低
+                if (_round == 2 && douDongNum == 1)
+                {
+                    if (cat == CatchTy.Drop)
+                    {
+                        contents = voiceContent.ShootDrop.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.ShootDrop.Time);
+                    }
+                    else
+                    {
+                        contents = voiceContent.DouDong.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                    }
+                }
+                else
+                {
+                    contents = voiceContent.NoDouDong.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                }
             }
         }
-        else if (cat == CatchTy.Drop)
+        else
         {
-            Debug.Log("...打掉啦。。");
-            if (_isWin)//打落决对是已抓中过
+            if (cat == CatchTy.NoCatch)//抖动
             {
-                contents = voiceContent.ShootDropWin.Content.Split('|');
-                delytime = Convert.ToInt32(voiceContent.ShootDropWin.Time);
-            }
-            else
-            {
-                contents = voiceContent.ShootDrop.Content.Split('|');
-                delytime = Convert.ToInt32(voiceContent.ShootDrop.Time);
-            }
-        }
-        else //太偏
-        {
-            Debug.Log("...太偏啦。。");
-            if (_round == 3)
-            {
+                Debug.Log("...抖动啦。。");
                 if (_isWin)
                 {
                     contents = voiceContent.NoDouDong.Content.Split('|');
@@ -153,18 +164,74 @@ public class ThreeRoundPlay : GameMisson
                 }
                 else
                 {
-                    contents = voiceContent.DouDong.Content.Split('|');
-                    delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                    //不送礼品  大于等于第二次支付 不说送礼品的话 
+                    if (!sdk.autoSendGift && _timesPay >= 2 && _round == 3)
+                    {
+                        contents = voiceContent.NoDouDong.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                    }
+                    else
+                    {
+                        contents = voiceContent.DouDong.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                    }
                 }
             }
-            else
+            else if (cat == CatchTy.Drop)
             {
-                contents = voiceContent.NoDouDong.Content.Split('|');
-                delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                Debug.Log("...打掉啦。。");
+                if (_isWin)//打落决对是已抓中过
+                {
+                    contents = voiceContent.ShootDropWin.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.ShootDropWin.Time);
+                }
+                else
+                {
+                    //不送礼品  大于等于第二次支付 不说送礼品的话 
+                    if (!sdk.autoSendGift && _timesPay >= 2 && _round == 3)
+                    {
+                        contents = voiceContent.ShootDropWin.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.ShootDropWin.Time);
+                    }
+                    else
+                    {
+                        contents = voiceContent.ShootDrop.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.ShootDrop.Time);
+                    }
+                }
+            }
+            else //太偏
+            {
+                Debug.Log("...太偏啦。。");
+                if (_round == 3)
+                {
+                    if (_isWin)
+                    {
+                        contents = voiceContent.NoDouDong.Content.Split('|');
+                        delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                    }
+                    else
+                    {
+                        if (!sdk.autoSendGift && _timesPay >= 2)
+                        {
+                            contents = voiceContent.NoDouDong.Content.Split('|');
+                            delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                        }
+                        else
+                        {
+                            contents = voiceContent.DouDong.Content.Split('|');
+                            delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                        }
+                    }
+                }
+                else
+                {
+                    contents = voiceContent.NoDouDong.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
+                }
             }
         }
     }
-
 
     public override void UpdateRoundVoice()
     {

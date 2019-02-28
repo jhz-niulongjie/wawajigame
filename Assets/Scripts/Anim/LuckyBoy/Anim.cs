@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 using System;
- 
+
 
 public sealed class Anim : MonoBehaviour
 {
@@ -36,7 +36,6 @@ public sealed class Anim : MonoBehaviour
     [SerializeField]
     private GameObject sayObj;
     private bool isStartShoot = false;
-    private int shootNum = 0;
     private int num = 0;
     private float space_time = 0.1f;
     private Vector3 vel;
@@ -50,6 +49,8 @@ public sealed class Anim : MonoBehaviour
     private Tweener policeTween2;
     private Dictionary<BullteType, List<BulletBomEffect>> listZidan = new Dictionary<BullteType, List<BulletBomEffect>>();
 
+
+    private bool dropEnter;//小胖掉落
     private GameMisson gameMisson = null;
     private void Start()
     {
@@ -180,7 +181,7 @@ public sealed class Anim : MonoBehaviour
     private void PoliceMove()
     {
         police_shoot.localRotation = Quaternion.identity;
-       // sayText.transform.localRotation = Quaternion.identity;
+        // sayText.transform.localRotation = Quaternion.identity;
         sayObj.transform.localRotation = Quaternion.identity;
         PoliceSay();
         SetPoliceImg(false);
@@ -189,7 +190,7 @@ public sealed class Anim : MonoBehaviour
         {
             police_shoot.localRotation = Quaternion.identity;
             police_shoot.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
-           // sayText.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
+            // sayText.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
             sayObj.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
             policeTween2.Restart();
             policeTween2.Play().OnComplete(PoliceMove);
@@ -227,7 +228,7 @@ public sealed class Anim : MonoBehaviour
         isStartShoot = true;
         //PoliceSay();
         sayObj.transform.parent.gameObject.SetActive(false);
-        space_time = isCatch ? 0.33f : 0.1f;
+        space_time =0.1f;
     }
     //停止射击
     private void StopShoot()
@@ -327,7 +328,7 @@ public sealed class Anim : MonoBehaviour
     //上升完成重置数据
     private void ResetValue()
     {
-        shootNum = 0;
+        dropEnter = false;
         transform.position = vel;
         LuckyBoyMgr.Instance.gameXP = null;
         policeTween1.Pause();
@@ -346,20 +347,27 @@ public sealed class Anim : MonoBehaviour
             BulletBomEffect boe = GetBullteBom(BullteType.BomEff);
             boe.StartPlay();
             transform.DOMoveX(transform.position.x + 0.3f, 0.2f).SetLoops(2, LoopType.Yoyo);
-            if (upTween.IsPlaying()) shootNum++;
-            if (LuckyBoyMgr.Instance.gameXP != null && shootNum >= 3)
+            if (LuckyBoyMgr.Instance.gameXP != null && !dropEnter)
             {
-                shootNum = -100;
+                dropEnter = true;
                 if (LuckyBoyMgr.Instance.gameXP.catchty == CatchTy.Drop)//掉落
                 {
-                    StopShoot();
-                    //PoliceSay(true);
-                    LuckyBoyMgr.Instance.gameXP.DropIe();
-                    EventHandler.ExcuteEvent(EventHandlerType.XiaoPang_incline, true);
+                    DOVirtual.DelayedCall(0.75f, DropXiaoPang);
                 }
             }
         }
     }
+
+    //小胖落下
+    private void DropXiaoPang()
+    {
+        StopShoot();
+        //PoliceSay(true);
+        LuckyBoyMgr.Instance.gameXP.DropIe();
+        EventHandler.ExcuteEvent(EventHandlerType.XiaoPang_incline, true);
+        dropEnter = false;
+    }
+
 
     private void OnDestroy()
     {

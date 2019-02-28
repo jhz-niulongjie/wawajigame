@@ -199,9 +199,10 @@ public sealed class UITimePage : UIDataBase
             Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);//摆动翅膀闪光带
             tVC = gamePlay.GetVoiceContent(indexVoice).Winning;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
-            EffectMrg.ShowEffect(); //播放特效
+            EffectMrg.ShowEffectNormal(); //播放特效
             float winTime = Convert.ToInt32(tVC.Time) + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
+            EffectMrg.HideEffectNoraml();
             UIManager.Instance.ShowUI(UIPromptPage.NAME, false);
             #region  等待取礼物
             //int winafter = Convert.ToInt32(gamePlay.GetVoiceContent(indexVoice).Winafter.Time) + 2;//时间间隔两秒

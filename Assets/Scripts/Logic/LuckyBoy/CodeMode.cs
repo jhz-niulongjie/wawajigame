@@ -63,7 +63,7 @@ public sealed class CodeMode : GameMode
     {
         int time = 0;
         VoiceContent tVC = null;
-        if (sdk.gameStatus.status == 1)//抓中过 
+        if (sdk.gameStatus.status == 1 || GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)//抓中过  条件受限
         {
             tVC = gamePlay.GetVoiceContent(gamePlay._Count - 2).Content;
             time = Convert.ToInt32(tVC.Time);
@@ -148,7 +148,7 @@ public sealed class CodeMode : GameMode
 
 
     //进入试玩
-    public override  void EnterTryPlay()
+    public override void EnterTryPlay()
     {
         gameMisson = new Phone_ThreeRoundPlay(sdk);
         sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
