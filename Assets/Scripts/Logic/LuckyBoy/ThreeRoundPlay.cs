@@ -22,9 +22,17 @@ public class ThreeRoundPlay : GameMisson
         string msg = string.Format("第-{0}-次抓，第-{1}-局，上局是否抓中-{2},是否抖动-{3}", _timesPay, _round, _isWin, isDouDong);
         Debug.Log(msg);
         KillTween();
-        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
+
+        if (sdk.autoSendGift && _timesPay == 3)
         {
-            //受限 执行最高难度  且降低难度逻辑变化   
+            //直接出玩娃娃
+            EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
+            return;
+        }
+
+        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)  //受限 且前两次支付是最高难度
+        {
+            //受限 执行最高难度   且降低难度逻辑变化   
             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
             if (_round < 3)//第一局  第二局
             {
@@ -103,11 +111,6 @@ public class ThreeRoundPlay : GameMisson
                 }
                 UIManager.Instance.ShowUI(UIMessagePage.NAME, true, playAction);
             }
-            else if (_timesPay == 3)//第三次玩
-            {
-                //直接出玩娃娃
-                EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
-            }
         }
     }
 
@@ -132,7 +135,7 @@ public class ThreeRoundPlay : GameMisson
             else
             {
                 //抖动了两次  且是第二局 下局难度降低
-                if (_round == 2 && douDongNum == 1)
+                if (sdk.gameStatus.isDouDong && douDongNum == 1)
                 {
                     if (cat == CatchTy.Drop)
                     {
@@ -274,7 +277,15 @@ public class ThreeRoundPlay : GameMisson
         drop.SetActive(true);
         prompt.SetActive(false);
         drop.transform.localPosition = Vector3.zero;
-        if (!_isWin && _round < 3 && _gameLevel != GameLevel.Yi || douDongNum == 1)
+        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
+        {
+            if (douDongNum == 1)
+            {
+                prompt.SetActive(true);
+                drop.transform.localPosition = new Vector3(0, 45, 0);
+            }
+        }
+        else if (!_isWin && _round < 3 && _gameLevel != GameLevel.Yi)
         {
             prompt.SetActive(true);
             drop.transform.localPosition = new Vector3(0, 45, 0);

@@ -76,7 +76,7 @@ public sealed class Loading : MonoBehaviour {
     private void AppQuit()
     {
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "小胖检测到网络不好，请联网后重试");//隐藏splash图片
-        DOVirtual.DelayedCall(3,()=> 
+        DOVirtual.DelayedCall(5,()=> 
         {
             Debug.Log("游戏退出");
             Resources.UnloadUnusedAssets();

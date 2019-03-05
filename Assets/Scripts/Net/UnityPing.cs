@@ -32,6 +32,7 @@ public class UnityPing : MonoBehaviour
     {
         switch (Application.internetReachability)
         {
+            case NetworkReachability.NotReachable: // 网络不可用
             case NetworkReachability.ReachableViaCarrierDataNetwork: // 3G/4G
             case NetworkReachability.ReachableViaLocalAreaNetwork: // WIFI
                 {
@@ -39,7 +40,7 @@ public class UnityPing : MonoBehaviour
                     StartCoroutine(this.PingConnect());
                 }
                 break;
-            case NetworkReachability.NotReachable: // 网络不可用
+            //case NetworkReachability.NotReachable: // 网络不可用
             default:
                 {
                     if (s_fail != null)

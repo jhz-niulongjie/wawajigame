@@ -60,7 +60,6 @@ public sealed class UIMovePage : UIDataBase
         EventHandler.RegisterEvnet(EventHandlerType.RestStart, RestStart);
         EventHandler.RegisterEvnet(EventHandlerType.GameEndStart, GameEndStart);
         EventHandler.RegisterEvnet(EventHandlerType.XiaoPang_incline, XiaoPang_incline);
-
     }
     private void UnReg()
     {

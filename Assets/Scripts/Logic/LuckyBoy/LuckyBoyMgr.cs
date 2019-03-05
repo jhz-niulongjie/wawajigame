@@ -23,6 +23,8 @@ public sealed class LuckyBoyMgr : GameCtr
             gameMode = new CodeMode(this);
             gameMode.EnterGame();
             EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
+
+            DOVirtual.DelayedCall(2, () => Question_Wing(""));
         }
         else
         {
@@ -92,34 +94,30 @@ public sealed class LuckyBoyMgr : GameCtr
         payCount = paylist.Count;
         Debug.Log("玩家已支付次数.Count---" + payCount);
         int autoPayTime = 1;//自定义支付次数  默认第一次支付
-        if (payCount > 0)
+        if (payCount > 0 && payCount <= 5)//支付前5次内 中奖次数大于等于3次 受限
         {
-            if (payCount >= 5)//支付大于5次
+            int winNum = 0;
+            for (int i = 0; i < paylist.Count; i++)
             {
-                int winNum = 0;
-                for (int i = 0; i < paylist.Count; i++)
-                {
-                    if (paylist[i].cnum > 0) winNum++;
-                }
-                Debug.Log("已抓中礼品次数--" + winNum);
-                if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次 受限
+                if (paylist[i].cnum > 0) winNum++;
             }
-            // 最后一次是第一个  上一次支付是否抓中 等于0 上次支付没抓中 进入中等难度
-            if (paylist[0].cnum == 0) autoPayTime = 2;
+            Debug.Log("已抓中礼品次数--" + winNum);
+            if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次 受限
         }
+        else //大于5次后 就不管啦 还走之前的逻辑
+            isAddConstraint = false;
+
+        if (payCount > 0)
+            if (paylist[0].cnum == 0) autoPayTime = 2;
+
         if (gameMode.gameMisson != null)
         {
-            if (isAddConstraint)
-                gameMode.gameMisson.IntiPayTimes(1);//最高难度
+            if (autoSendGift)
+                gameMode.gameMisson.IntiPayTimes(pay);
             else
-            {
-                if (autoSendGift)
-                    gameMode.gameMisson.IntiPayTimes(pay);
-                else
-                    gameMode.gameMisson.IntiPayTimes(autoPayTime);
-            }
+                gameMode.gameMisson.IntiPayTimes(autoPayTime);
         }
-        gameTryStatus = 100;
+        gameTryStatus = 100;//进入游戏
         gameMode.GameStart();
     }
 
@@ -128,20 +126,23 @@ public sealed class LuckyBoyMgr : GameCtr
         if (gameTryStatus == 1) //可以试玩
         {
             isGetCode = false;
-            gameTryStatus = 2;
             gameStatus.SetRemainRound(3);
             gameMode.EnterTryPlay();
         }
+        else if (gameTryStatus == -100)//答题模式
+        {
+            base.Question_Wing(result);
+        }
         if (test)
         {
-            //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-            //    "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-            //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-            //    "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-            //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
-
             string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+
+            //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+            //    "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
 
 
             string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;

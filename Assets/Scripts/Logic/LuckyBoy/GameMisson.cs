@@ -151,8 +151,10 @@ public class GameMisson
     {
         if (_gameLevel == GameLevel.Nan)
         {
+            int dropNum = UnityEngine.Random.Range(1, 100);
+            Debug.Log("是否掉落---"+dropNum);
             //是否掉
-            if (isReach || sdk.gameStatus.status == 1 || !RandomProbli.GetSupriseGiftPro())//已抓中过 必掉
+            if (isReach || sdk.gameStatus.status == 1 || dropNum>=sdk.probability)//已抓中过 必掉
             {
                 catchty = CatchTy.Drop;
             }

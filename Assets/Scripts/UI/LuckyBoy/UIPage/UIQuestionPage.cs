@@ -618,12 +618,12 @@ public sealed class UIQuestionPage : UIDataBase
 
     private void OnDestroy()
     {
+        EventDispatcher.RemoveListener<string>(EventHandlerType.Question_Wing, Question_Wing);//取消注册
         startGameOrQuit = null;
         showRightErrorUI = null;
         q_library_list.Clear();
         q_library_list = null;
         q_voice_kvp.Clear();
         q_voice_kvp = null;
-        EventDispatcher.RemoveListener<string>(EventHandlerType.Question_Wing, Question_Wing);//取消注册
     }
 }

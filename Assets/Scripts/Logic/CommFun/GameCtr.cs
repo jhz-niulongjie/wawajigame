@@ -95,7 +95,7 @@ public class GameCtr : MonoBehaviour
     protected virtual void Init()
     {
         randomQuXian = 1;
-        checkProperty = 5f;//0.5f  //检测范围
+        checkProperty =0.42f;//0.4f  //检测范围
         probability = 20;//百分之30不打掉
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、

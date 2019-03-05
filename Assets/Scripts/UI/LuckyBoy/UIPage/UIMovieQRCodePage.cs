@@ -155,7 +155,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         {
             if (GameCtr.test)
             {
-                DOVirtual.DelayedCall(5, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
+               // DOVirtual.DelayedCall(5, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
             }
             else
             {
@@ -191,7 +191,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
                 index++;
             }
         }
-        yield return new WaitForSeconds(3);//避免临界点 退出   加了3秒
+        yield return new WaitForSeconds(10);//避免临界点 退出   加10秒
         sdk.AppQuit();
     }
 

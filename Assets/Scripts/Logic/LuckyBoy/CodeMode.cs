@@ -76,7 +76,7 @@ public sealed class CodeMode : GameMode
             }
             else
             {
-                if (sdk.ChangeType<LuckyBoyMgr>().payCount == 0)//首次进入
+                if (sdk.gameMode.gameMisson._timesPay == 1)//首次进入
                     tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
                 else
                     tVC = gamePlay.GetSpecialVoice(VoiceType.GameEnd_NoGift, 0).Content;
@@ -90,16 +90,16 @@ public sealed class CodeMode : GameMode
         sdk.RegHeadAction(() => isEnd = true);
         sdk.StartCoroutine(CommTool.TimeFun(time, 0.5f, (ref float t) =>
         {
-            if (sdk.autoSendGift) //自动送礼品 才会显示第二结束界面
+            if (!GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint && sdk.gameStatus.status != 1)//没受限 并且没抓中过
             {
                 if (spaceTime == t)
                 {
-                    if (sdk.gameStatus.status != 1)
+                    if (sdk.gameMode.gameMisson._timesPay == 1)
+                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
+                    else if (sdk.gameMode.gameMisson._timesPay == 2)
                     {
-                        if (sdk.gameMode.gameMisson._timesPay == 1)
-                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
-                        else if (sdk.gameMode.gameMisson._timesPay == 2)
-                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
+                        if (sdk.autoSendGift)
+                           UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
                     }
                 }
             }
@@ -150,6 +150,7 @@ public sealed class CodeMode : GameMode
     //进入试玩
     public override void EnterTryPlay()
     {
+        sdk.gameTryStatus = 2;//进入试玩
         gameMisson = new Phone_ThreeRoundPlay(sdk);
         sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
         UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, false);
@@ -189,7 +190,7 @@ public sealed class CodeMode : GameMode
     private void TryPlayOver()
     {
         SetMissonValue();
-        sdk.gameTryStatus = 3;
+        sdk.gameTryStatus = 3;//试玩结束
         sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
         UIManager.Instance.ShowUI(UIMovePage.NAME, false);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
