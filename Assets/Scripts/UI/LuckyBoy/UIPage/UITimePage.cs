@@ -99,8 +99,8 @@ public sealed class UITimePage : UIDataBase
         //播放语音
         if (indexTime < gamePlay._Count && number.ToString() == ECT.Time)
         {
-              //不送礼品 支付次数大于2次 第一局 改变语音
-            if (!sdk.autoSendGift&& number == 0 && sdk.ChangeType<LuckyBoyMgr>().payCount > 1 && 
+              //受限 第一局 改变语音
+            if (number == 0 && sdk.ChangeType<LuckyBoyMgr>().isAddConstraint && 
                 (remainRound == 4&&sdk.selectRound==5|| remainRound == 2 && sdk.selectRound == 3))
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "这次要看准时机哦，一定能抓到的，加油吧");
             else

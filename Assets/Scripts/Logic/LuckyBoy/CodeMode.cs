@@ -63,7 +63,7 @@ public sealed class CodeMode : GameMode
     {
         int time = 0;
         VoiceContent tVC = null;
-        if (sdk.gameStatus.status == 1 || GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)//抓中过  条件受限
+        if (sdk.gameStatus.status == 1 || sdk.ChangeType<LuckyBoyMgr>().isAddConstraint && sdk.selectRound == 3)//抓中过  条件受限
         {
             tVC = gamePlay.GetVoiceContent(gamePlay._Count - 2).Content;
             time = Convert.ToInt32(tVC.Time);
@@ -90,19 +90,23 @@ public sealed class CodeMode : GameMode
         sdk.RegHeadAction(() => isEnd = true);
         sdk.StartCoroutine(CommTool.TimeFun(time, 0.5f, (ref float t) =>
         {
-            if (!GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint && sdk.gameStatus.status != 1)//没受限 并且没抓中过
+            if (sdk.gameStatus.status != 1)
             {
                 if (spaceTime == t)
                 {
                     if (sdk.gameMode.gameMisson._timesPay == 1)
-                        UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
+                    {
+                        if (sdk.selectRound == 3 && !sdk.ChangeType<LuckyBoyMgr>().isAddConstraint || sdk.selectRound == 5)  //五局制不受影响
+                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGame);
+                    }
                     else if (sdk.gameMode.gameMisson._timesPay == 2)
                     {
                         if (sdk.autoSendGift)
-                           UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
+                            UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.GameEndGift);
                     }
                 }
             }
+
             if (isEnd)
             {
                 sdk.AppQuit();
@@ -195,7 +199,7 @@ public sealed class CodeMode : GameMode
         UIManager.Instance.ShowUI(UIMovePage.NAME, false);
         UIManager.Instance.ShowUI(UIPhoneTimePage.NAME, false);
         UIManager.Instance.ShowUI(UIFishHookPage.NAME, false);
-        UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, GetPayVoiceContent());
+        sdk.ChangeType<LuckyBoyMgr>().TryOverEnterGame(GetPayVoiceContent());
     }
 
     #endregion

@@ -56,7 +56,7 @@ public sealed class LuckyTurnMgr : GameCtr
     {
         base.PaySuccess(result);
         handleSqlite.DelOverTimeUserFromDataBase();//删除超过时间的礼品碎片
-        if (!isGame)//不玩游戏不要优惠券数据
+        if (isGame)//不玩游戏不要优惠券数据
         {
             GetOnSaleValue();
         }

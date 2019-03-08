@@ -68,6 +68,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     {
         if (androidPaySuccessAction != null)
         {
+            Debug.Log("--支付成功啦- androidPaySuccessAction--");
             androidPaySuccessAction(result);
             androidPaySuccessAction = null;
         }

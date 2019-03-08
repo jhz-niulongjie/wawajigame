@@ -33,7 +33,6 @@ public sealed class UIMovieQRCodePage : UIDataBase
     private Text moneyText;
     private Text gameTimes;
     private GameObject tryTran;
-    private Transform tryText;
     private List<VoiceContent> vc_lists;
     private IEnumerator currentIE = null;
     GameMisson gamePlay;
@@ -52,7 +51,6 @@ public sealed class UIMovieQRCodePage : UIDataBase
         animator.enabled = false;
 
         tryTran = CommTool.FindObjForName(gameObject, "tryPlay");
-        tryText = tryTran.transform.Find("try");
         tryTran.SetActive(false);
         if (sdk.isGame)
         {
@@ -110,8 +108,6 @@ public sealed class UIMovieQRCodePage : UIDataBase
             if (sdk.gameTryStatus == 0)
             {
                 tryTran.SetActive(true);
-                tryText.localScale = Vector3.one;
-                tryText.DOScale(Vector3.one * 1.6f, 2f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutBounce);
                 sdk.gameTryStatus = 1;//视频播放完成  可以试玩
             }
         }
@@ -155,7 +151,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         {
             if (GameCtr.test)
             {
-               // DOVirtual.DelayedCall(5, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
+                DOVirtual.DelayedCall(2, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
             }
             else
             {

@@ -13,6 +13,10 @@ public sealed class LuckyBoyMgr : GameCtr
     public bool isAddConstraint { get; private set; }
     //已支付的次数
     public int payCount { get; private set; }
+    //自定义支付次数
+    public int autoPayTime { get; private set; }
+    //支付结果
+    public string payResult;
     protected override void EnterGame()
     {
         Debug.Log("进入幸运礼品机");
@@ -23,8 +27,6 @@ public sealed class LuckyBoyMgr : GameCtr
             gameMode = new CodeMode(this);
             gameMode.EnterGame();
             EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
-
-            DOVirtual.DelayedCall(2, () => Question_Wing(""));
         }
         else
         {
@@ -63,10 +65,6 @@ public sealed class LuckyBoyMgr : GameCtr
         EventHandler.ExcuteEvent(EventHandlerType.QRCodeSuccess, null);
         StartCoroutine(CommTool.TimeFun(2, 2, (ref float t) =>
         {
-            if (gameTryStatus == 2)//处于试玩状态
-            {
-                return true;//结束查询是否支付
-            }
             if (!isPaySucess)
             {
                 //检测是否支付
@@ -81,7 +79,13 @@ public sealed class LuckyBoyMgr : GameCtr
     //支付成功
     protected override void PaySuccess(string result)
     {
-        if (gameTryStatus == 2) return;//此时在试玩
+        if (gameTryStatus == 2)
+        {
+            Debug.Log("****试玩中支付成功****");
+            payResult = result;
+            isPaySucess = true;
+            return;//此时在试玩
+        }
         isPaySucess = true;
         isAddConstraint = false;
         string[] res = result.Split('|');
@@ -91,24 +95,23 @@ public sealed class LuckyBoyMgr : GameCtr
         Debug.Log("支付成功--openId::" + res[1] + "-玩家第几次支付:" + pay);
         JsonData j_data = JsonMapper.ToObject(res[2]);
         List<CatchSuccessData> paylist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
+        paylist.Reverse();
         payCount = paylist.Count;
         Debug.Log("玩家已支付次数.Count---" + payCount);
-        int autoPayTime = 1;//自定义支付次数  默认第一次支付
-        if (payCount > 0 && payCount <= 5)//支付前5次内 中奖次数大于等于3次 受限
-        {
-            int winNum = 0;
-            for (int i = 0; i < paylist.Count; i++)
-            {
-                if (paylist[i].cnum > 0) winNum++;
-            }
-            Debug.Log("已抓中礼品次数--" + winNum);
-            if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次 受限
-        }
-        else //大于5次后 就不管啦 还走之前的逻辑
-            isAddConstraint = false;
-
+        autoPayTime = 1;//自定义支付次数  默认第一次支付
         if (payCount > 0)
-            if (paylist[0].cnum == 0) autoPayTime = 2;
+        {
+            if (payCount >= 5)//从第6次支付开始 计算是否受限
+            {
+                int winNum = 0;
+                for (int i = 0; i < 5; i++) //只计算前五次
+                {
+                    if (paylist[i].cnum > 0) winNum++;
+                }
+                if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次  从第6次支付开始受限
+            }
+            if (paylist[payCount - 1].cnum == 0) autoPayTime = 2;//上次支付没有抓中
+        }
 
         if (gameMode.gameMisson != null)
         {
@@ -135,18 +138,23 @@ public sealed class LuckyBoyMgr : GameCtr
         }
         if (test)
         {
-            string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+            DOVirtual.DelayedCall(3, () =>
+            {
+                string aaa = "[{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                     "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
 
-            //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-            //    "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+
+                //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                //    "{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
 
 
-            string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
-            PaySuccess(res);
+                string res = "1|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
+                PaySuccess(res);
+            });
         }
     }
 
@@ -156,4 +164,12 @@ public sealed class LuckyBoyMgr : GameCtr
         Question_Wing(null);
     }
 
+    //试玩结束是否进入游戏
+    public void TryOverEnterGame(List<VoiceContent> listVC)
+    {
+        if (isPaySucess && !string.IsNullOrEmpty(payResult))
+            PaySuccess(payResult);
+        else
+            UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, listVC);
+    }
 }

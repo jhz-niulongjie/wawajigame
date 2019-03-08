@@ -8,6 +8,7 @@ public class ThreeRoundPlay : GameMisson
 {
     List<VoiceContentType_3> list;
     int douDongNum = 0;//抖动次数
+
     public ThreeRoundPlay(GameCtr sdk) : base(sdk)
     {
         Debug.Log("/////三局模式\\\\\\");
@@ -29,8 +30,8 @@ public class ThreeRoundPlay : GameMisson
             EventHandler.ExcuteEvent(EventHandlerType.Success, CatchTy.Catch);
             return;
         }
-
-        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)  //受限 且前两次支付是最高难度
+        //受限 且前两次支付是最高难度   从第六次支付开始最高难度
+        if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)  
         {
             //受限 执行最高难度   且降低难度逻辑变化   
             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
@@ -116,8 +117,7 @@ public class ThreeRoundPlay : GameMisson
 
     public override void NoZhuaZhong(CatchTy cat, ExtendContent voiceContent, out float delytime, out string[] contents)
     {
-
-        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
+        if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
             if (_isWin)
             {
@@ -277,7 +277,7 @@ public class ThreeRoundPlay : GameMisson
         drop.SetActive(true);
         prompt.SetActive(false);
         drop.transform.localPosition = Vector3.zero;
-        if (GameCtr.Instance.ChangeType<LuckyBoyMgr>().isAddConstraint)
+        if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
             if (douDongNum == 1)
             {
