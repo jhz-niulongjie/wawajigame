@@ -151,7 +151,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         {
             if (GameCtr.test)
             {
-                DOVirtual.DelayedCall(2, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
+               // DOVirtual.DelayedCall(2, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
             }
             else
             {

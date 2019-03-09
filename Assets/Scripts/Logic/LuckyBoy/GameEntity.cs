@@ -13,7 +13,7 @@ public sealed class GameEntity
     private Sprite sp;
     private int MoveSpeed = 200;
     private Vector3 target = new Vector3(-300, 0, 0);
-   // private Vector3 pos;
+    // private Vector3 pos;
     private Vector3 vel;
     private float noCatchNum = 1.5f;//抖动
     private float catchPian = 3;//抓偏
@@ -123,7 +123,7 @@ public sealed class GameEntity
         float currentposX = self.transform.position.x;
         float min = posX - LuckyBoyMgr.Instance.checkProperty;
         float max = posX + LuckyBoyMgr.Instance.checkProperty;
-       // Debug.Log("CurrentPosX----" + currentposX + "-----MinX-----" + min + "-------maxX----" + max + "====pos====" + posX);
+        // Debug.Log("CurrentPosX----" + currentposX + "-----MinX-----" + min + "-------maxX----" + max + "====pos====" + posX);
         if (currentposX >= min && currentposX <= max)
         {
             self.SetActive(false);
@@ -187,8 +187,8 @@ public sealed class GameEntity
             {
                 Debug.Log("******distance*****" + distance);
                 EventHandler.ExcuteEvent(EventHandlerType.XiaoPang_incline, false);
-                int direction = self.transform.localPosition.x < tempImg.gameObject.transform.localPosition.x ? 1:- 1;
-                self.transform.DOLocalRotate(new Vector3(0, 0, 90)* direction, 0.7f, RotateMode.Fast);
+                int direction = self.transform.localPosition.x < tempImg.gameObject.transform.localPosition.x ? 1 : -1;
+                self.transform.DOLocalRotate(new Vector3(0, 0, 90) * direction, 0.7f, RotateMode.Fast);
             }
         }
     }

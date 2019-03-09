@@ -266,8 +266,7 @@ public sealed class UIMovePage : UIDataBase
     {
         CommTool.SaveIntData(CatchTimes.PlayerCatch.ToString());
         Stop = true;
-        //GameEntity ge = listPang.Find(e => e.catchty != CatchTy.CatchErrorPos);//抓中的
-        GameEntity ge = LuckyBoyMgr.Instance.gameXP;
+        GameEntity ge = listPang.Find(e => e.catchty != CatchTy.CatchErrorPos);//抓中的
         CatchTy tempCatch = ge == null ? CatchTy.CatchErrorPos : ge.catchty;
         EventHandler.ExcuteEvent(EventHandlerType.Success, tempCatch);
         tempPange.SetActive(false);

@@ -131,6 +131,7 @@ public sealed class UIQuestionPage : UIDataBase
     public override void OnShow(object data)
     {
         object[] datas = (object[])data;
+        sdk.gameTryStatus = -100;//答题模式
         q_library_list = datas[0] as List<Q_Question>;
         startGameOrQuit = datas[1] as Action;
         isPlayGame = (bool)datas[2];

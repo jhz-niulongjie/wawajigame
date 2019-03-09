@@ -31,7 +31,7 @@ public class ThreeRoundPlay : GameMisson
             return;
         }
         //受限 且前两次支付是最高难度   从第六次支付开始最高难度
-        if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)  
+        if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
             //受限 执行最高难度   且降低难度逻辑变化   
             //前两局都是最高难度  前两局都碰到第三局才降低为中等难度 
@@ -279,7 +279,7 @@ public class ThreeRoundPlay : GameMisson
         drop.transform.localPosition = Vector3.zero;
         if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
-            if (douDongNum == 1)
+            if (douDongNum == 1 && _round < 3)
             {
                 prompt.SetActive(true);
                 drop.transform.localPosition = new Vector3(0, 45, 0);
