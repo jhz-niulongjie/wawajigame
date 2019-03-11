@@ -16,7 +16,7 @@ public sealed class LuckyTurnMgr : GameCtr
     protected override void EnterGame()
     {
         Debug.Log("进入幸运转转转");
-        if (test)
+        if (AppConst.test)
         {
             Debug.Log("自己测试");
             GetOnSaleValue();
@@ -68,7 +68,7 @@ public sealed class LuckyTurnMgr : GameCtr
     public void GetOnSaleValue()
     {
         string onsaleJson = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.GetOnSaleNumberData);
-        if (test)
+        if (AppConst.test)
         {
             //listOnSaleNumber = new List<VoiceContent> { new VoiceContent { Content="我我我我我我我我", Type="4" },
             //new VoiceContent { Content = "我我我我我我我我", Type = "1" },

@@ -119,34 +119,26 @@ public class ThreeRoundPlay : GameMisson
     {
         if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint)
         {
-            if (_isWin)
+            //抖动了两次  且是第二局 下局难度降低
+            if (!_isWin && sdk.gameStatus.isDouDong && douDongNum == 1 && _round == 2)
+            {
+                if (cat == CatchTy.Drop)
+                {
+                    contents = voiceContent.ShootDrop.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.ShootDrop.Time);
+                }
+                else
+                {
+                    contents = voiceContent.DouDong.Content.Split('|');
+                    delytime = Convert.ToInt32(voiceContent.DouDong.Time);
+                }
+            }
+            else
             {
                 if (cat == CatchTy.Drop)
                 {
                     contents = voiceContent.ShootDropWin.Content.Split('|');
                     delytime = Convert.ToInt32(voiceContent.ShootDropWin.Time);
-                }
-                else
-                {
-                    contents = voiceContent.NoDouDong.Content.Split('|');
-                    delytime = Convert.ToInt32(voiceContent.NoDouDong.Time);
-                }
-            }
-            else
-            {
-                //抖动了两次  且是第二局 下局难度降低
-                if (sdk.gameStatus.isDouDong && douDongNum == 1)
-                {
-                    if (cat == CatchTy.Drop)
-                    {
-                        contents = voiceContent.ShootDrop.Content.Split('|');
-                        delytime = Convert.ToInt32(voiceContent.ShootDrop.Time);
-                    }
-                    else
-                    {
-                        contents = voiceContent.DouDong.Content.Split('|');
-                        delytime = Convert.ToInt32(voiceContent.DouDong.Time);
-                    }
                 }
                 else
                 {

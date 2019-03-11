@@ -149,7 +149,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
         }
         else
         {
-            if (GameCtr.test)
+            if (AppConst.test)
             {
                // DOVirtual.DelayedCall(2, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
             }

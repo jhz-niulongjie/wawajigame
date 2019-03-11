@@ -217,7 +217,7 @@ public sealed class UIPhoneTimePage : UIDataBase
             Android_Call.UnityCallAndroid(AndroidMethod.AutoPresent);//自动出礼物
             UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameEnd);
             EventHandler.ExcuteEvent(EventHandlerType.GameEndStart, true);
-            DOVirtual.DelayedCall(speak.Length * GameCtr.speakTime, () => sdk.gameMode.ShowEndUI(gamePlay));
+            DOVirtual.DelayedCall(speak.Length * AppConst.speakTime, () => sdk.gameMode.ShowEndUI(gamePlay));
         }
     }
     /// <summary>
@@ -251,7 +251,7 @@ public sealed class UIPhoneTimePage : UIDataBase
             string speak = tVC[UnityEngine.Random.Range(0, tVC.Count - 1)].Content;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
             EffectMrg.ShowEffectNormal(); //播放特效
-            float winTime = speak.Length * GameCtr.speakTime + 2f;
+            float winTime = speak.Length * AppConst.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
             EffectMrg.HideEffectNoraml();
             Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);//停止摆动翅膀闪光带
@@ -292,7 +292,7 @@ public sealed class UIPhoneTimePage : UIDataBase
             string speak = tVC[UnityEngine.Random.Range(0, tVC.Count - 1)].Content;
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, speak);
             EffectMrg.ShowEffectNormal(); //播放特效
-            float winTime = speak.Length * GameCtr.speakTime + 2f;
+            float winTime = speak.Length * AppConst.speakTime + 2f;
             yield return CommTool.TimeFun(winTime, winTime);
             EffectMrg.HideEffectNoraml();
             Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);//停止摆动翅膀闪光带

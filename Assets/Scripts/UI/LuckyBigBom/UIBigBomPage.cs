@@ -84,7 +84,7 @@ public sealed class UIBigBomPage : UIViewBase
         EventDispatcher.AddListener(EventHandlerType.GameEndStart, StartNextLevel);
         EventDispatcher.AddListener<bool,TagType>(EventHandlerType.Success, ShowResultTable);
 
-        if (GameCtr.test)
+        if (AppConst.test)
         {
             GameObject _press = CommTool.FindObjForName(gameObject, "press");
             UIEventLisener.Get(_press).OnPress += HeadDown;

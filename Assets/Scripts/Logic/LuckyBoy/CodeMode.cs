@@ -63,17 +63,19 @@ public sealed class CodeMode : GameMode
     {
         int time = 0;
         VoiceContent tVC = null;
-        if (sdk.gameStatus.status == 1 || sdk.ChangeType<LuckyBoyMgr>().isAddConstraint && sdk.selectRound == 3)//抓中过  条件受限
-        {
+        if (sdk.gameStatus.status == 1)
             tVC = gamePlay.GetVoiceContent(gamePlay._Count - 2).Content;
-            time = Convert.ToInt32(tVC.Time);
+        else if (sdk.ChangeType<LuckyBoyMgr>().isAddConstraint && sdk.selectRound == 3)// 条件受限
+        {
+            if (sdk.autoSendGift && sdk.gameMode.gameMisson._timesPay == 2)//自动送礼品  还是之前的逻辑
+                tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;  //说送礼物语音
+            else
+                tVC = gamePlay.GetVoiceContent(gamePlay._Count - 2).Content;
         }
         else
         {
             if (sdk.autoSendGift)//自动送礼品  还是之前的逻辑
-            {
                 tVC = gamePlay.GetVoiceContent(gamePlay._Count - 1).Content;
-            }
             else
             {
                 if (sdk.gameMode.gameMisson._timesPay == 1)//首次进入
@@ -81,8 +83,8 @@ public sealed class CodeMode : GameMode
                 else
                     tVC = gamePlay.GetSpecialVoice(VoiceType.GameEnd_NoGift, 0).Content;
             }
-            time = Convert.ToInt32(tVC.Time);
         }
+        time = Convert.ToInt32(tVC.Time);
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, tVC.Content);
         Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, true);
         int spaceTime = time - 2;//2秒后显示

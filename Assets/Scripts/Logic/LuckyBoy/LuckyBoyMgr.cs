@@ -20,7 +20,7 @@ public sealed class LuckyBoyMgr : GameCtr
     protected override void EnterGame()
     {
         Debug.Log("进入幸运礼品机");
-        if (test)
+        if (AppConst.test)
         {
             Debug.Log("自己测试");
             PlayerPrefs.DeleteAll();
@@ -110,7 +110,11 @@ public sealed class LuckyBoyMgr : GameCtr
                 {
                     if (paylist[i].cnum > 0) winNum++;
                 }
-                if (winNum >= 3) isAddConstraint = true;  //中奖次数大于等于3次  从第6次支付开始受限
+                if (winNum >= 3)
+                {
+                    Debug.Log("****达到受限条件***");
+                    isAddConstraint = true;  //中奖次数大于等于3次  从第6次支付开始受限
+                }
             }
             if (paylist[payCount - 1].cnum == 0) autoPayTime = 2;//上次支付没有抓中
         }
@@ -138,7 +142,7 @@ public sealed class LuckyBoyMgr : GameCtr
         {
             base.Question_Wing(result);
         }
-        if (test)
+        if (AppConst.test)
         {
             DOVirtual.DelayedCall(3, () =>
             {

@@ -16,14 +16,13 @@ public sealed class Loading : MonoBehaviour {
         LuckySendPhone,
     }
 
-    private bool test = false;
     private int loadTime = 6;//网络监测时间
 
     private void Awake()
     {
         Debug.Log("游戏启动");
         Android_Call.UnityCallAndroid(AndroidMethod.HideSplash);//隐藏splash图片
-        if (test) loadTime = 1;
+        if (AppConst.test) loadTime = 1;
         StartNetCheck();
     }
 
@@ -34,7 +33,7 @@ public sealed class Loading : MonoBehaviour {
     {
 
         Debug.Log("=====开始网络监测=====");
-        if (test)
+        if (AppConst.test)
             UnityPing.CreatePing("www.baidu.com", loadTime, EnterGame, EnterGame);
         else
             UnityPing.CreatePing("www.baidu.com", loadTime, EnterGame, AppQuit);
@@ -44,7 +43,7 @@ public sealed class Loading : MonoBehaviour {
     /// </summary>
     private void EnterGame()
     {
-        if (!test)
+        if (!AppConst.test)
         {
             ////0 是抓娃娃  1转转转 3大炮筒
             string select_ = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.SelectGame);

@@ -114,7 +114,7 @@ public sealed class UIQuestionPage : UIDataBase
         q_end_in_all_count = CommTool.GetCompentCustom<Text>(question_end, "in_all_count");
         q_end_right_count = CommTool.GetCompentCustom<Text>(question_end, "right_count");
 
-        if (LuckyBoyMgr.test)
+        if (AppConst.test)
         {
             UIEventLisener.Get(q_start_a_answer.gameObject).OnClick += o => Question_Wing("0");
             UIEventLisener.Get(q_start_b_answer.gameObject).OnClick += o => Question_Wing("1");

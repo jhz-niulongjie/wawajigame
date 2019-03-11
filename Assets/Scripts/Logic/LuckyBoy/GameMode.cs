@@ -123,7 +123,7 @@ public class GameMode
     /// 获得当前游戏状态
     public void GetGameStatusData()
     {
-        sdk.gameStatus = CommTool.LoadClass<GameStatus>(GameCtr.statusKey);
+        sdk.gameStatus = CommTool.LoadClass<GameStatus>(AppConst.statusKey);
         Debug.Log("sdk.gameStatus---0:" + sdk.gameStatus);
         if (sdk.gameStatus != null)
         {

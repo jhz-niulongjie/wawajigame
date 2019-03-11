@@ -66,21 +66,10 @@ public class GameCtr : MonoBehaviour
     public int pass { get; protected set; }
     //是否自动送礼品
     public bool autoSendGift { get; protected set; }//第三次支付是否自动送礼品 1是进行 0不进行
-
     #endregion
-    //状态健值
-    public const string statusKey = "GameLocalData";
-    //特效层
-    public const string layer_Light_effect = "Light_Effect";
-    //水层
-    public const string layer_Water = "Water";
-
-    public const float speakTime = 0.265f;
 
     #region 测试数据参数
     public float checkProperty { get; set; }
-    public const bool test = false;
-
     #endregion
 
     private void Awake()
@@ -95,7 +84,7 @@ public class GameCtr : MonoBehaviour
     protected virtual void Init()
     {
         randomQuXian = 1;
-        checkProperty =0.42f;//0.4f  //检测范围
+        checkProperty =0.42f;//0.42f  //检测范围
         probability = 20;//百分之30不打掉
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、

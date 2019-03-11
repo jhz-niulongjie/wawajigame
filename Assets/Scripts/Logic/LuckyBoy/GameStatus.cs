@@ -95,13 +95,13 @@ public sealed class GameStatus
 
     public void ClearData()
     {
-        if (PlayerPrefs.HasKey(GameCtr.statusKey))
-            PlayerPrefs.DeleteKey(GameCtr.statusKey);
+        if (PlayerPrefs.HasKey(AppConst.statusKey))
+            PlayerPrefs.DeleteKey(AppConst.statusKey);
     }
 
     private void SaveData()
     {
-        CommTool.SaveClass<GameStatus>(GameCtr.statusKey, this);
+        CommTool.SaveClass<GameStatus>(AppConst.statusKey, this);
     }
 
 

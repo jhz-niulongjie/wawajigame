@@ -13,7 +13,7 @@ public sealed class TurnCodeMode : GameMode {
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
         UIManager.Instance.ShowUI(UITurnSplashPage.NAME, true);
 
-        if (GameCtr.test)
+        if (AppConst.test)
         {
             sdk.gameStatus.SetOpenId("123");
             sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);//在游戏中  测试用

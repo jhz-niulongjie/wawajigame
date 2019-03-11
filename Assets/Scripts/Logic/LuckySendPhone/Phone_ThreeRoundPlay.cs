@@ -55,7 +55,7 @@ public sealed class Phone_ThreeRoundPlay : GameMisson
                 var list = operDic[SendPhoneOperateType.Drop];
                 string speak = list[UnityEngine.Random.Range(0, list.Count - 1)].Content;
                 contents = new string[] { speak };
-                delytime = speak.Length * GameCtr.speakTime;
+                delytime = speak.Length * AppConst.speakTime;
             }
         }
         else
@@ -65,7 +65,7 @@ public sealed class Phone_ThreeRoundPlay : GameMisson
                 var list = operDic[SendPhoneOperateType.NoCatch];
                 string speak = list[UnityEngine.Random.Range(0, list.Count - 1)].Content;
                 contents = new string[] { speak };
-                delytime = speak.Length * GameCtr.speakTime;
+                delytime = speak.Length * AppConst.speakTime;
             }
         }
     }

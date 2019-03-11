@@ -9,7 +9,7 @@ public sealed class LuckyBigBomMgr : GameCtr
     protected override void EnterGame()
     {
         Debug.Log("进入闯关赢礼品");
-        if (test)
+        if (AppConst.test)
         {
             gameMode = new BigBomCodeMode(this);
             gameMode.EnterGame();

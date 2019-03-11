@@ -100,7 +100,7 @@ public sealed class UITurnTablePage : UIDataBase
         go.SetActive(false);
         EventDispatcher.AddListener<Action<string>>(EventHandlerType.ShowGiftPart, ShowGiftPart);
 
-        if (GameCtr.test)
+        if (AppConst.test)
         {
             bg.raycastTarget = true;
             go.SetActive(true);
@@ -336,19 +336,19 @@ public sealed class UITurnTablePage : UIDataBase
         {
             for (int i = 0; i < effect_objs.Count; i++)
             {
-                effect_objs[i].layer = LayerMask.NameToLayer(GameCtr.layer_Light_effect); //显示灯特效
+                effect_objs[i].layer = LayerMask.NameToLayer(AppConst.layer_Light_effect); //显示灯特效
                 yield return new WaitForSeconds(0.15f);
             }
             yield return new WaitForSeconds(0.5f);
             int _count = 2;
             while (_count-- >= 0)
             {
-                effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(GameCtr.layer_Water));
+                effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(AppConst.layer_Water));
                 yield return new WaitForSeconds(0.8f);
-                effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(GameCtr.layer_Light_effect));
+                effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(AppConst.layer_Light_effect));
                 yield return new WaitForSeconds(0.8f);
             }
-            effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(GameCtr.layer_Water));
+            effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(AppConst.layer_Water));
         }
     }
 
@@ -361,9 +361,9 @@ public sealed class UITurnTablePage : UIDataBase
             {
                 float dis = Vector3.Distance(arrow_up.transform.position, effect_objs[i].transform.position);
                 if (dis < 3f)
-                    effect_objs[i].layer = LayerMask.NameToLayer(GameCtr.layer_Light_effect);//显示灯特效
+                    effect_objs[i].layer = LayerMask.NameToLayer(AppConst.layer_Light_effect);//显示灯特效
                 if (dis > 5.3f)
-                    effect_objs[i].layer = LayerMask.NameToLayer(GameCtr.layer_Water);//hide灯特效
+                    effect_objs[i].layer = LayerMask.NameToLayer(AppConst.layer_Water);//hide灯特效
             }
             yield return null;
         }
@@ -586,8 +586,8 @@ public sealed class UITurnTablePage : UIDataBase
         speed = 0;
         ie_effect = null;
         mask_bg.SetActive(true);
-        mask_effect.layer = LayerMask.NameToLayer(GameCtr.layer_Light_effect);//显示光圈特效
-        effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(GameCtr.layer_Water));  //隐藏灯特效
+        mask_effect.layer = LayerMask.NameToLayer(AppConst.layer_Light_effect);//显示光圈特效
+        effect_objs.ForEach(o => o.layer = LayerMask.NameToLayer(AppConst.layer_Water));  //隐藏灯特效
         AudioManager.Instance.PlayByName(AssetFolder.LuckyTurn, AudioType.Fixed, AudioNams.TurnStop, false);
         int itemIdx = GetTurnItemIndex(angle_Num);
         if (itemIdx >= 0)
@@ -601,7 +601,7 @@ public sealed class UITurnTablePage : UIDataBase
              {
                  Destroy(go);
                  mask_bg.SetActive(false);
-                 mask_effect.layer = LayerMask.NameToLayer(GameCtr.layer_Water);//隐藏光圈特效
+                 mask_effect.layer = LayerMask.NameToLayer(AppConst.layer_Water);//隐藏光圈特效
                  transferData.uiType = angle_Num;
                  transferData.voice = luckyturnDic[angle_Num];
                  UIManager.Instance.ShowUI(UITurnResultPage.NAME, true, transferData);

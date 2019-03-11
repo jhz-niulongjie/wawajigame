@@ -93,13 +93,13 @@ public sealed class SendPhoneMode : GameMode
             {
                 UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverOne);
                 tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.OnePayEnter, (int)SendPhoneOperateType.GameOver);
-                time_ = tVC[0].Content.Length * GameCtr.speakTime;
+                time_ = tVC[0].Content.Length * AppConst.speakTime;
             }
             else if (gamePlay.signTimes == 1)
             {
                 UIManager.Instance.ShowUI(UIPhoneResultPage.NAME, true, CatchTy.GameOverTwo);
                 tVC = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.TwoPayEnter, (int)SendPhoneOperateType.GameOver);
-                time_ = tVC[0].Content.Length * GameCtr.speakTime;
+                time_ = tVC[0].Content.Length * AppConst.speakTime;
             }
             else if (gamePlay.signTimes == 2)
             {
