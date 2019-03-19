@@ -12,6 +12,7 @@ public class QuestionMode : GameMode
     public QuestionMode(GameCtr _sdk,GameKind _gameKind=GameKind.LuckyBoy) : base(_sdk,_gameKind)
     {
         Debug.Log("//////答题模式\\\\\\\\");
+        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);//不使用 每次进入重新开始
         sdk.Q_startCarwTime = CommTool.GetTimeStamp();
         //开始游戏
         startGame = () =>

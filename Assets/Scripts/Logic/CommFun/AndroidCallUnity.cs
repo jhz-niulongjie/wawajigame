@@ -7,12 +7,12 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
 
     private bool isGetProbalility = false;//是否获得概率值
 
-    public Action<string> androidCallAction { get; private set; }
+    private Action<string> androidCallAction;
 
-    public Action<string> androidQRCodeAction { get; private set; }
-    public Action<string> androidGetProbabilityAction { get; private set; }
-    public Action<string> androidPaySuccessAction { get; private set; }
-    public Action<string> androidQuestion_WingAction { get; private set; }
+    private Action<string> androidQRCodeAction;
+    private Action<string> androidGetProbabilityAction;
+    private Action<string> androidPaySuccessAction;
+    private Action<string> androidQuestion_WingAction;
     /// <summary>
     /// 初始化
     /// </summary>
@@ -32,7 +32,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         androidQuestion_WingAction = _androidQuestion_WingAction;
     }
 
-    private void AndroidCall(string result)
+    public void AndroidCall(string result)
     {
         Debug.Log("拍头啦");
         if (androidCallAction != null)
@@ -43,7 +43,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
 
 
     //二维码获得成功
-    private void QRCodeCall(string result)
+    public void QRCodeCall(string result)
     {
         Debug.Log("二维码获得成功---"+ "--isGetProbalility::"+ isGetProbalility);
         if (!isGetProbalility) return;//金钱获得成功才显示二维码
@@ -54,7 +54,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         }
     }
     //获得概率值
-    private void GetProbabilityCall(string result)
+    public void GetProbabilityCall(string result)
     {
         if (androidGetProbabilityAction != null)
         {
@@ -64,7 +64,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     }
 
     //支付成功
-    private void PaySuccess(string result)
+    public void PaySuccess(string result)
     {
         if (androidPaySuccessAction != null)
         {
@@ -75,7 +75,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     }
 
     //摆动翅膀回答问题
-    private void Question_Wing(string result)
+    public void Question_Wing(string result)
     {
         if (androidQuestion_WingAction != null)
         {

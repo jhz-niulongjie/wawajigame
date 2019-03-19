@@ -116,6 +116,10 @@ public sealed class UIMovieQRCodePage : UIDataBase
         qrCode.SetActive(true);
         loadings.SetActive(true);
         raw.gameObject.SetActive(false);
+
+        //测试用
+        //NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
+
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
         if (isCanPlay)
         {
@@ -125,7 +129,8 @@ public sealed class UIMovieQRCodePage : UIDataBase
                {
                    if (!sdk.isGetCode)
                    {
-                       Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
+                        Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
+                      // NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
                        if (t == 0 && !flagQuit)
                        {
                            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,

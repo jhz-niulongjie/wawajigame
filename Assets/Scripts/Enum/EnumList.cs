@@ -318,6 +318,10 @@ public enum AndroidMethod
     UpdateOnSaleValue,
     [CustomAttri("-请求兑换码平板电脑-")]
     ResPhoneCode,
+    [CustomAttri("-是否测试环境-")]
+    IsText,
+    [CustomAttri("-获得小胖ID-")]
+    getRobotId,
 }
 
 public enum LuckyTurnVoiceType

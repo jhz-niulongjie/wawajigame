@@ -9,6 +9,7 @@ public sealed class CodeMode : GameMode
     public CodeMode(GameCtr _sdk) : base(_sdk)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
+        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);//不使用 每次进入重新开始
     }
 
     #region 重写方法
@@ -186,8 +187,8 @@ public sealed class CodeMode : GameMode
                 Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, EC.Content.Content);
                 EC = null;
             }
-            Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 4000);
-            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 4000);
+            Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 5000);
+            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false,5000);
         });
 #endif
     }

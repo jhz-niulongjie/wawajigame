@@ -52,6 +52,7 @@ public sealed class UIRoundEnterPage : UIDataBase
         tempTrans.DOScale(Vector3.one, 2f).SetEase(Ease.OutBounce).OnComplete(() =>
         {
             EventDispatcher.Dispatch(EventHandlerType.RoundOver);
+            Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
             HideSelf();
         });
     }

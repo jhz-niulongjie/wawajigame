@@ -124,7 +124,6 @@ public class GameMode
     public void GetGameStatusData()
     {
         sdk.gameStatus = CommTool.LoadClass<GameStatus>(AppConst.statusKey);
-        Debug.Log("sdk.gameStatus---0:" + sdk.gameStatus);
         if (sdk.gameStatus != null)
         {
             if (sdk.gameStatus.gameRound != sdk.selectRound || sdk.gameStatus.gameMode != sdk.selectMode
@@ -138,7 +137,6 @@ public class GameMode
         }
         if(sdk.gameStatus==null)
             sdk.gameStatus = new GameStatus(sdk.selectMode, sdk.selectRound,selectgameKind);
-        Debug.Log("sdk.gameStatus---1:"+ sdk.gameStatus);
     }
 
     //请求考题

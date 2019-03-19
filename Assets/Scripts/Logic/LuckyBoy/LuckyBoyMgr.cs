@@ -23,12 +23,11 @@ public sealed class LuckyBoyMgr : GameCtr
         if (AppConst.test)
         {
             Debug.Log("自己测试");
-            PlayerPrefs.DeleteAll();
             gameMode = new CodeMode(this);
             gameMode.EnterGame();
             EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
 
-            DOVirtual.DelayedCall(1, ()=> Question_Wing(""));
+            //DOVirtual.DelayedCall(1, ()=> Question_Wing(""));
         }
         else
         {
@@ -146,19 +145,17 @@ public sealed class LuckyBoyMgr : GameCtr
         {
             DOVirtual.DelayedCall(3, () =>
             {
-                //string aaa = "[{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                //     "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                //    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
-                //    "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+                string aaa = "[{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":1,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}," +
+                    "{\"cnum\":2,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
 
 
-                string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
+                //string aaa = "[{\"cnum\":0,\"openId\":\"ofWtHv8hnh8UFLcqeio9Tb4rVoPU\",\"applyRechargeid\":\"GD1000000000151547446443994\"}]";
 
 
 
-                string res = "1|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
+                string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
                 PaySuccess(res);
             });
         }
@@ -176,6 +173,9 @@ public sealed class LuckyBoyMgr : GameCtr
         if (isPaySucess && !string.IsNullOrEmpty(payResult))
             PaySuccess(payResult);
         else
+        {
+            isGetCode = false;//重新获取二维码
             UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, listVC);
+        }
     }
 }
