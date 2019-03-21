@@ -116,10 +116,6 @@ public sealed class UIMovieQRCodePage : UIDataBase
         qrCode.SetActive(true);
         loadings.SetActive(true);
         raw.gameObject.SetActive(false);
-
-        //测试用
-        //NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
-
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
         if (isCanPlay)
         {

@@ -22,6 +22,7 @@ public sealed class LuckyBoyMgr : GameCtr
         Debug.Log("进入幸运礼品机");
         if (AppConst.test)
         {
+            NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
             Debug.Log("自己测试");
             gameMode = new CodeMode(this);
             gameMode.EnterGame();

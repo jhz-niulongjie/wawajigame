@@ -5,6 +5,7 @@ using BestHTTP;
 using System;
 using System.IO;
 using System.Text;
+using LitJson;
 
 public sealed class NetMrg : Singleton<NetMrg>
 {
@@ -16,7 +17,6 @@ public sealed class NetMrg : Singleton<NetMrg>
     {
         httpImpl = new BestHttpImpl();
         httpImpl.SetHttpParams(false);
-        //httpImpl.AddHead("content-type","application/json");
         httpImpl.AddHead("Content-Type","application/json");
         isText = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.IsText);
         robotId = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.getRobotId);
@@ -31,7 +31,7 @@ public sealed class NetMrg : Singleton<NetMrg>
     /// </summary>
     ///  <param name="method">请求内容</param>
     /// <param name="requestParams">参数</param>
-    public void SendRequest(AndroidMethod method, Dictionary<string, string> requestParams = null)
+    public void SendRequest(AndroidMethod method, JsonData requestParams = null)
     {
         string httpUrl = GetUrl(method);
         //string httpUrl = "http://192.168.15.12:8096/v1/wxluckDraw/getLuckDrawQrCode";
@@ -42,8 +42,8 @@ public sealed class NetMrg : Singleton<NetMrg>
         //    //{ "sex","boy"}
         //};
         if (requestParams == null)
-            requestParams = new Dictionary<string, string>();
-        requestParams.Add("robotId", robotId);
+            requestParams = new JsonData();
+        requestParams["robotId"]=robotId;
 
         // 是否打开多次回调模式
         bool isOpenStram = false;

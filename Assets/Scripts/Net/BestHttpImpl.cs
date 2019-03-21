@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using BestHTTP;
+using LitJson;
 using UnityEngine;
 
 public sealed class BestHttpImpl
@@ -110,7 +112,7 @@ public sealed class BestHttpImpl
         request.Send();
     }
 
-    public void Post(string url, Dictionary<string, string> requestParams, bool isOpenStream = false, Action<HTTPResponse> callback = null, Action<string> fail = null)
+    public void Post(string url, JsonData requestParams, bool isOpenStream = false, Action<HTTPResponse> callback = null, Action<string> fail = null)
     {
         HTTPRequest request = RequestCreate(new Uri(url), HTTPMethods.Post, (HTTPRequest requestFinish, HTTPResponse response) =>
         {
@@ -122,8 +124,9 @@ public sealed class BestHttpImpl
             request.StreamFragmentSize = HTTPResponse.MinBufferSize;
         }
         AddHeads(request);
-        if (requestParams != null && requestParams.Count > 0)
-            AddParams(request, requestParams);
+       // AddParams(request, requestParams);
+        request.RawData = UTF8Encoding.UTF8.GetBytes(requestParams.ToJson());
+        Debug.Log("请求参数*******"+ requestParams.ToJson());
         request.Send();
     }
 

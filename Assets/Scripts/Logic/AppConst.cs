@@ -4,7 +4,7 @@ using UnityEngine;
 
 public sealed class AppConst   {
 
-    public const bool test = false;
+    public const bool test = true;
 
     //状态健值
     public const string statusKey = "GameLocalData";
