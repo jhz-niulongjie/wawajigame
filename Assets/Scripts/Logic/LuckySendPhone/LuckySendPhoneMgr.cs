@@ -1,4 +1,5 @@
 ﻿using LitJson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,8 @@ public sealed class CatchSuccessData
     public string openId;
     public string applyRechargeid;
 }
-public sealed class LuckySendPhoneMgr : GameCtr {
+public sealed class LuckySendPhoneMgr : GameCtr
+{
 
     // 今天支付次数 抓取成功次数
     public List<CatchSuccessData> catchlist { get; private set; }
@@ -25,44 +27,44 @@ public sealed class LuckySendPhoneMgr : GameCtr {
         gameMode.EnterGame();
     }
 
-    protected override void QRCodeCall(string result)
+    protected override void QRCodeCall(JsonData result)
     {
         if (isGetCode) return;
         isGetCode = true;
-        string[] msgs = result.Split('|');
-        QRCode.ShowCode(raw, msgs[0]);
-        gameStatus.SetOrderNoRobotId(msgs[1], msgs[2]);
+        QRCode.ShowCode(raw, result["qrUrl"].ToString());
+        orderNumber = result["orderNo"].ToString();
+        gameStatus.SetOrderNoRobotId(orderNumber, NetMrg.Instance.robotId);
         gameStatus.SetRunStatus(GameRunStatus.NoPay);
         EventHandler.ExcuteEvent(EventHandlerType.QRCodeSuccess, null);
+        JsonData jsondata = new JsonData();
+        jsondata["orderNo"] = orderNumber;
         StartCoroutine(CommTool.TimeFun(2, 2, (ref float t) =>
         {
             if (!isPaySucess)
             {
                 //检测是否支付
-                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.GetPayStatusSendPhone, msgs[1]);
+                // Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.GetPayStatusSendPhone, orderNumber);
+                NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatusSendPhone, jsondata);
             }
             if (t == 0) t = 2;
             return isPaySucess;
         }));
     }
 
-    protected override void PaySuccess(string result)
+    protected override void PaySuccess(JsonData result)
     {
-        if (!string.IsNullOrEmpty(result))
+        isPaySucess = true;
+        openId = result["openId"].ToString();
+        gameStatus.SetOpenId(openId);
+        Debug.Log("支付成功--openId::" + openId);
+        JsonData j_data = result["data"];
+        catchlist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
+        Debug.Log("catchlist.Count---" + catchlist.Count);
+        for (int i = 0; i < catchlist.Count; i++)
         {
-            isPaySucess = true;
-            string[] datas = result.Split('|');
-            Debug.Log("支付成功--openId::" + datas[0]);
-            gameStatus.SetOpenId(datas[0]);
-            JsonData j_data = JsonMapper.ToObject(datas[1]);
-            catchlist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
-            Debug.Log("catchlist.Count---" + catchlist.Count);
-            for (int i = 0; i < catchlist.Count; i++)
-            {
-                Debug.Log("cnum---" +catchlist[i].cnum+"--openId--"+ catchlist[i].openId+"--applyId--"+ catchlist[i].applyRechargeid);
-            }
-            gameMode.GameStart();
+            Debug.Log("cnum---" + catchlist[i].cnum + "--openId--" + catchlist[i].openId + "--applyId--" + catchlist[i].applyRechargeid);
         }
+        gameMode.GameStart();
     }
 
     //获得兑换码

@@ -404,7 +404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1484566418848200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,7 +2221,7 @@ MonoBehaviour:
     subdivisionsXSegment: 10
     subdivisions: 90
     wps:
-    - {x: -21.324999, y: 4.1, z: 0}
+    - {x: 507.86093, y: 21.791098, z: -609}
     - {x: -21.130983, y: 3.7566738, z: 0}
     - {x: -11.05032, y: 4.105068, z: 0}
     - {x: -2.5370922, y: 3.8600833, z: 0}
@@ -2231,10 +2231,10 @@ MonoBehaviour:
     - {x: 19.205326, y: 0.12406278, z: 0}
     - {x: 25.035795, y: -2.3914785, z: 0}
     controlPoints: []
-    length: 47.60534
+    length: 854.08057
     wpLengths:
     - 0
-    - 0.3943537
+    - 806.8697
     - 10.086682
     - 8.516751
     - 6.1322784
@@ -2245,13 +2245,13 @@ MonoBehaviour:
     isFinalized: 1
     timesTable:
     - 0
-    - 0.008283813
-    - 0.22016515
-    - 0.39906842
-    - 0.52788335
-    - 0.6684052
-    - 0.78560066
-    - 0.8666119
+    - 0.9447231
+    - 0.95653313
+    - 0.96650493
+    - 0.9736849
+    - 0.9815174
+    - 0.9880497
+    - 0.99256516
     - 1
     lengthsTable: []
   pathType: 0
@@ -2261,7 +2261,7 @@ MonoBehaviour:
   perspectiveHandleSize: 0.5
   showIndexes: 1
   pathColor: {r: 1, g: 1, b: 1, a: 0.5}
-  lastSrcPosition: {x: -21.324999, y: 4.1, z: 0}
+  lastSrcPosition: {x: 507.86093, y: 21.791098, z: -609}
   wpsDropdown: 1
 --- !u!114 &114662486926074722
 MonoBehaviour:
@@ -2487,7 +2487,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 225
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2836,8 +2836,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 470, y: 316}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 470, y: 303.5}
+  m_SizeDelta: {x: 160, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224076041914393420
 RectTransform:

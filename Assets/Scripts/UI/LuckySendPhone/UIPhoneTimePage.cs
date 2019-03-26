@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using LitJson;
 
 public sealed class UIPhoneTimePage : UIDataBase
 {
@@ -208,7 +209,11 @@ public sealed class UIPhoneTimePage : UIDataBase
             if (gamePlay.signTimes == 2 && succNum == 3)
             {
                 //请求兑换码
-                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.ResPhoneCode, CombinApplyId());
+                //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.ResPhoneCode, CombinApplyId());
+                JsonData jsondata = new JsonData();
+                jsondata["openId"] = GameCtr.Instance.openId;
+                jsondata["totalOrder"] = CombinApplyId();
+                NetMrg.Instance.SendRequest(AndroidMethod.ResPhoneCode,jsondata);
             }
             gamePlay._Count = succNum;
             var list = gamePlay.GetVoiceContentBy((int)SendPhoneStatusType.Common, (int)SendPhoneOperateType.GameEnd);

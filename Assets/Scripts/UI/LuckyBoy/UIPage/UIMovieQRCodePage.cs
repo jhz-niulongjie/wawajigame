@@ -7,8 +7,9 @@ using UnityEngine.Video;
 using DG.Tweening;
 using System.Text.RegularExpressions;
 using System.Linq;
+using LitJson;
 
-public sealed class UIMovieQRCodePage : UIDataBase
+public class UIMovieQRCodePage : UIDataBase
 {
     public const string NAME = "UIMovieQRCodePage";
     public override UIShowPos ShowPos
@@ -23,24 +24,24 @@ public sealed class UIMovieQRCodePage : UIDataBase
     {
         get { return AssetFolder.LuckyBoy; }
     }
-    private GameObject qrCode;
-    private RawImage raw;
-    private VideoPlayer vplayers;
-    private GameObject loadings;
-    private GameObject text_Pay;
-    private Animator animator;
-    private Image xiaoP;
-    private Text moneyText;
-    private Text gameTimes;
-    private GameObject tryTran;
-    private List<VoiceContent> vc_lists;
-    private IEnumerator currentIE = null;
-    GameMisson gamePlay;
-    GameCtr sdk;
+    public GameObject qrCode;
+    public RawImage raw;
+    public VideoPlayer vplayers;
+    public GameObject loadings;
+    public GameObject text_Pay;
+    public Animator animator;
+    public Image xiaoP;
+    public Text moneyText;
+    public Text gameTimes;
+    public GameObject tryTran;
+    public List<VoiceContent> vc_lists;
+    public IEnumerator currentIE = null;
+    public GameMisson gamePlay;
+    public GameCtr sdk;
     public override void Init()
     {
         base.Init();
-        currentIE = PlayVoiceIes();
+        currentIE = PlayVoiceIe();
         sdk = LuckyBoyMgr.Instance;
         qrCode = CommTool.FindObjForName(gameObject, "QR-code");
         raw = CommTool.GetCompentCustom<RawImage>(qrCode, "RawImage");
@@ -71,6 +72,12 @@ public sealed class UIMovieQRCodePage : UIDataBase
 
         EventHandler.RegisterEvnet(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
 
+        if (AppConst.test)
+        {
+            //试玩
+            UIEventLisener.Get(tryTran).OnClick +=o=> AndroidCallUnity.Instance.Question_Wing("1");
+        }
+
     }
 
     public override void OnShow(object data)
@@ -92,15 +99,15 @@ public sealed class UIMovieQRCodePage : UIDataBase
     public override void OnHide()
     {
         base.OnHide();
-        EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
+       // EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
     }
 
-    void PlayMovies()
+   public void PlayMovies()
     {
         vplayers.loopPointReached += MovieOvers;
         vplayers.Play();
     }
-    void MovieOvers(VideoPlayer p)
+   public virtual void MovieOvers(VideoPlayer p)
     {
         Debug.Log("视频播放完毕");
         if (sdk.isGame)
@@ -116,6 +123,14 @@ public sealed class UIMovieQRCodePage : UIDataBase
         qrCode.SetActive(true);
         loadings.SetActive(true);
         raw.gameObject.SetActive(false);
+        
+        JsonData jsondata = new JsonData();
+        jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
+        //测试用
+        NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode,jsondata);
+
+        return;
+
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
         if (isCanPlay)
         {
@@ -125,8 +140,8 @@ public sealed class UIMovieQRCodePage : UIDataBase
                {
                    if (!sdk.isGetCode)
                    {
-                        Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
-                      // NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
+                       // Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
+                       NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode, jsondata);
                        if (t == 0 && !flagQuit)
                        {
                            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
@@ -165,7 +180,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
 
     }
 
-    IEnumerator PlayVoiceIes()
+    public override IEnumerator PlayVoiceIe()
     {
         int index = 0;
         float voiceTime = 0;//语音时间
@@ -193,7 +208,7 @@ public sealed class UIMovieQRCodePage : UIDataBase
     }
 
     //二维码返回成功
-    void QRCodeSuccess(object data)
+   public  void QRCodeSuccess(object data)
     {
         loadings.SetActive(false);
         raw.gameObject.SetActive(true);

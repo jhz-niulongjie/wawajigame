@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using LitJson;
 
 public sealed class LuckyBigBomMgr : GameCtr
 {
@@ -39,7 +40,7 @@ public sealed class LuckyBigBomMgr : GameCtr
         }
     }
 
-    protected override void PaySuccess(string result)
+    protected override void PaySuccess(JsonData result)
     {
         base.PaySuccess(result);
         gameMode.GameStart();

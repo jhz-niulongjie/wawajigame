@@ -53,6 +53,7 @@ public sealed class BestHttpImpl
                     }
                     else
                     {
+                        if (fail != null) fail(null);
                         status = string.Format("Request finished Successfully, but the server sent an error. Status Code: {0}-{1} Message: {2}",
                                                         request.Response.StatusCode,
                                                         request.Response.Message,
@@ -61,18 +62,22 @@ public sealed class BestHttpImpl
                     }
                     break;
                 case HTTPRequestStates.Aborted:
+                    if (fail != null) fail(null);
                     status = "Request Aborted!";
                     Debug.LogWarning(status);
                     break;
                 case HTTPRequestStates.Error:
+                    if (fail != null) fail(null);
                     status = "Request Finished with Error! " + (request.Exception != null ? (request.Exception.Message + "\n" + request.Exception.StackTrace) : "No Exception");
                     Debug.LogError(status);
                     break;
                 case HTTPRequestStates.TimedOut:
+                    if (fail != null) fail(null);
                     status = "Processing the request Timed Out!";
                     Debug.LogError(status);
                     break;
                 case HTTPRequestStates.ConnectionTimedOut:
+                    if (fail != null) fail(null);
                     status = "Connection Timed Out!";
                     Debug.LogError(status);
                     break;

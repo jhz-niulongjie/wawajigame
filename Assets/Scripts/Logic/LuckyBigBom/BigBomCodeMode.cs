@@ -22,8 +22,14 @@ public sealed class BigBomCodeMode : GameMode {
     {
         base.UpRecord(isSuccess);
         LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
-        Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
-                isSuccess, LuckyBoyMgr.Instance.startCarwTime);
+        // Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
+        //  isSuccess, LuckyBoyMgr.Instance.startCarwTime);
+        JsonData jsondata = new JsonData();
+        jsondata["status"] = isSuccess ? 1 : 0;
+        jsondata["reportTime"] = LuckyBoyMgr.Instance.startCarwTime;
+        jsondata["openId"] = GameCtr.Instance.openId;
+        jsondata["applyRechargeId"] = GameCtr.Instance.orderNumber;
+        NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecord, jsondata);
     }
 
     /// <summary>
@@ -37,8 +43,11 @@ public sealed class BigBomCodeMode : GameMode {
             Debug.Log("record表为空不需上报");
             return;
         }
-        string json = JsonMapper.ToJson(list);
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        //string json = JsonMapper.ToJson(list);
+        //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        JsonData jsondata = new JsonData();
+        jsondata["list"] = new JsonData(list);
+        NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 
     public override List<VoiceContent> GetPayVoiceContent()

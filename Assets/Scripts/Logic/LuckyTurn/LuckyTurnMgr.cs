@@ -52,7 +52,7 @@ public sealed class LuckyTurnMgr : GameCtr
         }
     }
 
-    protected override void PaySuccess(string result)
+    protected override void PaySuccess(JsonData result)
     {
         base.PaySuccess(result);
         handleSqlite.DelOverTimeUserFromDataBase();//删除超过时间的礼品碎片

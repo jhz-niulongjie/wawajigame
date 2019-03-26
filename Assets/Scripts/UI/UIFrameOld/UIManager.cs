@@ -75,7 +75,9 @@ public sealed class UIManager : Singleton<UIManager>
                 case UIMovePage.NAME: dlg = uiRoot.AddComponent<UIMovePage>(); break;
                 case UITimePage.NAME: dlg = uiRoot.AddComponent<UITimePage>(); break;
                 case UIPromptPage.NAME: dlg = uiRoot.AddComponent<UIPromptPage>(); break;
-                case UIMovieQRCodePage.NAME: dlg = uiRoot.AddComponent<UIMovieQRCodePage>(); break;
+                case UIMovieQRCodePage.NAME:
+                    dlg =GameCtr.Instance.isNoDied? uiRoot.AddComponent<UICodePageNoDied>(): uiRoot.AddComponent<UIMovieQRCodePage>();
+                    break;
                 case UIMessagePage.NAME: dlg = uiRoot.AddComponent<UIMessagePage>(); break;
                 case UIBgPage.NAME: dlg = uiRoot.AddComponent<UIBgPage>(); break;
                 case UIQuestionPage.NAME: dlg = uiRoot.AddComponent<UIQuestionPage>(); break;
@@ -89,6 +91,7 @@ public sealed class UIManager : Singleton<UIManager>
                 case UIPhoneTimePage.NAME: dlg = uiRoot.AddComponent<UIPhoneTimePage>(); break;
                 case UIPhoneResultPage.NAME: dlg = uiRoot.AddComponent<UIPhoneResultPage>(); break;
                 case UIPhoneAnimPage.NAME: dlg = uiRoot.AddComponent<UIPhoneAnimPage>(); break;
+                case UIGameOverImagePage.NAME: dlg = uiRoot.AddComponent<UIGameOverImagePage>(); break;
 
             }
             SaveUIRoot(dlgName, dlg);
@@ -114,8 +117,6 @@ public sealed class UIManager : Singleton<UIManager>
             {
                 dlg.gameObject.SetActive(true);
                 dlg.OnShow(data);
-                //if (dlg.isOpenDoTween)
-                //    dlg.transform.DOPunchScale(Vector3.one,2,5,0);
             }
             else
             {

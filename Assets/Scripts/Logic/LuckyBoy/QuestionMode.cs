@@ -63,8 +63,14 @@ public class QuestionMode : GameMode
     {
         base.UpRecord(isSuccess);
         LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
-        Android_Call.UnityCallAndroidHasParameter<bool, string, string>(AndroidMethod.Q_UpRecord,
-              isSuccess, LuckyBoyMgr.Instance.startCarwTime, LuckyBoyMgr.Instance.Q_startCarwTime);
+        //Android_Call.UnityCallAndroidHasParameter<bool, string, string>(AndroidMethod.Q_UpRecord,
+        //      isSuccess, LuckyBoyMgr.Instance.startCarwTime, LuckyBoyMgr.Instance.Q_startCarwTime);
+        JsonData jsondata = new JsonData();
+        jsondata["status"] = isSuccess ? 1 : 0;
+        jsondata["reportTime"] = LuckyBoyMgr.Instance.startCarwTime;
+        jsondata["openId"] = "ANS"+ LuckyBoyMgr.Instance.Q_startCarwTime;
+        jsondata["applyRechargeId"] = "ANS" + LuckyBoyMgr.Instance.Q_startCarwTime;
+        NetMrg.Instance.SendRequest(AndroidMethod.Q_UpRecord, jsondata);
     }
 
     public override void ShowEndUI(GameMisson gamePlay)
@@ -117,8 +123,11 @@ public class QuestionMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        string json = JsonMapper.ToJson(list);
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        //string json = JsonMapper.ToJson(list);
+        //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        JsonData jsondata = new JsonData();
+        jsondata["list"] = new JsonData(list);
+        NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
     public override void Clear()
     {

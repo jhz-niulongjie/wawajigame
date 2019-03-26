@@ -16,13 +16,12 @@ public sealed class LuckyBoyMgr : GameCtr
     //自定义支付次数
     public int autoPayTime { get; private set; }
     //支付结果
-    public string payResult;
+    public JsonData payResult;
     protected override void EnterGame()
     {
         Debug.Log("进入幸运礼品机");
         if (AppConst.test)
         {
-            NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode);
             Debug.Log("自己测试");
             gameMode = new CodeMode(this);
             gameMode.EnterGame();
@@ -56,21 +55,24 @@ public sealed class LuckyBoyMgr : GameCtr
     }
 
     //二维码获得成功
-    protected override void QRCodeCall(string result)
+    protected override void QRCodeCall(JsonData result)
     {
         if (isGetCode) return;
         isGetCode = true;
-        string[] msgs = result.Split('|');
-        QRCode.ShowCode(raw, msgs[0]);
-        gameStatus.SetOrderNoRobotId(msgs[1], msgs[2]);
+        QRCode.ShowCode(raw, result["qrUrl"].ToString());
+        orderNumber = result["orderNo"].ToString();
+        gameStatus.SetOrderNoRobotId(orderNumber,NetMrg.Instance.robotId);
         gameStatus.SetRunStatus(GameRunStatus.NoPay);
         EventHandler.ExcuteEvent(EventHandlerType.QRCodeSuccess, null);
+        JsonData jsondata = new JsonData();
+        jsondata["orderNo"] = orderNumber;
         StartCoroutine(CommTool.TimeFun(2, 2, (ref float t) =>
         {
             if (!isPaySucess)
             {
                 //检测是否支付
-                Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, msgs[1], false);
+                // Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, orderNumber, false);
+                NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
             }
             if (t == 0) t = 2;
             return isPaySucess;
@@ -79,7 +81,7 @@ public sealed class LuckyBoyMgr : GameCtr
 
 
     //支付成功
-    protected override void PaySuccess(string result)
+    protected override void PaySuccess(JsonData result)
     {
         if (gameTryStatus == 2)
         {
@@ -90,12 +92,12 @@ public sealed class LuckyBoyMgr : GameCtr
         }
         isPaySucess = true;
         isAddConstraint = false;
-        string[] res = result.Split('|');
-        pay = Convert.ToInt32(res[0]);
+        pay = Convert.ToInt32(result["winningLevel"].ToString());
         pay++;
-        gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::" + res[1] + "-玩家第几次支付:" + pay);
-        JsonData j_data = JsonMapper.ToObject(res[2]);
+        openId = result["openId"].ToString();
+        gameStatus.SetOpenId(openId);
+        Debug.Log("支付成功--openId::" + openId + "-玩家第几次支付:" + pay);
+        JsonData j_data = result["data"];
         List<CatchSuccessData> paylist = JsonMapper.ToObject<List<CatchSuccessData>>(j_data.ToJson());
         paylist.Reverse();
         payCount = paylist.Count;
@@ -157,7 +159,7 @@ public sealed class LuckyBoyMgr : GameCtr
 
 
                 string res = "0|dfsfdfsdsdfdsfdsfdsfsdf|" + aaa;
-                PaySuccess(res);
+               // PaySuccess(res);
             });
         }
     }
@@ -171,7 +173,7 @@ public sealed class LuckyBoyMgr : GameCtr
     //试玩结束是否进入游戏
     public void TryOverEnterGame(List<VoiceContent> listVC)
     {
-        if (isPaySucess && !string.IsNullOrEmpty(payResult))
+        if (isPaySucess && payResult!=null)
             PaySuccess(payResult);
         else
         {

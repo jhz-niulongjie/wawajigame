@@ -83,8 +83,11 @@ public sealed class GiveUpOnGameMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        string json = JsonMapper.ToJson(list);
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        //string json = JsonMapper.ToJson(list);
+        //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        JsonData jsondata = new JsonData();
+        jsondata["list"] = new JsonData(list);
+        NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 
 
@@ -99,8 +102,11 @@ public sealed class GiveUpOnGameMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        string json = JsonMapper.ToJson(list);
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        //string json = JsonMapper.ToJson(list);
+        //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
+        JsonData jsondata = new JsonData();
+        jsondata["list"] = new JsonData(list);
+        NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 
     //开始进入游戏
@@ -125,13 +131,27 @@ public sealed class GiveUpOnGameMode : GameMode
          LuckyBoyMgr.Instance.startCarwTime = CommTool.GetTimeStamp();
         if (sdk.selectMode == SelectGameMode.Pay)
         {
-            Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
-               true,LuckyBoyMgr.Instance.startCarwTime);
+            // Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
+            //  true,LuckyBoyMgr.Instance.startCarwTime);
+            JsonData jsondata = new JsonData();
+            jsondata["status"] = 1;
+            jsondata["reportTime"] = LuckyBoyMgr.Instance.startCarwTime;
+            jsondata["openId"] = GameCtr.Instance.openId;
+            jsondata["applyRechargeId"] = GameCtr.Instance.orderNumber;
+            NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecord, jsondata);
         }
         else
         {
-            Android_Call.UnityCallAndroidHasParameter<bool, string, string>(AndroidMethod.Q_UpRecord,
-              true, LuckyBoyMgr.Instance.startCarwTime, LuckyBoyMgr.Instance.Q_startCarwTime);
+           // Android_Call.UnityCallAndroidHasParameter<bool, string, string>(AndroidMethod.Q_UpRecord,
+             // true, LuckyBoyMgr.Instance.startCarwTime, LuckyBoyMgr.Instance.Q_startCarwTime);
+
+            JsonData jsondata = new JsonData();
+            jsondata["status"] = 1;
+            jsondata["reportTime"] = LuckyBoyMgr.Instance.startCarwTime;
+            jsondata["openId"] = "ANS" + LuckyBoyMgr.Instance.Q_startCarwTime;
+            jsondata["applyRechargeId"] ="ANS"+ LuckyBoyMgr.Instance.Q_startCarwTime;
+            NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecord, jsondata);
+
         }
         UIManager.Instance.ShowUI(UIPromptPage.NAME, true, CatchTy.Catch);
         Android_Call.UnityCallAndroid(AndroidMethod.AutoPresent);//自动出礼物

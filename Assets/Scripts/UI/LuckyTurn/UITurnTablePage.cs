@@ -106,7 +106,7 @@ public sealed class UITurnTablePage : UIDataBase
             go.SetActive(true);
             UIEventLisener.Get(go).OnClick += g =>
             {
-                GameCtr.Instance.AndroidCall(CallParameter.HeadDown.ToString());
+                GameCtr.Instance.HeadDonw();
             };
         }
     }

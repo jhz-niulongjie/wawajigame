@@ -15,8 +15,10 @@ public class GameCtr : MonoBehaviour
     public HandleSqliteData handleSqlite { get; private set; }
     //头部按下事件
     public Action headDown_Action { get; private set; }
-
+    //是否一直显示二维码
+    public bool isNoDied { get; private set; }
     private bool isUnBind = false;
+
     #endregion
 
     #region 公共对象
@@ -46,6 +48,10 @@ public class GameCtr : MonoBehaviour
     public float money { get; protected set; }
     //第几次支付
     public int pay { get; protected set; }
+    //openId
+    public string openId { get; protected set; }
+    //账单号
+    public string orderNumber { get; protected set; }
     //游戏模式
     public GameMode gameMode { get; protected set; }
 
@@ -66,6 +72,13 @@ public class GameCtr : MonoBehaviour
     public int pass { get; protected set; }
     //是否自动送礼品
     public bool autoSendGift { get; protected set; }//第三次支付是否自动送礼品 1是进行 0不进行
+
+    public Texture2D texture { get; protected set; }//结束显示图片
+
+    public string OverVoice { get; protected set; }//结束显示图片时的语音
+
+    public float ShowTime { get; protected set; }//结束显示图片时间
+
     #endregion
 
     #region 测试数据参数
@@ -76,7 +89,7 @@ public class GameCtr : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        AndroidCallUnity.Instance.Init(AndroidCall, QRCodeCall, GetProbabilityCall, PaySuccess, Question_Wing);
+        AndroidCallUnity.Instance.Init(HeadDonw, AndroidCall, QRCodeCall, GetProbabilityCall, PaySuccess, Question_Wing, GameOverImageInfo);
         Init();
         EnterGame();
     }
@@ -84,7 +97,7 @@ public class GameCtr : MonoBehaviour
     protected virtual void Init()
     {
         randomQuXian = 1;
-        checkProperty =0.42f;//0.42f  //检测范围
+        checkProperty = 0.42f;//0.42f  //检测范围
         probability = 20;//百分之30不打掉
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、
@@ -95,8 +108,10 @@ public class GameCtr : MonoBehaviour
         pass = 3;
         isGame = true;
         autoSendGift = true;
+        isNoDied = true;
         handleSqlite = new HandleSqliteData(this);
-        Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
+        //Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
+        NetMrg.Instance.SendRequest(AndroidMethod.GetProbabilityValue);
     }
     //获得游戏模式
     protected virtual void EnterGame()
@@ -118,30 +133,34 @@ public class GameCtr : MonoBehaviour
             isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
             // 第五个是 选择的什么游戏 此处不需要
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
+            isNoDied = Convert.ToInt32(contents[7]) == 0 ? true : false;//开启一直显示二维码模式  
         }
         else
             Q_AppQuit();
     }
 
-    //Android 调用
-    public virtual void AndroidCall(string result)
+    //头部按下
+    public void HeadDonw()
     {
-        CallParameter cp = (CallParameter)Enum.Parse(typeof(CallParameter), result);
+        Debug.Log("头部按下");
+        if (headDown_Action != null)
+        {
+            headDown_Action();
+            headDown_Action = null;
+        }
+    }
+
+
+    //Android 调用
+    public virtual void AndroidCall(CallParameter cp)
+    {
         switch (cp)
         {
             case CallParameter.NoPay:
                 Debug.Log("未支付");
                 gameMode.NoPay();
                 break;
-            case CallParameter.HeadDown:
-                if (headDown_Action != null)
-                {
-                    headDown_Action();
-                    headDown_Action = null;
-                }
-                break;
             case CallParameter.Error:
-                Debug.Log("--返回异常");
                 UIManager.Instance.ShowUI(UIMessagePage.NAME, true, "网络异常，连不上服务器，2s后游戏自动关闭");
                 break;
             case CallParameter.NoBind:
@@ -162,45 +181,50 @@ public class GameCtr : MonoBehaviour
         }
     }
     //二维码获得成功
-    protected virtual void QRCodeCall(string result)
+    protected virtual void QRCodeCall(JsonData result)
     {
         if (isGetCode) return;
         isGetCode = true;
-        string[] msgs = result.Split('|');
-        QRCode.ShowCode(raw, msgs[0]);
-        gameStatus.SetOrderNoRobotId(msgs[1], msgs[2]);
+        QRCode.ShowCode(raw, result["qrUrl"].ToString());
+        orderNumber = result["orderNo"].ToString();
+        gameStatus.SetOrderNoRobotId(orderNumber, NetMrg.Instance.robotId);
         gameStatus.SetRunStatus(GameRunStatus.NoPay);
         EventHandler.ExcuteEvent(EventHandlerType.QRCodeSuccess, null);
+        JsonData jsondata = new JsonData();
+        jsondata["orderNo"] = orderNumber;
         StartCoroutine(CommTool.TimeFun(2, 2, (ref float t) =>
         {
             if (!isPaySucess)
             {
                 //检测是否支付
-                Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, msgs[1], false);
+                // Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, orderNumber, false);
+                NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
             }
             if (t == 0) t = 2;
             return isPaySucess;
         }));
     }
     //获得概率值
-    protected virtual void GetProbabilityCall(string result)
+    protected virtual void GetProbabilityCall(JsonData result)
     {
-        string[] res = result.Split('|');
-        Debug.Log("概率值获得成功------- probability： " + res[0] + "  winningTimes： " + res[1] + "  carwBasicCount:" + res[2] + "  money:" + res[3]);
-        probability = Convert.ToSingle(res[0]);
-        winningTimes = Convert.ToSingle(res[1]);
-        carwBasicCount = Convert.ToInt32(res[2]);
-        money = Convert.ToSingle(res[3]);
+        //概率值
+        probability = Convert.ToSingle(result["captureProb"].ToString());
+        //中奖值
+        winningTimes = Convert.ToSingle(result["captureStepNum"].ToString());
+        //基数
+        carwBasicCount = Convert.ToInt32(result["captureStepLenght"].ToString());
+        money = Convert.ToSingle(result["qrAmount"].ToString());
+        Debug.Log("概率值获得成功------- probability： " + probability + "  winningTimes： " + winningTimes + "  carwBasicCount:" + carwBasicCount + "  money:" + money);
     }
 
     //支付成功
-    protected virtual void PaySuccess(string result)
+    protected virtual void PaySuccess(JsonData result)
     {
         isPaySucess = true;
-        string[] res = result.Split('|');
-        pay = Convert.ToInt32(res[0]);
-        gameStatus.SetOpenId(res[1]);
-        Debug.Log("支付成功--openId::" + res[1]);
+        pay = Convert.ToInt32(result["winningLevel"].ToString());
+        openId = result["openId"].ToString();
+        gameStatus.SetOpenId(openId);
+        Debug.Log("支付成功--openId::" + openId);
     }
 
     //摆动翅膀回答问题
@@ -208,6 +232,14 @@ public class GameCtr : MonoBehaviour
     {
         //0 是左翅膀 1是右翅膀
         EventDispatcher.Dispatch<string>(EventHandlerType.Question_Wing, result);//注册
+    }
+    //结束页面图片信息
+    protected virtual void GameOverImageInfo(string result)
+    {
+        string[] contents = result.Split('|');
+        OverVoice = contents[0];
+        ShowTime = Convert.ToSingle(contents[1]);
+        StartCoroutine(LoadImage(contents[2]));
     }
 
     //注册头部按下事件
@@ -226,7 +258,32 @@ public class GameCtr : MonoBehaviour
         return null;
     }
 
+    //从android加载图片
+    IEnumerator LoadImage(string imgName)
+    {
+        string path = Application.persistentDataPath + "/Images/" + imgName;
+        Debug.Log("图片路径。。。" + path);
+        WWW www = new WWW(path);
+        yield return www;
+        if (www != null && !string.IsNullOrEmpty(www.error))
+        {
+            texture = www.texture;
+        }
+        else
+        {
+            Debug.LogError("www 加载图片失败:::" + www.error);
+        }
+    }
 
+    //显示结束图片
+    private void ShowOverImage()
+    {
+        if (!string.IsNullOrEmpty(OverVoice) && texture != null)
+        {
+            UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, OverVoice);
+        }
+    }
     /// <summary>
     /// 游戏推出
     /// </summary>

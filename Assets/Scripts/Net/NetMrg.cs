@@ -11,17 +11,17 @@ public sealed class NetMrg : Singleton<NetMrg>
 {
     private BestHttpImpl httpImpl = null;
     private bool isText = false;
-    private string robotId = "100000056918";
+    public string robotId { get; private set; }
 
     private NetMrg()
     {
         httpImpl = new BestHttpImpl();
         httpImpl.SetHttpParams(false);
-        httpImpl.AddHead("Content-Type","application/json");
+        httpImpl.AddHead("Content-Type", "application/json");
         isText = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.IsText);
         robotId = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.getRobotId);
         Debug.Log("小胖ID***" + robotId + "***是否测试环境***" + isText);
-        robotId = "100000056918";
+        robotId = "100000056522";
     }
 
 
@@ -34,8 +34,7 @@ public sealed class NetMrg : Singleton<NetMrg>
     public void SendRequest(AndroidMethod method, JsonData requestParams = null)
     {
         string httpUrl = GetUrl(method);
-        //string httpUrl = "http://192.168.15.12:8096/v1/wxluckDraw/getLuckDrawQrCode";
-        Debug.Log(method.GetEnumContent() + "***" + httpUrl);
+        Debug.Log("HTTP:::" + method.GetEnumContent() + "***" + httpUrl);
         //Dictionary<string, string> requestParams = new Dictionary<string, string>
         //{
         //    //{ "name","nlj"},
@@ -43,7 +42,7 @@ public sealed class NetMrg : Singleton<NetMrg>
         //};
         if (requestParams == null)
             requestParams = new JsonData();
-        requestParams["robotId"]=robotId;
+        requestParams["robotId"] = robotId;
 
         // 是否打开多次回调模式
         bool isOpenStram = false;
@@ -51,37 +50,51 @@ public sealed class NetMrg : Singleton<NetMrg>
         {
             if (rsp != null)
             {
-                Debug.Log("收到响应***" + rsp.DataAsText);
-
-                switch (method)
+                Debug.Log("收到响应***" +method+"******"+ rsp.DataAsText);
+                JsonData jsonData = JsonMapper.ToObject(rsp.DataAsText);
+                string resultCode = jsonData["resultCode"].ToString();
+                if (resultCode == "SUCCESS")
                 {
-                    case AndroidMethod.GetProbabilityValue:
-                        AndroidCallUnity.Instance.GetProbabilityCall(rsp.DataAsText);
-                        break;
-                    case AndroidMethod.GetDrawQrCode:
-                        AndroidCallUnity.Instance.QRCodeCall(rsp.DataAsText);
-                        break;
-                    case AndroidMethod.GetPayStatus:
-                    case AndroidMethod.GetPayStatusSendPhone:
-                        AndroidCallUnity.Instance.PaySuccess(rsp.DataAsText);
-                        break;
-                    case AndroidMethod.ResPhoneCode:
-                        AndroidCallUnity.Instance.Question_Wing(rsp.DataAsText);
-                        break;
-                    case AndroidMethod.SendCatchRecordList:
-                        AndroidCallUnity.Instance.PaySuccess(rsp.DataAsText);
-                        break;
-                    default:
-                        Debug.Log("响应类型不匹配");
-                        break;
+                    switch (method)
+                    {
+                        case AndroidMethod.GetProbabilityValue:
+                            AndroidCallUnity.Instance.GetProbabilityCall(jsonData["data"]);
+                            break;
+                        case AndroidMethod.GetDrawQrCode:
+                            AndroidCallUnity.Instance.QRCodeCall(jsonData);
+                            break;
+                        case AndroidMethod.GetPayStatus:
+                        case AndroidMethod.GetPayStatusSendPhone:
+                            string status = jsonData["status"].ToString();
+                            if (status == "1")//支付成功
+                                AndroidCallUnity.Instance.PaySuccess(jsonData);
+                            break;
+                        case AndroidMethod.ResPhoneCode:
+                            AndroidCallUnity.Instance.Question_Wing(jsonData["code"].ToString());
+                            break;
+                        case AndroidMethod.SendCatchRecordList:
+                            AndroidCallUnity.Instance.AndroidCall(CallParameter.UpRecordListSuccess);
+                            break;
+                        default:
+                            Debug.Log("响应类型不匹配");
+                            break;
+                    }
                 }
-
+                else if (resultCode == "NO_DOLL_ROBOT" || resultCode == "ACTIVE_ROBOT")//娃娃机未绑定
+                {
+                    AndroidCallUnity.Instance.AndroidCall(CallParameter.NoBind);
+                }
             }
         },
         fail =>
         {
-
-
+            switch (method)
+            {
+                case AndroidMethod.SendCatchRecord:
+                case AndroidMethod.Q_UpRecord:
+                    AndroidCallUnity.Instance.AndroidCall(CallParameter.UpRecordFail);
+                    break;
+            }
         });
     }
 
