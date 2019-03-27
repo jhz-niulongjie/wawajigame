@@ -76,7 +76,7 @@ public sealed class UIManager : Singleton<UIManager>
                 case UITimePage.NAME: dlg = uiRoot.AddComponent<UITimePage>(); break;
                 case UIPromptPage.NAME: dlg = uiRoot.AddComponent<UIPromptPage>(); break;
                 case UIMovieQRCodePage.NAME:
-                    dlg =GameCtr.Instance.isNoDied? uiRoot.AddComponent<UICodePageNoDied>(): uiRoot.AddComponent<UIMovieQRCodePage>();
+                    dlg = GameCtr.Instance.isNoDied ? uiRoot.AddComponent<UICodePageNoDied>() : uiRoot.AddComponent<UIMovieQRCodePage>();
                     break;
                 case UIMessagePage.NAME: dlg = uiRoot.AddComponent<UIMessagePage>(); break;
                 case UIBgPage.NAME: dlg = uiRoot.AddComponent<UIBgPage>(); break;
@@ -127,7 +127,7 @@ public sealed class UIManager : Singleton<UIManager>
                     SetUIRootParent(dlg.gameObject, UIShowPos.Hide);
                 }
                 else
-                {    
+                {
                     GameObject.Destroy(dlg.gameObject);
                     dicDlg.Remove(dlgName);
                     return;
@@ -137,7 +137,24 @@ public sealed class UIManager : Singleton<UIManager>
                 act(dlg.gameObject);
         }
     }
-
+    //不清空二维码页面
+    public void ClearExcludeCodePage(string dlgname)
+    {
+        UIDataBase dlg;
+        dicDlg.TryGetValue(dlgname,out dlg);
+        dicDlg.Remove(dlgname);
+        foreach (var item in dicDlg)
+        {
+            if (item.Value != null)
+                GameObject.Destroy(item.Value.gameObject);
+        }
+        dicDlg.Clear();
+        if (dlg)
+        {
+            dicDlg.Add(dlgname, dlg);
+        }
+    }
+    //释放全部
     public void Clear()
     {
         canves.SetActive(false);
@@ -149,5 +166,6 @@ public sealed class UIManager : Singleton<UIManager>
         dicDlg.Clear();
         Dispose();
     }
+
 
 }

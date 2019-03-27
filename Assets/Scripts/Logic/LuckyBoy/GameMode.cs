@@ -105,10 +105,12 @@ public class GameMode
     /// </summary>
     public virtual void Clear()
     {
-        if (qvs != null)
-            qvs.q_v_list.Clear();
+        //if (qvs != null)
+        //    qvs.q_v_list.Clear();
         if (gameMisson != null)
             gameMisson.Clear();
+        gameMisson = null;
+        qvs = null;
     }
 
 

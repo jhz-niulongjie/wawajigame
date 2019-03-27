@@ -21,7 +21,8 @@ public sealed class NetMrg : Singleton<NetMrg>
         isText = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.IsText);
         robotId = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.getRobotId);
         Debug.Log("小胖ID***" + robotId + "***是否测试环境***" + isText);
-        robotId = "100000056522";
+        robotId = "100000000009";
+        isText = true;
     }
 
 
@@ -50,7 +51,7 @@ public sealed class NetMrg : Singleton<NetMrg>
         {
             if (rsp != null)
             {
-                Debug.Log("收到响应***" +method+"******"+ rsp.DataAsText);
+                Debug.Log("响应成功***" + method.GetEnumContent()+ "******"+ rsp.DataAsText);
                 JsonData jsonData = JsonMapper.ToObject(rsp.DataAsText);
                 string resultCode = jsonData["resultCode"].ToString();
                 if (resultCode == "SUCCESS")
@@ -75,6 +76,9 @@ public sealed class NetMrg : Singleton<NetMrg>
                         case AndroidMethod.SendCatchRecordList:
                             AndroidCallUnity.Instance.AndroidCall(CallParameter.UpRecordListSuccess);
                             break;
+                        case AndroidMethod.SendCatchRecord:
+                        case AndroidMethod.Q_UpRecord:
+                            break;
                         default:
                             Debug.Log("响应类型不匹配");
                             break;
@@ -88,6 +92,7 @@ public sealed class NetMrg : Singleton<NetMrg>
         },
         fail =>
         {
+            Debug.Log("响应失败***" + method.GetEnumContent());
             switch (method)
             {
                 case AndroidMethod.SendCatchRecord:
@@ -119,6 +124,12 @@ public sealed class NetMrg : Singleton<NetMrg>
                 break;
             case AndroidMethod.SendCatchRecordList:
                 httpUrl = ip + AppConst.LuckCatchRecordList;
+                break;
+            case AndroidMethod.ResPhoneCode:
+                httpUrl = ip + AppConst.TestPhone_GetPhoneCode;
+                break;
+            case AndroidMethod.GetPayStatusSendPhone:
+                httpUrl = ip + AppConst.TestPhone_PayStatus;
                 break;
         }
         return httpUrl;

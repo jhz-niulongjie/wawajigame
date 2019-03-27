@@ -1,16 +1,18 @@
 ﻿using DG.Tweening;
+using LitJson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class Base : MonoBehaviour ,I_Code{
+public class Base : MonoBehaviour, I_Code
+{
 
     #region 支付数据
-    public  GameObject anim { get; set; }
+    public GameObject anim { get; set; }
 
-    public  GameObject code { get; set; }
+    public GameObject code { get; set; }
 
     public VideoPlayer vplayer { get; set; }
 
@@ -50,9 +52,13 @@ public class Base : MonoBehaviour ,I_Code{
     //获得二维码数据
     public virtual void GetCodeData()
     {
+        JsonData jsondata = new JsonData();
+        jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
         loading.SetActive(true);
         rawImage.gameObject.SetActive(false);
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
+        //测试用的
+        isCanPlay = true;
         if (isCanPlay)
         {
             #region 获取二维码
@@ -63,7 +69,7 @@ public class Base : MonoBehaviour ,I_Code{
                     if (t == 0)
                         GameCtr.Instance.AppQuit();
                     else
-                        Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
+                        NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode, jsondata);
                     return false;
                 }
                 else
@@ -93,7 +99,8 @@ public class Base : MonoBehaviour ,I_Code{
     {
         loading.SetActive(false);
         rawImage.gameObject.SetActive(true);
-        StartCoroutine(PlayVoiceIe());
+        if (!GameCtr.Instance.isNoDied)
+            StartCoroutine(PlayVoiceIe());
     }
 
     public virtual IEnumerator PlayVoiceIe()
@@ -115,6 +122,6 @@ public class Base : MonoBehaviour ,I_Code{
         }
         GameCtr.Instance.AppQuit();
     }
- #endregion
+    #endregion
 
 }

@@ -123,10 +123,10 @@ public class QuestionMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        //string json = JsonMapper.ToJson(list);
+        string json = JsonMapper.ToJson(list);
         //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
         JsonData jsondata = new JsonData();
-        jsondata["list"] = new JsonData(list);
+        jsondata["list"] = new JsonData(json);
         NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
     public override void Clear()

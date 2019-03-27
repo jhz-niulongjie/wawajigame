@@ -180,8 +180,8 @@ public sealed class Anim : MonoBehaviour
     //警察移动
     private void PoliceMove()
     {
+        if (!police_shoot) return;
         police_shoot.localRotation = Quaternion.identity;
-        // sayText.transform.localRotation = Quaternion.identity;
         sayObj.transform.localRotation = Quaternion.identity;
         PoliceSay();
         SetPoliceImg(false);
@@ -228,7 +228,7 @@ public sealed class Anim : MonoBehaviour
         isStartShoot = true;
         //PoliceSay();
         sayObj.transform.parent.gameObject.SetActive(false);
-        space_time =0.1f;
+        space_time = 0.1f;
     }
     //停止射击
     private void StopShoot()

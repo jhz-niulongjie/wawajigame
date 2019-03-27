@@ -9,7 +9,10 @@ public sealed class CodeMode : GameMode
     public CodeMode(GameCtr _sdk) : base(_sdk)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
-        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);//不使用 每次进入重新开始
+        if (sdk.isFirstGame)
+            sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);//不使用 每次进入重新开始
+        else
+            sdk.gameStatus.SetRunStatus(GameRunStatus.NoPay);
     }
 
     #region 重写方法
@@ -51,7 +54,7 @@ public sealed class CodeMode : GameMode
         //Android_Call.UnityCallAndroidHasParameter<bool, string>(AndroidMethod.SendCatchRecord,
         // isSuccess, LuckyBoyMgr.Instance.startCarwTime);
         JsonData jsondata = new JsonData();
-        jsondata["status"] = isSuccess?1:0;
+        jsondata["status"] = isSuccess ? 1 : 0;
         jsondata["reportTime"] = LuckyBoyMgr.Instance.startCarwTime;
         jsondata["openId"] = GameCtr.Instance.openId;
         jsondata["applyRechargeId"] = GameCtr.Instance.orderNumber;
@@ -136,10 +139,9 @@ public sealed class CodeMode : GameMode
         {
             //UIManager.Instance.ShowUI(UIBgPage.NAME, true);
             //查询是否支付
-            // Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, sdk.gameStatus.applyRechargeId, true);
-            JsonData jsondata = new JsonData();
-            jsondata["orderNo"] = sdk.gameStatus.applyRechargeId;
-            NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
+            //JsonData jsondata = new JsonData();
+            //jsondata["orderNo"] = sdk.gameStatus.applyRechargeId;
+            //NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
         }
         else if (sdk.gameStatus.runStatus == GameRunStatus.InGame)
         {
@@ -159,10 +161,10 @@ public sealed class CodeMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-       // string json = JsonMapper.ToJson(list);
+         string json = JsonMapper.ToJson(list);
         //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
         JsonData jsondata = new JsonData();
-        jsondata["list"] = new JsonData(list);
+        jsondata["list"] = new JsonData(json);
         NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
 
     }
@@ -202,7 +204,7 @@ public sealed class CodeMode : GameMode
                 EC = null;
             }
             Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ShakeWave, 5000);
-            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false,5000);
+            Android_Call.UnityCallAndroidHasParameter<bool, int>(AndroidMethod.OpenLight, false, 5000);
         });
 #endif
     }

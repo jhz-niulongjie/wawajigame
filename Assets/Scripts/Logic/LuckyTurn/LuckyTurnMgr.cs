@@ -21,7 +21,7 @@ public sealed class LuckyTurnMgr : GameCtr
             Debug.Log("自己测试");
             GetOnSaleValue();
             codeEnter = true;
-            gameMode = new TurnQuestionMode(this);
+            gameMode = new TurnCodeMode(this);
             gameMode.EnterGame();
             pass = 3;
         }

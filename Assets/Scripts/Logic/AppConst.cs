@@ -36,14 +36,14 @@ public sealed class AppConst   {
     //批量上报抓取记录
     public const string LuckCatchRecordList ="intranet_grab/insertBatchGrabRecord";
 
-    //送平板ip
-    public const string Phone_IP ="http://doll.game.efrobot.com/";
-    public const string TestPhone_IP ="http://net.wxservice.efrobot.com/";
+    ////送平板ip
+    //public const string Phone_IP ="http://doll.game.efrobot.com/";
+    //public const string TestPhone_IP ="http://net.wxservice.efrobot.com/";
 
     //兑换码
     public const string TestPhone_GetPhoneCode ="win-record/get-redeem-code";
     // 支付状态
-    public const string TestPhone_PayStatus ="v1/wxluckDraw/getLuckDrawStatusNew";
+    public const string TestPhone_PayStatus ="wxluckDraw/getLuckDrawStatusNew";
 
 
 

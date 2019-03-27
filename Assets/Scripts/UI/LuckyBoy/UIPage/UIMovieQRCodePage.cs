@@ -75,7 +75,7 @@ public class UIMovieQRCodePage : UIDataBase
         if (AppConst.test)
         {
             //试玩
-            UIEventLisener.Get(tryTran).OnClick +=o=> AndroidCallUnity.Instance.Question_Wing("1");
+            UIEventLisener.Get(tryTran).OnClick += o => AndroidCallUnity.Instance.Question_Wing("1");
         }
 
     }
@@ -87,7 +87,7 @@ public class UIMovieQRCodePage : UIDataBase
         qrCode.SetActive(false);
         vplayers.gameObject.SetActive(true);
         sdk.raw = raw;
-        if (sdk.gameTryStatus == 0)//开始显示试玩界面
+        if (sdk.isFirstGame)//开始显示试玩界面
         {
             PlayMovies();
         }
@@ -99,85 +99,74 @@ public class UIMovieQRCodePage : UIDataBase
     public override void OnHide()
     {
         base.OnHide();
-       // EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
+        // EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
     }
 
-   public void PlayMovies()
+    public void PlayMovies()
     {
         vplayers.loopPointReached += MovieOvers;
         vplayers.Play();
     }
-   public virtual void MovieOvers(VideoPlayer p)
+    public virtual void MovieOvers(VideoPlayer p)
     {
         Debug.Log("视频播放完毕");
         if (sdk.isGame)
         {
-            if (sdk.gameTryStatus == 0)
-            {
-                tryTran.SetActive(true);
-                sdk.gameTryStatus = 1;//视频播放完成  可以试玩
-            }
+            tryTran.SetActive(true);
+            sdk.gameTryStatus = 1;//视频播放完成  可以试玩
         }
         moneyText.text = sdk.money + "元";
         vplayers.gameObject.SetActive(false);
         qrCode.SetActive(true);
         loadings.SetActive(true);
         raw.gameObject.SetActive(false);
-        
+        GetCodeData();
+    }
+    //获得二维码
+    public override void GetCodeData()
+    {
         JsonData jsondata = new JsonData();
         jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
-        //测试用
-        NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode,jsondata);
-
-        return;
-
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
+        //测试用
+        isCanPlay = true;
         if (isCanPlay)
         {
             #region 获取二维码
             bool flagQuit = false;
             StartCoroutine(CommTool.TimeFun(60, 5, (ref float t) =>
-               {
-                   if (!sdk.isGetCode)
-                   {
-                       // Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
-                       NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode, jsondata);
-                       if (t == 0 && !flagQuit)
-                       {
-                           Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
-                               "小胖发现没有网络哦，请联网后再来玩吧");
-                           t = 8;
-                           if (t < 10) t = 10;
-                           flagQuit = true;
-                       }
-                       else if (t == 0)// 没有网络时间到退出
-                       {
-                           sdk.AppQuit();//游戏推出
-                           return true;
-                       }
-                       return false;
-                   }
-                   else
-                       return true;
+            {
+                if (!sdk.isGetCode)
+                {
+                    // Android_Call.UnityCallAndroid(AndroidMethod.GetDrawQrCode);
+                    NetMrg.Instance.SendRequest(AndroidMethod.GetDrawQrCode, jsondata);
+                    if (t == 0 && !flagQuit)
+                    {
+                        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
+                            "小胖发现没有网络哦，请联网后再来玩吧");
+                        t = 8;
+                        if (t < 10) t = 10;
+                        flagQuit = true;
+                    }
+                    else if (t == 0)// 没有网络时间到退出
+                    {
+                        sdk.AppQuit();//游戏推出
+                        return true;
+                    }
+                    return false;
+                }
+                else
+                    return true;
 
-               }));
+            }));
             #endregion
         }
         else
         {
-            if (AppConst.test)
-            {
-               // DOVirtual.DelayedCall(2, () => EventHandler.ExcuteEvent(EventHandlerType.StartTryPlay, null));
-            }
-            else
-            {
-                Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
-                   "没有吉娃娃不能开始游戏");
-                DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
-            }
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
+               "没有吉娃娃不能开始游戏");
+            DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
         }
-
-
     }
 
     public override IEnumerator PlayVoiceIe()
@@ -208,7 +197,7 @@ public class UIMovieQRCodePage : UIDataBase
     }
 
     //二维码返回成功
-   public  void QRCodeSuccess(object data)
+    public void QRCodeSuccess(object data)
     {
         loadings.SetActive(false);
         raw.gameObject.SetActive(true);

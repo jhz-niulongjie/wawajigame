@@ -16,9 +16,9 @@ public sealed class TurnCodeMode : GameMode {
 
         if (AppConst.test)
         {
-            sdk.gameStatus.SetOpenId("123");
-            sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);//在游戏中  测试用
-            sdk.handleSqlite.DelOverTimeUserFromDataBase();//删除超过时间的礼品碎片
+            //sdk.gameStatus.SetOpenId("123");
+            //sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);//在游戏中  测试用
+            //sdk.handleSqlite.DelOverTimeUserFromDataBase();//删除超过时间的礼品碎片
         }
     }
     //未支付进入游戏
@@ -41,10 +41,9 @@ public sealed class TurnCodeMode : GameMode {
             StartEnterGame();
         else if (sdk.gameStatus.runStatus == GameRunStatus.NoPay)
         {    //查询是否支付
-            // Android_Call.UnityCallAndroidHasParameter<string, bool>(AndroidMethod.GetPayStatus, sdk.gameStatus.applyRechargeId, true);
-            JsonData jsondata = new JsonData();
-            jsondata["orderNo"] = sdk.gameStatus.applyRechargeId;
-            NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
+            //JsonData jsondata = new JsonData();
+            //jsondata["orderNo"] = sdk.gameStatus.applyRechargeId;
+            //NetMrg.Instance.SendRequest(AndroidMethod.GetPayStatus, jsondata);
         }
         else if (sdk.gameStatus.runStatus == GameRunStatus.InGame)
         {
@@ -79,10 +78,10 @@ public sealed class TurnCodeMode : GameMode {
             Debug.Log("record表为空不需上报");
             return;
         }
-        //string json = JsonMapper.ToJson(list);
+        string json = JsonMapper.ToJson(list);
         //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
         JsonData jsondata = new JsonData();
-        jsondata["list"] = new JsonData(list);
+        jsondata["list"] = new JsonData(json);
         NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 

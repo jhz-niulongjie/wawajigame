@@ -10,10 +10,12 @@ public abstract class Singleton<T> where T : class
     public static T Instance
     {
         get {
+            if (instance == null)
+                CreateInstance();
             return Singleton<T>.instance;
         }
     }
-    static Singleton()
+    static void CreateInstance()
     {
         if (Singleton<T>.instance == null)
         {

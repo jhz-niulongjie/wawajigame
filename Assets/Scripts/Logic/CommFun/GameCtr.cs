@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using LitJson;
+using DG.Tweening;
 
 public delegate bool MyFuncPerSecond(ref float time);
 public class GameCtr : MonoBehaviour
@@ -59,7 +60,8 @@ public class GameCtr : MonoBehaviour
     public float winningTimes { get; protected set; }
     //概率基数
     public float carwBasicCount { get; protected set; }
-
+    //玩家选择的游戏
+    public int selectGame { get; protected set; }//0 抓娃娃 1转转
     //是否支付答题模式
     public SelectGameMode selectMode { get; protected set; }//选择模式  0是支付模式  1是答题模式
     //选择局数
@@ -79,6 +81,7 @@ public class GameCtr : MonoBehaviour
 
     public float ShowTime { get; protected set; }//结束显示图片时间
 
+    public bool isFirstGame { get; protected set; }//是否第一次进入游戏
     #endregion
 
     #region 测试数据参数
@@ -102,13 +105,18 @@ public class GameCtr : MonoBehaviour
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、
         money = 10;
+        selectGame = 0;
         selectMode = SelectGameMode.Pay;
         selectRound = 3;
         question = 5;
         pass = 3;
+        isGetCode = false;
+        isPaySucess = false;
         isGame = true;
         autoSendGift = true;
-        isNoDied = true;
+        isNoDied = false;
+        ShowTime = 0;
+        isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
         //Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
         NetMrg.Instance.SendRequest(AndroidMethod.GetProbabilityValue);
@@ -131,7 +139,7 @@ public class GameCtr : MonoBehaviour
             question = Convert.ToInt32(contents[2]);//几道题
             pass = Convert.ToInt32(contents[3]);//通过数量
             isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
-            // 第五个是 选择的什么游戏 此处不需要
+            selectGame = Convert.ToInt32(contents[5]);
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
             isNoDied = Convert.ToInt32(contents[7]) == 0 ? true : false;//开启一直显示二维码模式  
         }
@@ -275,13 +283,57 @@ public class GameCtr : MonoBehaviour
         }
     }
 
+    //重置数据
+    public void ResetGame()
+    {
+        AndroidCallUnity.Instance.RestData();
+        NetMrg.Instance.SendRequest(AndroidMethod.GetProbabilityValue);
+        isGetCode = false;
+        isPaySucess = false;
+        isFirstGame = false;
+    }
     //显示结束图片
     private void ShowOverImage()
     {
         if (!string.IsNullOrEmpty(OverVoice) && texture != null)
         {
+            Debug.Log("******显示结束图片***********");
             UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, OverVoice);
+        }
+    }
+
+    private void Dispose()
+    {
+        headDown_Action = null;
+        if (gameStatus != null) gameStatus.SetProDefulat();
+        if (gameMode != null) gameMode.Clear();
+        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
+        UIAtlasManager.Instance.Clear();
+        AudioManager.Instance.Clear();
+        EventHandler.Clear();
+        EventDispatcher.Clear();
+        EffectMrg.HideEffectNoraml();
+        Resources.UnloadUnusedAssets();
+        GC.Collect();
+        string dlgName = null;
+        if (isNoDied && selectMode == SelectGameMode.Pay)//游戏不死 并且是支付模式
+        {
+            ResetGame();
+            EnterGame();
+            if (selectGame == 0)
+                dlgName = UIMovieQRCodePage.NAME;
+            else if (selectGame == 1)
+                dlgName = UITurnCodePage.NAME;
+            UIManager.Instance.ClearExcludeCodePage(dlgName);
+            UIManager.Instance.ShowUI(dlgName, true);
+        }
+        else
+        {
+            AndroidCallUnity.Instance.Dispose();
+            UIManager.Instance.Clear();
+            Debug.Log("退出游戏AppQuit");
+            Application.Quit();
         }
     }
     /// <summary>
@@ -289,28 +341,14 @@ public class GameCtr : MonoBehaviour
     /// </summary>
     public virtual void AppQuit()
     {
-        Debug.Log("退出游戏AppQuit");
-        headDown_Action = null;
-        if (gameStatus != null) gameStatus.SetProDefulat();
-        if (gameMode != null) gameMode.Clear();
-        AndroidCallUnity.Instance.Dispose();
-        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
-        UIManager.Instance.Clear();
-        UIAtlasManager.Instance.Clear();
-        AudioManager.Instance.Clear();
-        EventHandler.Clear();
-        EventDispatcher.Clear();
-        EffectMrg.Clear();
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
-        Application.Quit();
+        ShowOverImage();
+        DOVirtual.DelayedCall(ShowTime, Dispose);
     }
     /// <summary>
     /// 游戏推出  答问不及格
     /// </summary>
     public virtual void Q_AppQuit()
     {
-        Debug.Log("退出游戏Q_AppQuit");
         headDown_Action = null;
         if (gameMode != null) gameMode.Clear();
         AndroidCallUnity.Instance.Dispose();
@@ -319,6 +357,7 @@ public class GameCtr : MonoBehaviour
         EventDispatcher.Clear();
         Resources.UnloadUnusedAssets();
         GC.Collect();
+        Debug.Log("退出游戏Q_AppQuit");
         Application.Quit();
     }
 

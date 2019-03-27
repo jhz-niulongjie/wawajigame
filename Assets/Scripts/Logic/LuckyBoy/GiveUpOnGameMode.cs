@@ -83,10 +83,10 @@ public sealed class GiveUpOnGameMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        //string json = JsonMapper.ToJson(list);
+        string json = JsonMapper.ToJson(list);
         //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
         JsonData jsondata = new JsonData();
-        jsondata["list"] = new JsonData(list);
+        jsondata["list"] = new JsonData(json);
         NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 
@@ -102,10 +102,10 @@ public sealed class GiveUpOnGameMode : GameMode
             Debug.Log("record表为空不需上报");
             return;
         }
-        //string json = JsonMapper.ToJson(list);
+        string json = JsonMapper.ToJson(list);
         //Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SendCatchRecordList, json);
         JsonData jsondata = new JsonData();
-        jsondata["list"] = new JsonData(list);
+        jsondata["list"] = new JsonData(json);
         NetMrg.Instance.SendRequest(AndroidMethod.SendCatchRecordList, jsondata);
     }
 
@@ -161,7 +161,7 @@ public sealed class GiveUpOnGameMode : GameMode
         string[] contents = vc.Content.Split('|');
         int rangeIndex = UnityEngine.Random.Range(0, contents.Length);
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, contents[rangeIndex]);
-        EffectMrg.ShowEffect(); //播放特效
+        EffectMrg.ShowEffectNormal(); //播放特效
         float winTime = Convert.ToSingle(vc.Time) + 2f;
         Debug.Log("winTime::"+winTime);
         sdk.StartCoroutine(CommTool.TimeFun(winTime, winTime, null, () =>

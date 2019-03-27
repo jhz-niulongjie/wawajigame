@@ -186,6 +186,7 @@ public sealed class EventDispatcher {
 
     public static void Clear()
     {
+        if (delegateDic == null || delegateDic.Count == 0) return;
         foreach (var item in delegateDic)
         {
             for (int i = 0; i < item.Value.Count; i++)
@@ -194,7 +195,6 @@ public sealed class EventDispatcher {
             }
         }
         delegateDic.Clear();
-        delegateDic = null;
     }
     #endregion
 

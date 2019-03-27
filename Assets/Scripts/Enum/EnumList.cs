@@ -284,9 +284,9 @@ public enum AndroidMethod
     GetPayStatusSendPhone,
     [CustomAttri("-请求二维码-")]
     GetDrawQrCode,
-    [CustomAttri("-向服务器传输记录抓取记录-")]
+    [CustomAttri("-向服务器传输抓取记录-")]
     SendCatchRecord,
-    [CustomAttri("-向服务器传输记录抓取记录-")]
+    [CustomAttri("-向服务器传输抓取记录-")]
     Q_UpRecord,
     [CustomAttri("-批量上传记录-")]
     SendCatchRecordList,

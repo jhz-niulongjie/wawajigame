@@ -38,6 +38,11 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         androidImageInfoAction = _androidImageInfoAction;
     }
 
+    public void RestData()
+    {
+        isGetProbalility = false;
+    }
+
     //头部按下
     public void HeadDown()
     {
@@ -64,7 +69,6 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         if (androidQRCodeAction != null)
         {
             androidQRCodeAction(result);
-           // androidQRCodeAction = null;
         }
     }
     //获得概率值
@@ -83,7 +87,6 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         if (androidPaySuccessAction != null)
         {
             androidPaySuccessAction(result);
-            androidPaySuccessAction = null;
         }
     }
 

@@ -177,7 +177,7 @@ public sealed class LuckyBoyMgr : GameCtr
             PaySuccess(payResult);
         else
         {
-            isGetCode = false;//重新获取二维码
+            ResetGame();
             UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, listVC);
         }
     }
