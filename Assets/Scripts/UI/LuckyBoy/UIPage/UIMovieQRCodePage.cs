@@ -34,6 +34,7 @@ public class UIMovieQRCodePage : UIDataBase
     public Text moneyText;
     public Text gameTimes;
     public GameObject tryTran;
+    public CanvasGroup tryWanCanvas;
     public List<VoiceContent> vc_lists;
     public IEnumerator currentIE = null;
     public GameMisson gamePlay;
@@ -52,6 +53,7 @@ public class UIMovieQRCodePage : UIDataBase
         animator.enabled = false;
 
         tryTran = CommTool.FindObjForName(gameObject, "tryPlay");
+        tryWanCanvas = tryTran.GetComponent<CanvasGroup>();
         tryTran.SetActive(false);
         if (sdk.isGame)
         {
@@ -120,6 +122,7 @@ public class UIMovieQRCodePage : UIDataBase
         qrCode.SetActive(true);
         loadings.SetActive(true);
         raw.gameObject.SetActive(false);
+        TryPlayAlpha();
         GetCodeData();
     }
     //获得二维码
@@ -128,8 +131,6 @@ public class UIMovieQRCodePage : UIDataBase
         JsonData jsondata = new JsonData();
         jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
-        //测试用
-        isCanPlay = true;
         if (isCanPlay)
         {
             #region 获取二维码
@@ -207,6 +208,11 @@ public class UIMovieQRCodePage : UIDataBase
         if (gameTimes)
             gameTimes.text = sdk.selectRound + "次";
         StartCoroutine(currentIE);//二维码界面计时
+    }
+    //试玩胡明户型
+    void TryPlayAlpha()
+    {
+        tryWanCanvas.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void OnDestroy()

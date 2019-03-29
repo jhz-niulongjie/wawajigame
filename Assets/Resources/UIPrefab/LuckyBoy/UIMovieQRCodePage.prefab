@@ -404,7 +404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1484566418848200
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 224070947872416190}
   - component: {fileID: 222609364783182278}
   - component: {fileID: 114967112645987554}
+  - component: {fileID: 225111093849479282}
   m_Layer: 5
   m_Name: tryPlay
   m_TagString: Untagged
@@ -2221,7 +2222,7 @@ MonoBehaviour:
     subdivisionsXSegment: 10
     subdivisions: 90
     wps:
-    - {x: 507.86093, y: 21.791098, z: -609}
+    - {x: -21.324999, y: 4.1, z: 0}
     - {x: -21.130983, y: 3.7566738, z: 0}
     - {x: -11.05032, y: 4.105068, z: 0}
     - {x: -2.5370922, y: 3.8600833, z: 0}
@@ -2231,10 +2232,10 @@ MonoBehaviour:
     - {x: 19.205326, y: 0.12406278, z: 0}
     - {x: 25.035795, y: -2.3914785, z: 0}
     controlPoints: []
-    length: 854.08057
+    length: 47.60534
     wpLengths:
     - 0
-    - 806.8697
+    - 0.3943537
     - 10.086682
     - 8.516751
     - 6.1322784
@@ -2245,13 +2246,13 @@ MonoBehaviour:
     isFinalized: 1
     timesTable:
     - 0
-    - 0.9447231
-    - 0.95653313
-    - 0.96650493
-    - 0.9736849
-    - 0.9815174
-    - 0.9880497
-    - 0.99256516
+    - 0.008283813
+    - 0.22016515
+    - 0.39906842
+    - 0.52788335
+    - 0.6684052
+    - 0.78560066
+    - 0.8666119
     - 1
     lengthsTable: []
   pathType: 0
@@ -2261,7 +2262,7 @@ MonoBehaviour:
   perspectiveHandleSize: 0.5
   showIndexes: 1
   pathColor: {r: 1, g: 1, b: 1, a: 0.5}
-  lastSrcPosition: {x: 507.86093, y: 21.791098, z: -609}
+  lastSrcPosition: {x: -21.324999, y: 4.1, z: 0}
   wpsDropdown: 1
 --- !u!114 &114662486926074722
 MonoBehaviour:
@@ -3482,6 +3483,17 @@ RectTransform:
   m_AnchoredPosition: {x: 60.3, y: -241.2}
   m_SizeDelta: {x: 375, y: 105.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225111093849479282
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908084681968908}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!328 &328101459898147890
 VideoPlayer:
   m_ObjectHideFlags: 1

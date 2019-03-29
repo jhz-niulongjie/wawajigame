@@ -75,12 +75,10 @@ public class GameCtr : MonoBehaviour
     //是否自动送礼品
     public bool autoSendGift { get; protected set; }//第三次支付是否自动送礼品 1是进行 0不进行
 
-    public Texture2D texture { get; protected set; }//结束显示图片
-
-    public string OverVoice { get; protected set; }//结束显示图片时的语音
-
-    public float ShowTime { get; protected set; }//结束显示图片时间
-
+    public Texture2D overTexture { get; protected set; }//结束显示图片
+    public string overImgPath { get; protected set; }//结束显示图片路径
+    public string overVoice { get; protected set; }//结束显示图片时的语音
+    public float overShowTime { get; protected set; }//结束显示图片时间
     public bool isFirstGame { get; protected set; }//是否第一次进入游戏
     #endregion
 
@@ -92,7 +90,8 @@ public class GameCtr : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        AndroidCallUnity.Instance.Init(HeadDonw, AndroidCall, QRCodeCall, GetProbabilityCall, PaySuccess, Question_Wing, GameOverImageInfo);
+        AndroidCallUnity.Instance.Init(CodePageGameQuit,HeadDonw, AndroidCall, QRCodeCall,
+            GetProbabilityCall, PaySuccess, Question_Wing);
         Init();
         EnterGame();
     }
@@ -115,7 +114,7 @@ public class GameCtr : MonoBehaviour
         isGame = true;
         autoSendGift = true;
         isNoDied = false;
-        ShowTime = 0;
+        overShowTime = 0;
         isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
         //Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
@@ -139,9 +138,13 @@ public class GameCtr : MonoBehaviour
             question = Convert.ToInt32(contents[2]);//几道题
             pass = Convert.ToInt32(contents[3]);//通过数量
             isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
-            selectGame = Convert.ToInt32(contents[5]);
+            selectGame = Convert.ToInt32(contents[5]);//选择的游戏
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
             isNoDied = Convert.ToInt32(contents[7]) == 0 ? true : false;//开启一直显示二维码模式  
+            overShowTime = Convert.ToSingle(contents[8]);//结束页面展示时间
+            overImgPath = contents[9];//结束图片路径
+            overVoice = contents[10];//结束页面语音
+            StartCoroutine(LoadImage());
         }
         else
             Q_AppQuit();
@@ -157,7 +160,6 @@ public class GameCtr : MonoBehaviour
             headDown_Action = null;
         }
     }
-
 
     //Android 调用
     public virtual void AndroidCall(CallParameter cp)
@@ -241,46 +243,42 @@ public class GameCtr : MonoBehaviour
         //0 是左翅膀 1是右翅膀
         EventDispatcher.Dispatch<string>(EventHandlerType.Question_Wing, result);//注册
     }
-    //结束页面图片信息
-    protected virtual void GameOverImageInfo(string result)
+   
+    //下拉关闭Game
+    protected virtual void CodePageGameQuit()
     {
-        string[] contents = result.Split('|');
-        OverVoice = contents[0];
-        ShowTime = Convert.ToSingle(contents[1]);
-        StartCoroutine(LoadImage(contents[2]));
-    }
-
-    //注册头部按下事件
-    public void RegHeadAction(Action action)
-    {
-        Debug.Log("注册头部事件");
-        if (headDown_Action != null)
-            headDown_Action = null;
-        headDown_Action = action;
-    }
-    //转换为子类
-    public T ChangeType<T>() where T : GameCtr
-    {
-        if (Instance is T)
-            return (T)Instance;
-        return null;
-    }
-
-    //从android加载图片
-    IEnumerator LoadImage(string imgName)
-    {
-        string path = Application.persistentDataPath + "/Images/" + imgName;
-        Debug.Log("图片路径。。。" + path);
-        WWW www = new WWW(path);
-        yield return www;
-        if (www != null && !string.IsNullOrEmpty(www.error))
+        //在支付页面才可退出
+        Debug.Log("下拉关闭。。。。"+ gameStatus.runStatus);
+        if (gameStatus.runStatus == GameRunStatus.QRCode)
         {
-            texture = www.texture;
+            isNoDied = false;
+            Dispose();
         }
-        else
-        {
-            Debug.LogError("www 加载图片失败:::" + www.error);
-        }
+    }
+  
+    /// <summary>
+    /// 游戏推出
+    /// </summary>
+    public virtual void AppQuit()
+    {
+        ShowOverImage();
+        DOVirtual.DelayedCall(overShowTime, Dispose);
+    }
+    /// <summary>
+    /// 游戏推出  答问不及格
+    /// </summary>
+    public virtual void Q_AppQuit()
+    {
+        headDown_Action = null;
+        if (gameMode != null) gameMode.Clear();
+        AndroidCallUnity.Instance.Dispose();
+        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
+        UIManager.Instance.Clear();
+        EventDispatcher.Clear();
+        Resources.UnloadUnusedAssets();
+        GC.Collect();
+        Debug.Log("退出游戏Q_AppQuit");
+        Application.Quit();
     }
 
     //重置数据
@@ -295,11 +293,11 @@ public class GameCtr : MonoBehaviour
     //显示结束图片
     private void ShowOverImage()
     {
-        if (!string.IsNullOrEmpty(OverVoice) && texture != null)
+        if (!string.IsNullOrEmpty(overImgPath)&&overTexture!=null)
         {
-            Debug.Log("******显示结束图片***********");
+            Debug.Log("******显示结束图片***********显示时间。。。"+overShowTime);
             UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
-            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, OverVoice);
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, overVoice);
         }
     }
 
@@ -336,29 +334,43 @@ public class GameCtr : MonoBehaviour
             Application.Quit();
         }
     }
-    /// <summary>
-    /// 游戏推出
-    /// </summary>
-    public virtual void AppQuit()
+
+    //从android加载图片
+    IEnumerator LoadImage()
     {
-        ShowOverImage();
-        DOVirtual.DelayedCall(ShowTime, Dispose);
-    }
-    /// <summary>
-    /// 游戏推出  答问不及格
-    /// </summary>
-    public virtual void Q_AppQuit()
-    {
-        headDown_Action = null;
-        if (gameMode != null) gameMode.Clear();
-        AndroidCallUnity.Instance.Dispose();
-        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
-        UIManager.Instance.Clear();
-        EventDispatcher.Clear();
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
-        Debug.Log("退出游戏Q_AppQuit");
-        Application.Quit();
+        Debug.Log("overImgPath......" + overImgPath);
+        if (string.IsNullOrEmpty(overImgPath))
+            yield break;
+        string[] paths = overImgPath.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        if (paths.Length == 0)
+            yield break;
+        int path_Index = UnityEngine.Random.Range(0, paths.Length);
+        Debug.Log("加载结束图片。。。。"+ paths[path_Index]);
+        WWW www = new WWW(paths[path_Index]);
+        yield return www;
+        if (www != null && !string.IsNullOrEmpty(www.error))
+        {
+            overTexture = www.texture;
+        }
+        else
+        {
+            Debug.LogError("www 加载图片失败:::" + www.error);
+        }
     }
 
+    //注册头部按下事件
+    public void RegHeadAction(Action action)
+    {
+        Debug.Log("注册头部事件");
+        if (headDown_Action != null)
+            headDown_Action = null;
+        headDown_Action = action;
+    }
+    //转换为子类
+    public T ChangeType<T>() where T : GameCtr
+    {
+        if (Instance is T)
+            return (T)Instance;
+        return null;
+    }
 }

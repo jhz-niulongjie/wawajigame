@@ -29,7 +29,7 @@ public sealed class UIGameOverImagePage : UIDataBase {
 
     public override void OnShow(object data)
     {
-        rawIamge.texture = GameCtr.Instance.texture;
+        rawIamge.texture = GameCtr.Instance.overTexture;
         rawIamge.SetNativeSize();
     }
 

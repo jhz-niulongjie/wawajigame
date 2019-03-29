@@ -4,7 +4,8 @@ using UnityEngine;
 
 public sealed class AppConst   {
 
-    public const bool test = true;
+    //用于开发调试
+    public const bool test = false;
 
     //状态健值
     public const string statusKey = "GameLocalData";
@@ -44,11 +45,6 @@ public sealed class AppConst   {
     public const string TestPhone_GetPhoneCode ="win-record/get-redeem-code";
     // 支付状态
     public const string TestPhone_PayStatus ="wxluckDraw/getLuckDrawStatusNew";
-
-
-
-
-
 
 
 
