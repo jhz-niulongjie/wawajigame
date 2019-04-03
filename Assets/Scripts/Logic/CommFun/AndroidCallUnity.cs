@@ -8,7 +8,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
 
     private bool isGetProbalility = false;//是否获得概率值
 
-    private Action gameQuitAction;
+    private Action specialGameQuitAction;
     private Action androidHeadDownAction;
     private Action<CallParameter> androidCallAction;
     private Action<JsonData> androidQRCodeAction;
@@ -18,22 +18,24 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     /// <summary>
     /// 初始化
     /// </summary>
-    /// <param name="_gameQuitAction">在支付页面下拉关闭游戏</param>
+    /// <param name="_spacialGameQuitAction">特殊情况关闭游戏</param>
     /// <param name="_androidHeadDownAction">头部按下</param>
     /// <param name="_androidCallAction">Android调用unity 简单方法</param>
     /// <param name="_androidQRCodeAction">二维码获得成功</param>
     /// <param name="_androidGetProbabilityAction">获得概率值成功</param>
     /// <param name="_androidPaySuccessAction">支付成功</param>
     /// <param name="_androidQuestion_WingAction">摇动翅膀</param>
-    public void Init(Action _gameQuitAction, 
+    public void Init(
+        Action _spacialGameQuitAction,
         Action _androidHeadDownAction,
         Action<CallParameter> _androidCallAction,
         Action<JsonData> _androidQRCodeAction, 
         Action<JsonData> _androidGetProbabilityAction,
         Action<JsonData> _androidPaySuccessAction,
-        Action<string> _androidQuestion_WingAction)
+        Action<string> _androidQuestion_WingAction
+        )
     {
-        gameQuitAction = _gameQuitAction;
+        specialGameQuitAction = _spacialGameQuitAction;
         androidHeadDownAction = _androidHeadDownAction;
         androidCallAction = _androidCallAction;
         androidQRCodeAction = _androidQRCodeAction;
@@ -47,12 +49,12 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
         isGetProbalility = false;
     }
 
-    //支付页面游戏退出
-    public void CodePageGameQuit()
+    //特殊情况游戏退出 没电等
+    public void SpecialGameQuit(string result)
     {
-        if (gameQuitAction!=null)
+        if (specialGameQuitAction != null)
         {
-            gameQuitAction();
+            specialGameQuitAction();
         }
     }
 
@@ -115,7 +117,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
 
     public override void Dispose()
     {
-        gameQuitAction = null;
+        specialGameQuitAction = null;
         androidHeadDownAction = null;
         androidCallAction = null;
         androidQRCodeAction = null;

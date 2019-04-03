@@ -5,11 +5,12 @@ using System;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public sealed class Loading : MonoBehaviour {
+public sealed class Loading : MonoBehaviour
+{
 
     private enum SelectEnterGame
     {
-        Loading=0,
+        Loading = 0,
         LuckyBoy,
         LuckyTurnTable,
         LuckyBigBom,
@@ -31,7 +32,6 @@ public sealed class Loading : MonoBehaviour {
     /// </summary>
     private void StartNetCheck()
     {
-
         Debug.Log("=====开始网络监测=====");
         if (AppConst.test)
             UnityPing.CreatePing("www.baidu.com", loadTime, EnterGame, EnterGame);
@@ -75,12 +75,12 @@ public sealed class Loading : MonoBehaviour {
     private void AppQuit()
     {
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "小胖检测到网络不好，请联网后重试");//隐藏splash图片
-        DOVirtual.DelayedCall(5,()=> 
-        {
-            Debug.Log("游戏退出");
-            Resources.UnloadUnusedAssets();
-            GC.Collect();
-            Application.Quit();
-        });
+        DOVirtual.DelayedCall(5, () =>
+         {
+             Debug.Log("游戏退出");
+             Resources.UnloadUnusedAssets();
+             GC.Collect();
+             Application.Quit();
+         });
     }
 }

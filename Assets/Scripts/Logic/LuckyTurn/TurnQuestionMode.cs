@@ -21,6 +21,7 @@ public sealed class TurnQuestionMode : QuestionMode {
     }
     public override void GameStart()
     {
-       UIManager.Instance.ShowUI(UITurnTablePage.NAME, true);
+        base.GameStart();
+        UIManager.Instance.ShowUI(UITurnTablePage.NAME, true);
     }
 }

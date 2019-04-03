@@ -13,6 +13,7 @@ public sealed class BigBomCodeMode : GameMode {
 
     public override void GameStart()
     {
+        base.GameStart();
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIMgr.Instance.ShowUI(UIBigBomCodePage.NAME, false);
         UIMgr.Instance.ShowUI(UIBigBomPage.NAME, true,false);

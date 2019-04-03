@@ -47,6 +47,7 @@ public sealed class SendPhoneMode : GameMode
     }
     public override void GameStart()
     {
+        base.GameStart();
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIPhoneCodePage.NAME, false);
         UIManager.Instance.ShowUI(UIFishHookPage.NAME, true);

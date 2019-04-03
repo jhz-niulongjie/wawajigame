@@ -92,6 +92,7 @@ public sealed class UIManager : Singleton<UIManager>
                 case UIPhoneResultPage.NAME: dlg = uiRoot.AddComponent<UIPhoneResultPage>(); break;
                 case UIPhoneAnimPage.NAME: dlg = uiRoot.AddComponent<UIPhoneAnimPage>(); break;
                 case UIGameOverImagePage.NAME: dlg = uiRoot.AddComponent<UIGameOverImagePage>(); break;
+                case UIDragCheckPage.NAME: dlg = uiRoot.AddComponent<UIDragCheckPage>(); break;
 
             }
             SaveUIRoot(dlgName, dlg);

@@ -90,8 +90,15 @@ public class GameCtr : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        AndroidCallUnity.Instance.Init(CodePageGameQuit,HeadDonw, AndroidCall, QRCodeCall,
-            GetProbabilityCall, PaySuccess, Question_Wing);
+        AndroidCallUnity.Instance.Init(
+            SpecialGameQuit,
+            HeadDonw,
+            AndroidCall,
+            QRCodeCall,
+            GetProbabilityCall,
+            PaySuccess,
+            Question_Wing
+            );
         Init();
         EnterGame();
     }
@@ -113,7 +120,7 @@ public class GameCtr : MonoBehaviour
         isPaySucess = false;
         isGame = true;
         autoSendGift = true;
-        isNoDied = false;
+        isNoDied = false;////
         overShowTime = 0;
         isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
@@ -128,7 +135,7 @@ public class GameCtr : MonoBehaviour
         {
             string[] contents = _mode.Split('|');
             Debug.Log("---游戏设置选项------" + _mode);
-            if (contents.Length < 7)
+            if (contents.Length < 11)
             {
                 Debug.LogError("请求模式数量不符");
                 return;
@@ -140,10 +147,11 @@ public class GameCtr : MonoBehaviour
             isGame = Convert.ToInt32(contents[4]) == 0 ? true : false;//是否进行游戏 0是进行 1不进行
             selectGame = Convert.ToInt32(contents[5]);//选择的游戏
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
-            isNoDied = Convert.ToInt32(contents[7]) == 0 ? true : false;//开启一直显示二维码模式  
-            overShowTime = Convert.ToSingle(contents[8]);//结束页面展示时间
+            isNoDied = Convert.ToInt32(contents[7]) == 1 ? true : false;//开启一直显示二维码模式  
+            overShowTime = (Convert.ToSingle(contents[8]) + 1) * 5;//结束页面展示时间
             overImgPath = contents[9];//结束图片路径
             overVoice = contents[10];//结束页面语音
+            ChangeSpeechMode();
             StartCoroutine(LoadImage());
         }
         else
@@ -243,19 +251,25 @@ public class GameCtr : MonoBehaviour
         //0 是左翅膀 1是右翅膀
         EventDispatcher.Dispatch<string>(EventHandlerType.Question_Wing, result);//注册
     }
-   
+
     //下拉关闭Game
-    protected virtual void CodePageGameQuit()
+    public void CodePageGameQuit()
     {
         //在支付页面才可退出
-        Debug.Log("下拉关闭。。。。"+ gameStatus.runStatus);
-        if (gameStatus.runStatus == GameRunStatus.QRCode)
+        isNoDied = false;
+        Dispose();
+    }
+    //特殊情况游戏推出
+    public void SpecialGameQuit()
+    {
+        Debug.Log("特殊情况退出。。。。" + gameStatus.runStatus);
+        if (gameStatus.runStatus == GameRunStatus.GameEnd || gameStatus.runStatus == GameRunStatus.QRCode)
         {
             isNoDied = false;
             Dispose();
         }
     }
-  
+
     /// <summary>
     /// 游戏推出
     /// </summary>
@@ -293,12 +307,14 @@ public class GameCtr : MonoBehaviour
     //显示结束图片
     private void ShowOverImage()
     {
-        if (!string.IsNullOrEmpty(overImgPath)&&overTexture!=null)
+        if (!string.IsNullOrEmpty(overImgPath) && overTexture != null)
         {
-            Debug.Log("******显示结束图片***********显示时间。。。"+overShowTime);
+            Debug.Log("******显示结束图片***********显示时间。。。" + overShowTime);
             UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, overVoice);
         }
+        else
+            overShowTime = 0;
     }
 
     private void Dispose()
@@ -345,12 +361,15 @@ public class GameCtr : MonoBehaviour
         if (paths.Length == 0)
             yield break;
         int path_Index = UnityEngine.Random.Range(0, paths.Length);
-        Debug.Log("加载结束图片。。。。"+ paths[path_Index]);
-        WWW www = new WWW(paths[path_Index]);
+        string[] pathsss = paths[path_Index].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+        string imageName = pathsss[pathsss.Length - 1];
+        Debug.Log("加载结束图片。。。。" + imageName);
+        WWW www = new WWW(AppConst.persistentDataPath + imageName);
         yield return www;
-        if (www != null && !string.IsNullOrEmpty(www.error))
+        if (www != null && string.IsNullOrEmpty(www.error))
         {
             overTexture = www.texture;
+            Debug.Log("加载结束图片*****Success,,,height..." + overTexture.height + "...wight..." + overTexture.width);
         }
         else
         {
@@ -372,5 +391,16 @@ public class GameCtr : MonoBehaviour
         if (Instance is T)
             return (T)Instance;
         return null;
+    }
+    //改变语音模式
+    public void ChangeSpeechMode(bool isInGame = false)
+    {
+        int open = 0;//1 打开 0 关闭
+        if (selectMode == SelectGameMode.Pay)
+        {
+            if (isNoDied && !isInGame)
+                open = 1;
+        }
+        Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ChangeSpeechModel, open);
     }
 }

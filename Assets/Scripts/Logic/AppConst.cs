@@ -6,7 +6,6 @@ public sealed class AppConst   {
 
     //用于开发调试
     public const bool test = false;
-
     //状态健值
     public const string statusKey = "GameLocalData";
     //特效层
@@ -16,7 +15,7 @@ public sealed class AppConst   {
     //语音时间
     public const float speakTime = 0.265f;
     //沙盒路径
-    public static readonly string persistentDataPath = Application.persistentDataPath + "/";
+    public static readonly string persistentDataPath = "file://" + Application.persistentDataPath + "/";
 
     //原测试网址
     //private static  final String Test_IP="http://39.106.250.170:8083/api/v2/interface/doll/";

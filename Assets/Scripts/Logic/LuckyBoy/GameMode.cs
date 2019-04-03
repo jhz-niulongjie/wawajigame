@@ -36,6 +36,7 @@ public class GameMode
     {
         StartUpRecordList();
         EnterGameByStatus();
+        UIManager.Instance.ShowUI(UIDragCheckPage.NAME, true);
     }
     /// <summary>
     /// 通过存在状态进入游戏
@@ -54,7 +55,11 @@ public class GameMode
     /// <summary>
     /// 游戏正式开始
     /// </summary>
-    public virtual void GameStart() { }
+    public virtual void GameStart()
+    {
+        UIManager.Instance.ShowUI(UIDragCheckPage.NAME, false);
+        sdk.ChangeSpeechMode(true);
+    }
     
     /// <summary>
     /// 未支付
@@ -83,7 +88,10 @@ public class GameMode
     /// <summary>
     /// 进入游戏试玩
     /// </summary>
-    public virtual void EnterTryPlay() { }
+    public virtual void EnterTryPlay()
+    {
+        sdk.ChangeSpeechMode(true);
+    }
 
     /// <summary>
     /// 获得支付页面语音

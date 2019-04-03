@@ -7,12 +7,17 @@ using UnityEngine.EventSystems;
 public sealed class UIEventLisener : EventTrigger
 {
     public delegate void OnClickDelgate(GameObject go);
+    public delegate void OnDragDelegate(GameObject go, PointerEventData eventData);
 
     public event OnClickDelgate OnClick;
     public event OnClickDelgate OnPress;
     public event OnClickDelgate OnUp;
     public event OnClickDelgate OnEnter;
     public event OnClickDelgate OnExit;
+
+    public event OnDragDelegate OnDragBegin;
+    public event OnDragDelegate OnDragIng;
+    public event OnDragDelegate OnDragEnd;
 
 
     public static UIEventLisener Get(GameObject go)
@@ -53,6 +58,23 @@ public sealed class UIEventLisener : EventTrigger
     {
         if (OnExit != null)
             OnExit(gameObject);
+    }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        if (OnDragBegin != null)
+            OnDragBegin(gameObject,eventData);
+    }
+    public override void OnDrag(PointerEventData eventData)
+    {
+        if (OnDragIng != null)
+            OnDragIng(gameObject, eventData);
+    }
+
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        if (OnDragEnd != null)
+            OnDragEnd(gameObject, eventData);
     }
 
 }

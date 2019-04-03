@@ -165,7 +165,7 @@ public class UIMovieQRCodePage : UIDataBase
         else
         {
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
-               "没有吉娃娃不能开始游戏");
+               "没有礼品不能开始游戏");
             DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
         }
     }

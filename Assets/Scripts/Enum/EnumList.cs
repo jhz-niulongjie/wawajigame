@@ -322,6 +322,8 @@ public enum AndroidMethod
     IsText,
     [CustomAttri("-获得小胖ID-")]
     getRobotId,
+    [CustomAttri("-支付页面是否吆喝-")]
+    ChangeSpeechModel,
 }
 
 public enum LuckyTurnVoiceType

@@ -33,6 +33,7 @@ public sealed class CodeMode : GameMode
 
     public override void GameStart()
     {
+        base.GameStart();
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UIBgPage.NAME, false);
         UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, false);
@@ -173,6 +174,7 @@ public sealed class CodeMode : GameMode
     //进入试玩
     public override void EnterTryPlay()
     {
+        base.EnterTryPlay();
         sdk.gameTryStatus = 2;//进入试玩
         gameMisson = new Phone_ThreeRoundPlay(sdk);
         sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);

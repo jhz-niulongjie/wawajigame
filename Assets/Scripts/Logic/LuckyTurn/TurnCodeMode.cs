@@ -28,6 +28,7 @@ public sealed class TurnCodeMode : GameMode {
     }
     public override void GameStart()
     {
+        base.GameStart();
         sdk.gameStatus.SetRunStatus(GameRunStatus.InGame);
         UIManager.Instance.ShowUI(UITurnSplashPage.NAME, false);
         UIManager.Instance.ShowUI(UITurnCodePage.NAME, false);
