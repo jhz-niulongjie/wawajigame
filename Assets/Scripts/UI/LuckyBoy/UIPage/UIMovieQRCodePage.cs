@@ -39,6 +39,8 @@ public class UIMovieQRCodePage : UIDataBase
     public IEnumerator currentIE = null;
     public GameMisson gamePlay;
     public GameCtr sdk;
+
+    private Tweener tweener;
     public override void Init()
     {
         base.Init();
@@ -77,7 +79,7 @@ public class UIMovieQRCodePage : UIDataBase
         if (AppConst.test)
         {
             //试玩
-            UIEventLisener.Get(tryTran).OnClick += o => AndroidCallUnity.Instance.Question_Wing("1");
+            UIEventLisener.Get(tryTran).OnClickEvent+= o => AndroidCallUnity.Instance.Question_Wing("1");
         }
 
     }
@@ -131,6 +133,7 @@ public class UIMovieQRCodePage : UIDataBase
         JsonData jsondata = new JsonData();
         jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
+
         if (isCanPlay)
         {
             #region 获取二维码
@@ -212,11 +215,13 @@ public class UIMovieQRCodePage : UIDataBase
     //试玩胡明户型
     void TryPlayAlpha()
     {
-        tryWanCanvas.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo);
+        tryWanCanvas.alpha = 0;
+        tweener=tryWanCanvas.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void OnDestroy()
     {
+        if(tweener!=null)tweener.Kill();
         EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
     }
 }

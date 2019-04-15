@@ -178,7 +178,10 @@ public sealed class LuckyBoyMgr : GameCtr
         else
         {
             ResetGame();
+            ChangeSpeechMode();
             UIManager.Instance.ShowUI(UIMovieQRCodePage.NAME, true, listVC);
         }
     }
+
+
 }

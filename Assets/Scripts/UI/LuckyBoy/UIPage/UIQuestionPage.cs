@@ -116,9 +116,9 @@ public sealed class UIQuestionPage : UIDataBase
 
         if (AppConst.test)
         {
-            UIEventLisener.Get(q_start_a_answer.gameObject).OnClick += o => Question_Wing("0");
-            UIEventLisener.Get(q_start_b_answer.gameObject).OnClick += o => Question_Wing("1");
-            UIEventLisener.Get(s_rule).OnClick += o => HeadPress();
+            UIEventLisener.Get(q_start_a_answer.gameObject).OnClickEvent += o => Question_Wing("0");
+            UIEventLisener.Get(q_start_b_answer.gameObject).OnClickEvent += o => Question_Wing("1");
+            UIEventLisener.Get(s_rule).OnClickEvent += o => HeadPress();
         }
 
     }

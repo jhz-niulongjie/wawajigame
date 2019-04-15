@@ -104,7 +104,7 @@ public sealed class UITurnTablePage : UIDataBase
         {
             bg.raycastTarget = true;
             go.SetActive(true);
-            UIEventLisener.Get(go).OnClick += g =>
+            UIEventLisener.Get(go).OnClickEvent += g =>
             {
                 GameCtr.Instance.HeadDonw();
             };

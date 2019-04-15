@@ -29,4 +29,6 @@ public sealed class UITurnCodePage : UIDataBase
         GameCtr.Instance.raw = rawImage;
         GetCodeData();
     }
+
+   
 }

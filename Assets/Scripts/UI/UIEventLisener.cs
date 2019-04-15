@@ -9,7 +9,7 @@ public sealed class UIEventLisener : EventTrigger
     public delegate void OnClickDelgate(GameObject go);
     public delegate void OnDragDelegate(GameObject go, PointerEventData eventData);
 
-    public event OnClickDelgate OnClick;
+    public event OnClickDelgate OnClickEvent;
     public event OnClickDelgate OnPress;
     public event OnClickDelgate OnUp;
     public event OnClickDelgate OnEnter;
@@ -32,9 +32,9 @@ public sealed class UIEventLisener : EventTrigger
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        if (OnClick!=null)
+        if (OnClickEvent != null)
         {
-            OnClick(gameObject);
+            OnClickEvent(gameObject);
         }
     }
     public override void OnPointerDown(PointerEventData eventData)

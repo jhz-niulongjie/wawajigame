@@ -10,9 +10,14 @@ public sealed class TurnCodeMode : GameMode {
     public TurnCodeMode(GameCtr _sdk) : base(_sdk,GameKind.LuckyTurn)
     {
         Debug.Log("////////支付模式\\\\\\\\\\");
-        sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);
-        Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
-        UIManager.Instance.ShowUI(UITurnSplashPage.NAME, true);
+        if (sdk.isFirstGame)
+        {
+            Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, "欢迎进入幸运转转转游戏");
+            UIManager.Instance.ShowUI(UITurnSplashPage.NAME, true);
+            sdk.gameStatus.SetRunStatus(GameRunStatus.GameEnd);//不使用 每次进入重新开始
+        }
+        else
+            sdk.gameStatus.SetRunStatus(GameRunStatus.NoPay);
 
         if (AppConst.test)
         {

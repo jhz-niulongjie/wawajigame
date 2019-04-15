@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+
 //获得随机概率
 public sealed class RandomProbli
 {
@@ -23,7 +24,7 @@ public sealed class RandomProbli
 
     private static Dictionary<LuckyTurnVoiceType, int> dicR = new Dictionary<LuckyTurnVoiceType, int>();
 
-    private static List<int> list = new List<int>();
+    private static List<int> tempList = new List<int>();
 
     /// <summary>
     /// 计算随机概率
@@ -72,7 +73,7 @@ public sealed class RandomProbli
             dicWeight[LuckyTurnVoiceType.SupriseGift] = 0;
         else
         {
-           dicWeight[LuckyTurnVoiceType.SupriseGift] = GetSupriseGiftPro() ? 3 : 1;  //神秘礼物权重
+            dicWeight[LuckyTurnVoiceType.SupriseGift] = GetSupriseGiftPro() ? 5 : 1;  //神秘礼物权重
         }
         if (!pay || (success && partNum >= 2)) dicWeight[LuckyTurnVoiceType.GiftPart] = 0;//权重是0
         if (!onSale) dicWeight[LuckyTurnVoiceType.OnSale] = 0;//权重是0
@@ -92,20 +93,25 @@ public sealed class RandomProbli
 
     public static bool GetSupriseGiftPro()
     {
-        list.Clear();
-        for (int i = 0; i <100; i++)
+        tempList.Clear();
+       
+        int length = Mathf.FloorToInt(GameCtr.Instance.probability/10);
+
+        for (int k = 0; k < length; k++)
         {
-            int num = UnityEngine.Random.Range(1, 101);
-            list.Add(num);
+            int index = UnityEngine.Random.Range(0, 10);
+            if (tempList.Contains(index))
+            {
+                k--;
+                continue;
+            }
+            tempList.Add(index);
         }
-        int temp = 0;
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i] <=GameCtr.Instance.probability)
-                temp++;
-        }
-        Debug.Log("概率数量--" + temp);
-        return temp >=GameCtr.Instance.probability;
+
+        int idx = UnityEngine.Random.Range(0, 10);
+
+        Debug.Log("中奖啦。。。。。"+ tempList.Contains(idx));
+        return tempList.Contains(idx);
     }
 
 }

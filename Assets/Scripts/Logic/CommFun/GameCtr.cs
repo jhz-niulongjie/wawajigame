@@ -107,11 +107,11 @@ public class GameCtr : MonoBehaviour
     {
         randomQuXian = 1;
         checkProperty = 0.42f;//0.42f  //检测范围
-        probability = 20;//百分之30不打掉
+        probability = 20;//百分之20不打掉
         carwBasicCount = 100;
         winningTimes = 6;//抓中百分六、
         money = 10;
-        selectGame = 0;
+        selectGame = 0;/////////测试
         selectMode = SelectGameMode.Pay;
         selectRound = 3;
         question = 5;
@@ -120,7 +120,7 @@ public class GameCtr : MonoBehaviour
         isPaySucess = false;
         isGame = true;
         autoSendGift = true;
-        isNoDied = false;////
+        isNoDied = false;//////////
         overShowTime = 0;
         isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
@@ -398,6 +398,7 @@ public class GameCtr : MonoBehaviour
         int open = 0;//1 打开 0 关闭
         if (selectMode == SelectGameMode.Pay)
         {
+            Debug.Log("ChangeSpeechMode...."+ isInGame);
             if (isNoDied && !isInGame)
                 open = 1;
         }

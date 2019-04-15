@@ -2474,7 +2474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9725491, g: 0.46274513, b: 0.019607844, a: 1}
+  m_Color: {r: 0.019607825, g: 0.28281727, b: 0.972549, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2482,7 +2482,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: c6fcfdd9bb845c142ac84439ad0c6d1a, type: 3}
     m_FontSize: 26
     m_FontStyle: 1
     m_BestFit: 0
@@ -2493,8 +2493,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: "\u6447\u52A8\u673A\u5668\u4EBA\u7FC5\u8180\n\u8FDB\u884C\u6E38\u620F\u8BD5\u73A9\u54E6"
+    m_LineSpacing: 0.7
+  m_Text: "\u6447\u52A8\u673A\u5668\u4EBA\u7FC5\u8180\u8FDB\u5165\n\u6E38\u620F\u8BD5\u73A9"
 --- !u!114 &114968150732211992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2837,7 +2837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 470, y: 303.5}
+  m_AnchoredPosition: {x: 478, y: 293}
   m_SizeDelta: {x: 160, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224076041914393420
@@ -3492,7 +3492,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!328 &328101459898147890
 VideoPlayer:

@@ -21,8 +21,11 @@ public sealed class NetMrg : Singleton<NetMrg>
         isText = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.IsText);
         robotId = Android_Call.UnityCallAndroidHasReturn<string>(AndroidMethod.getRobotId);
         Debug.Log("小胖ID***" + robotId + "***是否测试环境***" + isText);
-        //robotId = "100000000009";
-        //isText = true;
+        if (AppConst.test)
+        {
+            robotId = "100000000009";
+            isText = true;
+        }
     }
 
 
