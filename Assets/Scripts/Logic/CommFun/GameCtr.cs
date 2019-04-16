@@ -148,7 +148,13 @@ public class GameCtr : MonoBehaviour
             selectGame = Convert.ToInt32(contents[5]);//选择的游戏
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
             isNoDied = Convert.ToInt32(contents[7]) == 1 ? true : false;//开启一直显示二维码模式  
-            overShowTime = (Convert.ToSingle(contents[8]) + 1) * 5;//结束页面展示时间
+            int showtime = Convert.ToInt32(contents[8]);//结束页面展示时间
+            if (showtime == 0)
+              overShowTime = 5;
+            else if (showtime==1)
+                overShowTime = 10;
+            else
+                overShowTime = 30;
             overImgPath = contents[9];//结束图片路径
             overVoice = contents[10];//结束页面语音
             ChangeSpeechMode();

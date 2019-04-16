@@ -22,11 +22,19 @@ public sealed class UITurnCodePage : UIDataBase
         get { return AssetFolder.LuckyTurn; }
     }
 
+    private Image payImg;
+
+    public override void InitCodeData()
+    {
+        base.InitCodeData();
+        payImg = CommTool.GetCompentCustom<Image>(gameObject,"payImg");
+    }
     public override void OnShow(object data)
     {
         vc_list = data as List<VoiceContent>;
         if (vc_list == null) vc_list = new List<VoiceContent>();
         GameCtr.Instance.raw = rawImage;
+        payImg.sprite= UIAtlasManager.Instance.LoadSprite(UIAtlasName.UILuckyTurn, "payText");
         GetCodeData();
     }
 

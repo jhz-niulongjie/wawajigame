@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 222773585576164998}
   - component: {fileID: 114754296712002094}
   m_Layer: 5
-  m_Name: text
+  m_Name: payImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

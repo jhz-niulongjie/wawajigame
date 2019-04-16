@@ -57,7 +57,6 @@ public class Base : MonoBehaviour, I_Code
         loading.SetActive(true);
         rawImage.gameObject.SetActive(false);
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
-
         if (isCanPlay)
         {
             #region 获取二维码
