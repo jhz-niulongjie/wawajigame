@@ -12,8 +12,8 @@ public sealed class RandomProbli
     private static Dictionary<LuckyTurnVoiceType, float> dicWeight = new Dictionary<LuckyTurnVoiceType, float>
     {
         {LuckyTurnVoiceType.SupriseGift,2f },
-        {LuckyTurnVoiceType.OnceAgain,1.98f },
-        {LuckyTurnVoiceType.OnSale,1.98f },
+        {LuckyTurnVoiceType.OnceAgain,1.97f },
+        {LuckyTurnVoiceType.OnSale,1.97f },
         {LuckyTurnVoiceType.ThankYouJoin,2 },
         {LuckyTurnVoiceType.YoungWay,2 },
         {LuckyTurnVoiceType.HealthyWay,2},
