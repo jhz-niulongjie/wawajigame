@@ -198,7 +198,7 @@ public class GameMode
         VoiceContent vc = GetVoiceContent(qvt);
         Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords, vc.Content);
         int quit_time = Convert.ToInt32(vc.Time);
-        sdk.StartCoroutine(CommTool.TimeFun(quit_time, quit_time, null, sdk.Q_AppQuit));
+        sdk.StartCoroutine(CommTool.TimeFun(quit_time, quit_time, null, sdk.AppQuit));
     }
     #endregion
 }

@@ -19,11 +19,17 @@ public sealed class LuckyTurnMgr : GameCtr
         if (AppConst.test)
         {
             Debug.Log("自己测试");
+            //GetOnSaleValue();
+            //codeEnter = true;
+            //gameMode = new TurnCodeMode(this);
+            //gameMode.EnterGame();
+            //pass = 3;
+
+            codeEnter = false;
             GetOnSaleValue();
-            codeEnter = true;
-            gameMode = new TurnCodeMode(this);
+            gameMode = new TurnQuestionMode(this);
             gameMode.EnterGame();
-            pass = 3;
+
         }
         else
         {

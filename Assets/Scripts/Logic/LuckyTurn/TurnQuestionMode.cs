@@ -12,7 +12,7 @@ public sealed class TurnQuestionMode : QuestionMode {
         if (AppConst.test)
         {
             GameCtr.Instance.gameStatus.SetOpenId("123");
-            GameCtr.Instance.gameStatus.SetRunStatus(GameRunStatus.InGame);//在游戏中  测试用
+            //GameCtr.Instance.gameStatus.SetRunStatus(GameRunStatus.InGame);//在游戏中  测试用
         }
     }
     //不进行操作
@@ -21,7 +21,6 @@ public sealed class TurnQuestionMode : QuestionMode {
     }
     public override void GameStart()
     {
-        base.GameStart();
         UIManager.Instance.ShowUI(UITurnTablePage.NAME, true);
     }
 }

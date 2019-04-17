@@ -66,7 +66,7 @@ public sealed class Loading : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene((int)SelectEnterGame.LuckyTurnTable);
+            SceneManager.LoadScene((int)SelectEnterGame.LuckyBoy);
         }
     }
     /// <summary>

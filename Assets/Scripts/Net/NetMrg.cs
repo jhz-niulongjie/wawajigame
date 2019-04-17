@@ -122,6 +122,7 @@ public sealed class NetMrg : Singleton<NetMrg>
                 httpUrl = ip + AppConst.LuckPayStatus;
                 break;
             case AndroidMethod.SendCatchRecord:
+            case AndroidMethod.Q_UpRecord:
                 httpUrl = ip + AppConst.LuckCatchRecord;
                 break;
             case AndroidMethod.SendCatchRecordList:

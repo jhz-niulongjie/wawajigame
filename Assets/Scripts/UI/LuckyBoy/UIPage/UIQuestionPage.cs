@@ -212,7 +212,7 @@ public sealed class UIQuestionPage : UIDataBase
                 else if(ex_type==2)//游戏退出
                 {
                     if (t <= 4.5f) //防止 进入游戏后 不能游戏（摇动左右翅膀需要时间）
-                        sdk.Q_AppQuit();
+                        sdk.AppQuit();
                 }
             }
             else if (answer_Status == Answer_Question.HeadDown)//规则页面头部按下
@@ -377,7 +377,8 @@ public sealed class UIQuestionPage : UIDataBase
             else
             {
 
-                startGameOrQuit = sdk.Q_AppQuit;
+                //startGameOrQuit = sdk.Q_AppQuit;
+                startGameOrQuit = sdk.AppQuit;
                 if (isPlayGame)
                 {
                     q_end_fail.SetActive(true);

@@ -167,7 +167,7 @@ public class GameCtr : MonoBehaviour
             }
         }
         else
-            Q_AppQuit();
+            AppQuit();
     }
 
     //头部按下
@@ -289,22 +289,6 @@ public class GameCtr : MonoBehaviour
     {
         ShowOverImage();
         DOVirtual.DelayedCall(overShowTime, Dispose);
-    }
-    /// <summary>
-    /// 游戏推出  答问不及格
-    /// </summary>
-    public virtual void Q_AppQuit()
-    {
-        headDown_Action = null;
-        if (gameMode != null) gameMode.Clear();
-        AndroidCallUnity.Instance.Dispose();
-        Android_Call.UnityCallAndroidHasParameter<bool>(AndroidMethod.ShakeWaveLight, false);
-        UIManager.Instance.Clear();
-        EventDispatcher.Clear();
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
-        Debug.Log("退出游戏Q_AppQuit");
-        Application.Quit();
     }
 
     //重置数据
