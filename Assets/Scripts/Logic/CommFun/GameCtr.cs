@@ -80,6 +80,7 @@ public class GameCtr : MonoBehaviour
     public string overVoice { get; protected set; }//结束显示图片时的语音
     public float overShowTime { get; protected set; }//结束显示图片时间
     public bool isFirstGame { get; protected set; }//是否第一次进入游戏
+    public bool end_Model { get; protected set; }//是否显示自定义结束弹窗
     #endregion
 
     #region 测试数据参数
@@ -121,6 +122,7 @@ public class GameCtr : MonoBehaviour
         isGame = true;
         autoSendGift = true;
         isNoDied = false;//////////
+        end_Model = false;
         overShowTime = 0;
         isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
@@ -148,17 +150,21 @@ public class GameCtr : MonoBehaviour
             selectGame = Convert.ToInt32(contents[5]);//选择的游戏
             autoSendGift = Convert.ToInt32(contents[6]) == 0 ? true : false; //开启礼品模式 为0 关闭 为1
             isNoDied = Convert.ToInt32(contents[7]) == 1 ? true : false;//开启一直显示二维码模式  
-            int showtime = Convert.ToInt32(contents[8]);//结束页面展示时间
+            end_Model = Convert.ToInt32(contents[8]) == 1 ? true : false;//开启显示结束弹窗模式  
+            int showtime = Convert.ToInt32(contents[9]);//结束页面展示时间
             if (showtime == 0)
-              overShowTime = 5;
-            else if (showtime==1)
+                overShowTime = 5;
+            else if (showtime == 1)
                 overShowTime = 10;
             else
                 overShowTime = 30;
-            overImgPath = contents[9];//结束图片路径
-            overVoice = contents[10];//结束页面语音
+            overImgPath = contents[10];//结束图片路径
+            overVoice = contents[11];//结束页面语音
             ChangeSpeechMode();
-            StartCoroutine(LoadImage());
+            if (end_Model)
+            {
+                StartCoroutine(LoadImage());
+            }
         }
         else
             Q_AppQuit();
@@ -313,7 +319,7 @@ public class GameCtr : MonoBehaviour
     //显示结束图片
     private void ShowOverImage()
     {
-        if (!string.IsNullOrEmpty(overImgPath) && overTexture != null)
+        if (end_Model&&!string.IsNullOrEmpty(overImgPath) && overTexture != null)
         {
             Debug.Log("******显示结束图片***********显示时间。。。" + overShowTime);
             UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
@@ -404,7 +410,7 @@ public class GameCtr : MonoBehaviour
         int open = 0;//1 打开 0 关闭
         if (selectMode == SelectGameMode.Pay)
         {
-            Debug.Log("ChangeSpeechMode...."+ isInGame);
+            Debug.Log("ChangeSpeechMode...." + isInGame);
             if (isNoDied && !isInGame)
                 open = 1;
         }
