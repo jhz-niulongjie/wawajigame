@@ -104,6 +104,7 @@ public class UIMovieQRCodePage : UIDataBase
     {
         base.OnHide();
         // EventHandler.UnRegisterEvent(EventHandlerType.QRCodeSuccess, QRCodeSuccess);
+        if (tweener != null) tweener.Kill();
     }
 
     public void PlayMovies()
@@ -133,7 +134,6 @@ public class UIMovieQRCodePage : UIDataBase
         JsonData jsondata = new JsonData();
         jsondata["flag"] = GameCtr.Instance.isNoDied ? 0 : 1;//0是 没有时间限制  1是有一分钟限制
         bool isCanPlay = Android_Call.UnityCallAndroidHasReturn<bool>(AndroidMethod.isCanPlay);
-
         if (isCanPlay)
         {
             #region 获取二维码
@@ -169,6 +169,7 @@ public class UIMovieQRCodePage : UIDataBase
         {
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
                "没有礼品不能开始游戏");
+            GameCtr.Instance.SetNoDiedFalse();
             DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
         }
     }

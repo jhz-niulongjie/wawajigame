@@ -126,7 +126,6 @@ public class GameCtr : MonoBehaviour
         overShowTime = 0;
         isFirstGame = true;
         handleSqlite = new HandleSqliteData(this);
-        //Android_Call.UnityCallAndroid(AndroidMethod.GetProbabilityValue);
         NetMrg.Instance.SendRequest(AndroidMethod.GetProbabilityValue);
     }
     //获得游戏模式
@@ -399,5 +398,10 @@ public class GameCtr : MonoBehaviour
                 open = 1;
         }
         Android_Call.UnityCallAndroidHasParameter<int>(AndroidMethod.ChangeSpeechModel, open);
+    }
+
+    public void SetNoDiedFalse()
+    {
+        isNoDied = false;
     }
 }

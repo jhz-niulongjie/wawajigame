@@ -53,6 +53,8 @@ public enum EventHandlerType
     MoviePlayOver,
     StartTryPlay,
 
+    BindDrag,
+
 
 }
 /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
+using System.Linq;
 
 public sealed class UIManager : Singleton<UIManager>
 {
@@ -141,18 +142,16 @@ public sealed class UIManager : Singleton<UIManager>
     //不清空二维码页面
     public void ClearExcludeCodePage(string dlgname)
     {
-        UIDataBase dlg;
-        dicDlg.TryGetValue(dlgname,out dlg);
-        dicDlg.Remove(dlgname);
-        foreach (var item in dicDlg)
+        var list= dicDlg.Values.ToList();
+        for (int i = 0; i < list.Count; i++)
         {
-            if (item.Value != null)
-                GameObject.Destroy(item.Value.gameObject);
-        }
-        dicDlg.Clear();
-        if (dlg)
-        {
-            dicDlg.Add(dlgname, dlg);
+            if (list[i] != null)
+            {
+                if (list[i].DlgName == dlgname || list[i].DlgName == UIDragCheckPage.NAME)
+                    continue;
+                  GameObject.Destroy(list[i].gameObject);
+                  dicDlg.Remove(list[i].DlgName);
+            }
         }
     }
     //释放全部

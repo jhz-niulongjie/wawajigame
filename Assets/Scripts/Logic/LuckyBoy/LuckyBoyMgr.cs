@@ -22,14 +22,10 @@ public sealed class LuckyBoyMgr : GameCtr
         Debug.Log("进入幸运礼品机");
         if (AppConst.test)
         {
-            //Debug.Log("自己测试");
-            //gameMode = new CodeMode(this);
-            //gameMode.EnterGame();
-            //EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
-
-            //DOVirtual.DelayedCall(1, ()=> Question_Wing(""));
-            gameMode = new QuestionMode(this);
+            Debug.Log("自己测试");
+            gameMode = new CodeMode(this);
             gameMode.EnterGame();
+            EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
         }
         else
         {

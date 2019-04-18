@@ -38,6 +38,7 @@ public sealed class UIDragCheckPage : UIDataBase
 
         down_Y = Screen.height / 12;
         up_Y = Screen.height - down_Y;
+
     }
 
     public override void OnShow(object data)
@@ -87,6 +88,11 @@ public sealed class UIDragCheckPage : UIDataBase
             GameCtr.Instance.CodePageGameQuit();
         }
 
+    }
+
+    private void OnDestroy()
+    {
+        OnHide();
     }
 }
 

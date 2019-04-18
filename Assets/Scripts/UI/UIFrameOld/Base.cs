@@ -83,6 +83,7 @@ public class Base : MonoBehaviour, I_Code
         {
             Android_Call.UnityCallAndroidHasParameter<string>(AndroidMethod.SpeakWords,
                   "没有礼品不能开始游戏");
+            GameCtr.Instance.SetNoDiedFalse();
             DOVirtual.DelayedCall(3, GameCtr.Instance.AppQuit);
         }
     }
