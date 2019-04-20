@@ -8,7 +8,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
 
     private bool isGetProbalility = false;//是否获得概率值
 
-    private Action specialGameQuitAction;
+    private Action<string> specialGameQuitAction;
     private Action androidHeadDownAction;
     private Action<CallParameter> androidCallAction;
     private Action<JsonData> androidQRCodeAction;
@@ -26,7 +26,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     /// <param name="_androidPaySuccessAction">支付成功</param>
     /// <param name="_androidQuestion_WingAction">摇动翅膀</param>
     public void Init(
-        Action _spacialGameQuitAction,
+        Action<string> _spacialGameQuitAction,
         Action _androidHeadDownAction,
         Action<CallParameter> _androidCallAction,
         Action<JsonData> _androidQRCodeAction, 
@@ -54,7 +54,7 @@ public sealed class AndroidCallUnity : MonoSingleton<AndroidCallUnity> {
     {
         if (specialGameQuitAction != null)
         {
-            specialGameQuitAction();
+            specialGameQuitAction(result);
         }
     }
 

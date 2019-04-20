@@ -19,6 +19,7 @@ public class GameCtr : MonoBehaviour
     //是否一直显示二维码
     public bool isNoDied { get; private set; }
     private bool isUnBind = false;
+    private bool isQuit = false;//是否退出
 
     #endregion
 
@@ -271,13 +272,26 @@ public class GameCtr : MonoBehaviour
         Dispose();
     }
     //特殊情况游戏推出
-    public void SpecialGameQuit()
+    public void SpecialGameQuit(string result)
     {
-        Debug.Log("特殊情况退出。。。。" + gameStatus.runStatus);
-        if (gameStatus.runStatus == GameRunStatus.GameEnd || gameStatus.runStatus == GameRunStatus.QRCode)
+        Debug.Log("特殊情况退出。。。。" + gameStatus.runStatus + "....type...." + result);
+        if (result == "0")
         {
+            //直接退出
             isNoDied = false;
             Dispose();
+        }
+        else if (result == "1")
+        {
+            //特殊退出
+            if (gameStatus.runStatus == GameRunStatus.NoPay || gameStatus.runStatus == GameRunStatus.QRCode)
+            {
+                StartCoroutine(QuitGame());
+            }
+            else if (gameStatus.runStatus == GameRunStatus.InGame)
+            {
+                isQuit = true;
+            }
         }
     }
 
@@ -302,7 +316,7 @@ public class GameCtr : MonoBehaviour
     //显示结束图片
     private void ShowOverImage()
     {
-        if (end_Model&&!string.IsNullOrEmpty(overImgPath) && overTexture != null)
+        if (end_Model && !string.IsNullOrEmpty(overImgPath) && overTexture != null)
         {
             Debug.Log("******显示结束图片***********显示时间。。。" + overShowTime);
             UIManager.Instance.ShowUI(UIGameOverImagePage.NAME, true);
@@ -326,7 +340,7 @@ public class GameCtr : MonoBehaviour
         Resources.UnloadUnusedAssets();
         GC.Collect();
         string dlgName = null;
-        if (isNoDied && selectMode == SelectGameMode.Pay)//游戏不死 并且是支付模式
+        if (isNoDied && selectMode == SelectGameMode.Pay && !isQuit)//游戏不死 并且是支付模式
         {
             ResetGame();
             EnterGame();
@@ -403,5 +417,22 @@ public class GameCtr : MonoBehaviour
     public void SetNoDiedFalse()
     {
         isNoDied = false;
+    }
+
+    private IEnumerator QuitGame()
+    {
+        int time = 10;
+        while (time>=0)
+        {
+            yield return new WaitForSeconds(1);
+            if (isPaySucess)
+            {
+                isQuit = true;
+                yield break;
+            }
+            time--;
+        }
+        isQuit = true;
+        Dispose();
     }
 }
