@@ -16,6 +16,7 @@ public sealed class GiveUpOnGameMode : GameMode
 
     public override void EnterGame()
     {
+        base.EnterGame();
         if (sdk.selectMode == SelectGameMode.Pay)
             StartEnterPay();
         else
@@ -23,6 +24,7 @@ public sealed class GiveUpOnGameMode : GameMode
     }
     public override void GameStart()
     {
+        base.GameStart();
         //支付成功出礼品
         EventHandler.ExcuteEvent(EventHandlerType.StopCoroutine, null);
         OutPresent();

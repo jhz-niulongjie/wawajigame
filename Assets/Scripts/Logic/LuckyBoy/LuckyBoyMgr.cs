@@ -23,7 +23,8 @@ public sealed class LuckyBoyMgr : GameCtr
         if (AppConst.test)
         {
             Debug.Log("自己测试");
-            gameMode = new CodeMode(this);
+            isGame = false;
+            gameMode = new GiveUpOnGameMode(this);  //不游戏模式
             gameMode.EnterGame();
             EventHandler.RegisterEvnet(EventHandlerType.StartTryPlay, StartTryPlay);
         }

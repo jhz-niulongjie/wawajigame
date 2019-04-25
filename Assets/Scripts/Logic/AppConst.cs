@@ -45,11 +45,4 @@ public sealed class AppConst   {
     // 支付状态
     public const string TestPhone_PayStatus ="wxluckDraw/getLuckDrawStatusNew";
 
-
-
-
-
-
-
-
 }
