@@ -126,6 +126,7 @@ public class GameCtr : MonoBehaviour
         end_Model = false;
         overShowTime = 0;
         isFirstGame = true;
+        //哈哈哈哈
         handleSqlite = new HandleSqliteData(this);
         NetMrg.Instance.SendRequest(AndroidMethod.GetProbabilityValue);
     }
